@@ -1,0 +1,11 @@
+name: jpm
+version: 1.0.0
+description: "Workhorse memory for development agents — project context, task tracking, technical knowledge graph. No personality, no fluff, no emotional tracking."
+provides_hooks:
+  - on_session_start
+  - pre_llm_call
+  - post_llm_call
+  - post_tool_call
+  - on_session_end
+provides_tools:
+  - jpm

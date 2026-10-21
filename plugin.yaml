@@ -1,0 +1,16 @@
+name: mea-pm
+version: 0.1.0
+description: "MEAI Persistent Memory — PG-backed memory provider (vendored jpm engine)."
+author: "Josh G"
+kind: standalone
+python_dependencies:
+  - asyncpg
+  - psycopg2-binary
+  - pyyaml
+requires_env:
+  - JPM_PG_HOST
+optional_env:
+  - JPM_PG_PORT
+  - JPM_PG_DB
+  - JPM_PG_USER
+  - JPM_PG_PASSWORD

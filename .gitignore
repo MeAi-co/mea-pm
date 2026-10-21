@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtualenvs
+venv/
+.venv/
+env/
+ENV/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.pgpass
+credentials.json
+
+# Local databases / dumps
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql
+
+# Logs & runtime
+*.log
+logs/
+tmp/
+.cache/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
