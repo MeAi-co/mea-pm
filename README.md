@@ -1,8 +1,7 @@
-# mea_pm — MEAI Persistent Memory
+# mea_pm - MEAI Persistent Memory
 
-PG-backed memory provider for stock Hermes. Thin wrapper around the vendored
-`jpm` engine (copied from the Joshaico fork). No core modifications — it plugs
-into the stock memory-provider seam.
+PG-backed permanent memory provider for stock Hermes. Thin wrapper around the vendored
+`jpm` engine. No core modifications - it plugs into the stock memory-provider seam.
 
 ## Layout
 
