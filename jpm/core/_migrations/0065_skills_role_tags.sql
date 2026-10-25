@@ -1,0 +1,11 @@
+-- 0065_skills_role_tags.sql
+-- Add skills.role_tags — comma-separated role slugs a skill belongs to.
+--
+-- Closes the skills<->roles loop: a skill tagged `programmer,assistant` shows
+-- a `role` field in skill_view / skills_list / skill_choose, which hints the
+-- agent to self-check its active role (via role_choose) before relying on that
+-- skill. M:N by design (one skill, many roles); empty = role-agnostic/global.
+--
+-- Same "TAGS not tables" pattern already used by knowledge/project scope
+-- binding (see roles/*.yaml `knowledge_scope`). No join table.
+ALTER TABLE public.skills ADD COLUMN IF NOT EXISTS role_tags text DEFAULT ''::text;

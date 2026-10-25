@@ -47,7 +47,7 @@ def _joshaico_home() -> Path:
         return _cfg_home
     # Use the SAME resolver as conversation_loop's token_log writer so the
     # gate + write path agree on the home dir. (jpm._paths._get_joshaico_home
-    # defaults to /root/.joshaico when JOSHAICO_HOME is unset, but the loop
+    # defaults to the user home when JOSHAICO_HOME is unset, but the loop
     # uses Path.home()/.joshaico — a mismatch that silently disabled traces
     # in the live gateway. Match the loop, not the jpm resolver.)
     try:

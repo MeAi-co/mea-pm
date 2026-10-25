@@ -30,7 +30,10 @@ credentials.json
 *.sqlite
 *.sqlite3
 *.dump
-*.sql
+*.sql.gz
+# NOTE: *.sql is deliberately NOT ignored. The base schema (_schema_pg.sql)
+# and every file in _migrations/ are SOURCE, not dumps — a blanket *.sql rule
+# ships a repo that cannot create a single table on a fresh install.
 
 # Logs & runtime
 *.log

@@ -223,7 +223,7 @@ BAD examples (DO NOT DO):
 - "user asked a question" → that's conversation, not a correction
 - "user seems happy" → observation, not a preference
 - "user mentioned cookies" → throwaway, not a topic
-- "user said Mel is doing LXC/VM architecture, Andy is hardening" → operational state, SAVE as a preference (fleet/infra status is durable context, not throwaway)
+- "user said agent A is doing LXC/VM architecture, agent B is hardening" → operational state, SAVE as a preference (fleet/infra status is durable context, not throwaway)
 - small_talk when work was discussed → wrong category
 
 STATE-SYNC RULES (pulse/active/loops/turn_quality/context_usage — same window, same pass):
@@ -267,12 +267,12 @@ LEARNINGS (persist across sessions — these are the real value):
 Three types of durable learning, each with a different destination:
 
 1. active_corrections → knowledge(rule) @ 0.60 — PUSH-BASED, breadcrumb (below full-inject bar, ≥0.70)
-   When Josh explicitly corrects the agent ("no", "stop", "that's wrong", "actually...").
+   When the user explicitly corrects the agent ("no", "stop", "that's wrong", "actually...").
    These are behavioral corrections that need to be present until the behavior sticks.
    Examples:
-   - "Josh corrected me for writing Chinese. Always respond in English unless he uses another language."
-   - "Josh told me to stop guessing paths. Use search_files first, then read_file."
-   - "Josh said to use websearch_to_tsquery instead of to_tsquery for PG FTS."
+   - "The user corrected me for writing Chinese. Always respond in English unless they use another language."
+   - "The user told me to stop guessing paths. Use search_files first, then read_file."
+   - "The user said to use websearch_to_tsquery instead of to_tsquery for PG FTS."
    Weightage 0.60 = below the full-inject bar (≥0.70), so it lands as a breadcrumb and only earns full injection via helpful_count/retrieval.
 
 2. learned_patterns → knowledge(memory_entry) @ 0.55 — PULL-BASED, surfaces on match
@@ -280,7 +280,7 @@ Three types of durable learning, each with a different destination:
    "When X happens, do Y" — the kind of thing that's useful when the context matches.
    Examples:
    - "When PG FTS crashes on stop words, use websearch_to_tsquery instead of to_tsquery."
-   - "When debugging Joshaico, check /opt/joshaico for git repos, not home dir."
+   - "When a repo path is ambiguous, resolve it from the project root, not the home dir."
    - "When the user says 'make it work', run the code and show real output, not a plan."
    Weightage 0.55 = medium, surfaces on JPM match, permanent.
 
@@ -288,14 +288,14 @@ Three types of durable learning, each with a different destination:
    Only save reflections that apply across sessions. Session-specific insights ("I miscalculated timezone today") are NOT reflections.
    Set store_in_knowledge=true for generalizable insights, false for session-specific.
    Examples:
-   - store_in_knowledge=true: "Leading questions from Josh mean I should change direction, not double down."
+   - store_in_knowledge=true: "Leading questions from the user mean I should change direction, not double down."
    - store_in_knowledge=false: "I miscalculated the timezone for today's meeting."
 
 FILTER RULES:
 1. Growth = failure only. Did the agent make a mistake, get corrected, or use a tool for the first time? Doing something correctly is NOT growth.
 2. Patterns = non-obvious only. "Called search_files then read_file" is obvious. "When PG FTS crashes, use websearch_to_tsquery" is a pattern.
 3. Signals = recurring triggers only. One-off events are NOT signals. A signal means "when X happens, always do Y."
-4. Reflections = actionable insights only. "The user seems happy" is NOT a reflection. "Always check /opt/joshaico for git repos, not home dir" IS.
+4. Reflections = actionable insights only. "The user seems happy" is NOT a reflection. "Always resolve repo paths from the project root, not the home dir" IS.
  
 Category values:
 - correction_learned: user corrected the agent
@@ -354,11 +354,11 @@ Return ONLY valid JSON:
 }
 
 GOOD examples:
-- active_correction: {"name": "no_chinese_in_replies", "description": "Josh corrected me for writing Chinese. Always respond in English unless he explicitly uses another language.", "fingerprint": "chinese,language,english"}
-- active_correction: {"name": "search_before_guess", "description": "Josh told me to stop guessing file paths. Use search_files to locate, then read_file to inspect.", "fingerprint": "search,guess,path,file"}
+- active_correction: {"name": "no_chinese_in_replies", "description": "The user corrected me for writing Chinese. Always respond in English unless he explicitly uses another language.", "fingerprint": "chinese,language,english"}
+- active_correction: {"name": "search_before_guess", "description": "The user told me to stop guessing file paths. Use search_files to locate, then read_file to inspect.", "fingerprint": "search,guess,path,file"}
 - learned_pattern: {"name": "pg_fts_websearch", "description": "When PG FTS crashes on stop words, use websearch_to_tsquery instead of to_tsquery. Stop words aren't valid lexemes.", "fingerprint": "postgresql,fts,stopwords,websearch"}
-- learned_pattern: {"name": "joshaico_git_repos", "description": "When looking for Joshaico git repos, check /opt/joshaico not home dir. The project lives under /opt.", "fingerprint": "joshaico,git,repo,opt"}
-- reflection with store_in_knowledge=true: {"trigger": "Josh said 'change direction' after I kept pushing", "insight": "Leading questions from Josh mean I should change direction, not double down.", "impact": 8, "store_in_knowledge": true}
+- learned_pattern: {"name": "resolve_repo_root", "description": "When a repo path is ambiguous, resolve it from the project root rather than assuming a home-dir location.", "fingerprint": "repo,path,root,resolve"}
+- reflection with store_in_knowledge=true: {"trigger": "The user said 'change direction' after I kept pushing", "insight": "Leading questions from the user mean I should change direction, not double down.", "impact": 8, "store_in_knowledge": true}
 - reflection with store_in_knowledge=false: {"trigger": "Timezone miscalculation", "insight": "I miscalculated the timezone for today's meeting.", "impact": 3, "store_in_knowledge": false}
 
 BAD examples (DO NOT DO):
@@ -366,7 +366,7 @@ BAD examples (DO NOT DO):
 - "Responded to messages" → normal operation, not a pattern
 - "When user says hello, say hello back" → too trivial for a signal
 - "The user seems happy" → observation, not actionable
-- active_correction about session-specific topic → "Josh corrected me about the Canva deadline" is NOT a correction, it's a topic
+- active_correction about session-specific topic → "The user corrected me about the deadline" is NOT a correction, it's a topic
 - learned_pattern that's just a tool name → "Use search_files" is obvious, not a pattern
 
 If nothing genuinely new: {"agent": {}}.
@@ -1378,7 +1378,8 @@ def _call_structured(agent, messages_snapshot: list, prompt: str,
     # timeout, a wedged upstream model could hang the turn indefinitely; now it
     # fails fast and retries instead of blocking forever.
     import os
-    _cfg_path = os.path.expanduser("~/.joshaico/config.yaml")
+    from jpm.core._paths import _get_joshaico_home
+    _cfg_path = os.path.join(_get_joshaico_home(), "config.yaml")
     _smart_max_tokens = 5000
     _llm_timeout = 600.0
     try:
@@ -1503,7 +1504,7 @@ def _call_structured(agent, messages_snapshot: list, prompt: str,
         return None
     if not parsed:
         # No valid JSON found (None) OR an empty object {} — the model
-        # returned prose, not JSON. Josh's requirement: prose is fine, as
+        # returned prose, not JSON. The requirement: prose is fine, as
         # long as it's clean structured markdown the agent can read. Don't
         # drop it — wrap it in a "_raw" key so the caller can store it as
         # a reflection. (An empty {} is NOT a summary — it's a stray
@@ -1534,7 +1535,7 @@ def _call_structured(agent, messages_snapshot: list, prompt: str,
         return {"_raw": response_text}
     # DIAGNOSTIC: log only the non-null/non-empty values so the log line
     # stays compact instead of dumping the whole response with nulls.
-    # Josh commented this out (clutter) — kept commented.
+    # Commented out (clutter) — kept commented.
     # LOG.info("LLM response parsed OK (%d top-level keys): %s",
     #          len(parsed), json.dumps(_compact_non_null(parsed))[:800])
     try:
@@ -2343,8 +2344,9 @@ def _promote_high_conf_patterns() -> None:
 
     import os
     import yaml
+    from jpm.core._paths import _get_joshaico_home
 
-    skills_dir = os.path.expanduser("~/.joshaico/skills/auto/")
+    skills_dir = os.path.join(_get_joshaico_home(), "skills", "auto")
     os.makedirs(skills_dir, exist_ok=True)
 
     for row in rows:

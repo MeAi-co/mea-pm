@@ -185,7 +185,7 @@ def _rewrite_user_table_refs(sql, user_map):
     return "".join(out)
 
 
-# ── Companion imports (role-gated — only Mia loads tone/mood) ──────
+# ── Companion imports (role-gated — only companion profiles load tone/mood) ──
 try:
     from ._paths import _get_joshaico_home
     _cfg_path = Path(_get_joshaico_home()) / "config.yaml"
@@ -692,7 +692,7 @@ class JPMemoryProvider:
 
     def get_config_schema(self) -> list[dict]:
         return [
-            {"key": "db_path", "description": "Database path or PG config", "default": "/root/.joshaico/memory/persistent_memory.db"},
+            {"key": "db_path", "description": "Database path or PG config", "default": "memory/persistent_memory.db"},
             {"key": "default_trust", "description": "Default trust score for new facts", "default": "0.5"},
         ]
 

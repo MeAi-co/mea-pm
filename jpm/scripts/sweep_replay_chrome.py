@@ -57,7 +57,7 @@ def _load_core():
                 k, v = line.split("=", 1)
                 if k.startswith("JPM_PG_"):
                     os.environ.setdefault(k, v.strip().strip('"').strip("'"))
-    core = os.environ.get("JOSHAICO_CORE", "/opt/joshaico/core")
+    core = os.environ.get("JOSHAICO_CORE", "")
     if core not in sys.path:
         sys.path.insert(0, core)
     return core

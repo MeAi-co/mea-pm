@@ -1,6 +1,6 @@
 """Async live-embed worker — embeds new rows on write, non-blocking.
 
-Design goals (per Josh's constraints):
+Design goals:
   1. NEVER block the critical write path on Ollama.  enqueue() is
      fire-and-forget; the caller's commit never waits on embedding.
   2. NEVER flood PG with connections.  Workers own a small, dedicated

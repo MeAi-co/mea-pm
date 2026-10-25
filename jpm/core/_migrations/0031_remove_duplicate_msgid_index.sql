@@ -1,0 +1,11 @@
+-- 0031_remove_duplicate_msgid_index.sql
+-- Remove the legacy duplicate unique index on (session_id, message_id).
+--
+-- History: the new schema (_schema_pg.sql) creates
+--   messages_session_message_id_idx UNIQUE (session_id, message_id)
+-- while the old sqlite-era migration left behind
+--   idx_messages_session_msgid UNIQUE (session_id, message_id)
+-- Both persisted in live PG, doubling write amplification on every
+-- message INSERT for no benefit. The new index is authoritative; the
+-- legacy one is redundant and is dropped here.
+DROP INDEX IF EXISTS public.idx_messages_session_msgid;

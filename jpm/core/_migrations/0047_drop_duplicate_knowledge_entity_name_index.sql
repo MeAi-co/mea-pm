@@ -1,0 +1,17 @@
+-- 0047_drop_duplicate_knowledge_entity_name_index.sql
+-- Drop the legacy duplicate unique index on knowledge (entity_type, name).
+--
+-- History: the new schema (_schema_pg.sql) creates
+--   idx_knowledge_unique UNIQUE (entity_type, name)
+-- while an earlier migration left behind
+--   idx_knowledge_entity_name UNIQUE (entity_type, name)
+-- Both persisted in live PG, doubling write amplification on every
+-- knowledge INSERT/UPDATE for no benefit. idx_knowledge_unique is
+-- authoritative (also enforced by the schema's table-level constraint);
+-- idx_knowledge_entity_name is byte-identical and redundant. Dropped here.
+--
+-- NOTE: each node runs its OWN local PostgreSQL (JPM_PG_HOST=127.0.0.1),
+-- so this migration must run per-node. It is idempotent — a no-op on any node
+-- that already dropped the index (e.g. the authoring node) or never had it
+-- (fresh installs, where the base schema never creates it).
+DROP INDEX IF EXISTS public.idx_knowledge_entity_name;

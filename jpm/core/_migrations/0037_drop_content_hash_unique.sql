@@ -1,0 +1,39 @@
+-- Migration 0037: Drop content-hash unique index on messages
+--
+-- Schema: public
+--
+-- Changes:
+--   DROP INDEX public.messages_session_content_idx (UNIQUE (session_id, content_hash))
+--
+-- Why:
+--   The content-hash unique index was added in migration 0024 as an interim
+--   idempotency safety net ("catch a flush path that re-persists the same
+--   content with a NEW message_id"). It was superseded a day later by
+--   migration 0032's msg_key = md5(session_id ':' message_id), which is the
+--   correct, deterministic idempotency key and is explicitly documented as
+--   "no longer the dedup arbiter" in the codebase.
+--
+--   The content-hash unique index is now actively harmful: the context
+--   compressor (context_compressor.py) rewrites DISTINCT tool messages to the
+--   SAME canned marker string (e.g. "[Duplicate tool output — same content as
+--   a more recent call]"). md5(content) of those distinct-but-identical rows
+--   collides on UNIQUE (session_id, content_hash), raising
+--   UniqueViolationError, which run_agent.py classifies as PERMANENT (23xxx)
+--   and disables the entire session DB (self._session_db = None). Result:
+--   once any repeated content occurs in a session, ALL subsequent message
+--   writes silently stop persisting.
+--
+--   msg_key (UNIQUE (session_id, msg_key) WHERE active = 1) already handles
+--   the real duplicate case (retry of the same logical message) correctly.
+--   Dropping the content-hash uniqueness does NOT lose dedup — it removes a
+--   false-positive source that was killing persistence.
+--
+--   The content_hash COLUMN is kept (not dropped) — dedup/reporting scripts
+--   (scripts/dedup_messages.py, etc.) still read it. Only the UNIQUE
+--   constraint is removed.
+--
+-- Reversible: re-create the index with:
+--   CREATE UNIQUE INDEX messages_session_content_idx
+--     ON public.messages (session_id, content_hash) WHERE active = 1;
+
+DROP INDEX IF EXISTS public.messages_session_content_idx;

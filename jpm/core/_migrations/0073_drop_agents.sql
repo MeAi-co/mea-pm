@@ -1,0 +1,26 @@
+-- 0073_drop_agents.sql
+-- Drop the vestigial `public.agents` table.
+--
+-- History: `public.agents` was the ORIGINAL fleet-agent registry, defined in the
+-- base schema (_schema_pg.sql) since the self-contained-schema commit (22ccbb4,
+-- Jul 2026). It was later RENAMED/REPLACED by `public.staging_agents`
+-- (migration 0067), which is the live routing source of truth
+-- (_resolve_agent_route in core/gateway/staging_api.py reads staging_agents).
+--
+-- `public.agents` is now DEAD:
+--   * 0 rows.
+--   * 0 code references — no SELECT/INSERT/UPDATE/JOIN against public.agents
+--     anywhere in the repo (verified by grep; the only hits are the /agents
+--     slash command and the word "agents" in comments/docstrings).
+--   * Its signature column `host_ip` appears in code nowhere.
+--   * Absent from the jpm TABLE_CONFIG allowlist.
+--
+-- Migration 0072 created it on pre-existing DBs purely to silence the startup
+-- drift guard (latent drift, not a live breakage). This migration removes it
+-- for good and the base schema no longer defines it, so the guard stays quiet.
+--
+-- Idempotent: DROP TABLE IF EXISTS. Safe to re-apply.
+-- NOTE: 0072 (create) is intentionally left in place — migrations are immutable
+-- history. On a fresh DB the net effect of 0072+0073 is "no agents table".
+
+DROP TABLE IF EXISTS public.agents;

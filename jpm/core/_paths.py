@@ -6,7 +6,7 @@ from typing import Any
 
 def _get_joshaico_home() -> str:
     """Runtime data root — JOSHAICO_HOME is set by main.py at startup."""
-    return os.environ.get("JOSHAICO_HOME", "/root/.joshaico")
+    return os.environ.get("JOSHAICO_HOME", str(Path.home() / ".joshaico"))
 
 
 # ARCHIVED 2026-08-15 — dead code audit: _paths._get_pg_config is shadowed by _pg._get_pg_config

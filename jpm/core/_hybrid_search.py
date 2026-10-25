@@ -382,7 +382,7 @@ def hybrid_search_knowledge(
 
 # Tables to sweep on every recall, in priority order.
 # All 6 embedded tables: knowledge, messages, sessions, reflections,
-# patterns, skills. imgen_library is Mia-specific (image-gen telemetry) and
+# patterns, skills. imgen_library is profile-specific (image-gen telemetry) and
 # is deliberately excluded from the general recall sweep — it's not relevant
 # to cross-agent context injection. projects/tasks have no embedding column.
 RECALL_TABLES = ["knowledge", "messages", "sessions", "reflections", "patterns", "skills"]
@@ -411,7 +411,7 @@ def _recall_tables_with_embedding(tables: list[str] | None = None) -> list[str]:
     probe is a cheap information_schema check; the expensive part is the vector
     sweep, which is only ever run on the caller's allowlist.
 
-    Some nodes don't deploy every table (e.g. imgen_library is Mia-specific)
+    Some nodes don't deploy every table (e.g. imgen_library is profile-specific)
     or lack the pgvector column on a given table (e.g. skills). Sweeping those
     unconditionally makes recall_context log a warning and run a doomed query
     on every call. This probes information_schema once, caches the result, and
@@ -731,7 +731,7 @@ def _build_context_block(
     tag = table.upper()
     if table == "knowledge" and row.get("entity_type"):
         tag = f"{tag}[{row['entity_type']}]"
-        # Gate at the source (Josh, 2026-08-28): core standard types already
+        # Gate at the source: core standard types already
         # live in the system prompt via memory injection. Recalling them into
         # the user message is bloat AND makes the model treat them as the
         # active directive, diverging from the task. Only breadcrumbs

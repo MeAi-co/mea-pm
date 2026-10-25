@@ -4,16 +4,16 @@ Centralizes the Ollama embed call so every path (live embed worker,
 watchdog reconciler, hybrid retrieval) uses the SAME failover logic
 instead of each reading OLLAMA_URL independently.
 
-Failover design (per Josh's requirement):
-  - OLLAMA_URL            = primary GPU (default: local 5060 Ti)
-  - OLLAMA_FALLBACK_URL   = secondary GPU (default: Tina's RTX 2060 over tailnet)
+Failover design:
+  - OLLAMA_URL            = primary embedding endpoint
+  - OLLAMA_FALLBACK_URL   = optional secondary endpoint (failover)
   - embed() tries primary first; on ANY failure (connection refused,
     timeout, bad response) it falls back to the secondary. If both fail,
     it raises so the caller can degrade loudly (never silently).
 
 Env:
   OLLAMA_URL            http://127.0.0.1:11434   (primary)
-  OLLAMA_FALLBACK_URL   http://100.123.92.106:11434  (P5000 fallback)
+  OLLAMA_FALLBACK_URL   (unset by default — set to a second endpoint for failover)
   EMBED_MODEL           nomic-embed-text
   EMBED_NUM_GPU         -1
 """

@@ -6,7 +6,7 @@ All structured knowledge lives in `persistent_memory.db` (SQLite FTS5) at `$JOSH
 
 ### Two Injection Paths
 
-**Path A — System prompt (primary, used by Mia):**
+**Path A — System prompt (primary):**
 `patches/system_prompt.py` → `jpm/core/_provider.py` → `system_prompt_sections()` → queries knowledge DB by entity_type with weightage tiers → builds the JPM context block injected at session start.
 
 **Path B — Hook callback (legacy, used by some nodes):**
@@ -55,12 +55,12 @@ All structured knowledge lives in `persistent_memory.db` (SQLite FTS5) at `$JOSH
 
 ## Knowledge Entity Types
 
-- `identity` — Agent identity/soul (Mia, Mel, Jim). Weightage >= 0.70 for full injection.
+- `identity` — Agent identity/soul. Weightage >= 0.70 for full injection.
 - `user_pref` — User preferences, workflow style, corrections. High weightage = always injected.
 - `rule` — Hard rules (never delete, no silent failures, session-first, etc.). 0.90 weightage.
 - `memory_entry` — Personal agent notes, shoebox entries. Tiered by importance.
 - `project` — Architecture decisions and system design
-- `tool` — Tool usage patterns (e.g. imgen pipeline)
+- `tool` — Tool usage patterns
 - `skill` — Registered skill metadata (backfilled from `~/.joshaico/skills/`)
 - `skill_part` — Skill sub-parts (references, templates, scripts)
 - `general` — General knowledge, session sweeps, legacy data
@@ -75,26 +75,13 @@ The `<jpm_context>` block is built in this order:
 3. **Memory entries** — Full for high weightage, breadcrumb for medium
 4. **Rules** — Full for high weightage, wrapped in `<lookup>` tags
 5. **N-1 session summary** — Previous session title + last exchange
-6. **Mia state** — Current mood, energy, headspace, pulse, active focus, open loops
+6. **Agent state** — Current mood, energy, headspace, pulse, active focus, open loops
 
 ## Session Continuity
 
 - Gateway restart preserves sessions via `resume_pending` flag — next message reloads transcript from SQLite
 - `/new` should preserve session_id (being implemented)
 - `/reset` creates fresh session_id with empty history
-
-## Fleet Architecture
-
-7 nodes on Tailscale:
-- `mia-compnn` — Companion/creative (this node)
-- `jim-asst` — Builder/developer
-- `mel-pvx` — Ops/PM/QC on Proxmox host
-- `kate-cwpweb` — Web
-- `andy-autom` — Automation
-- `tina-media` — Jellyfin/Nextcloud
-- `josh-fedora` — Home
-
-All use `fleet_key` SSH key. Ports 2626 or 22.
 
 ## Memory Pipeline
 
@@ -111,14 +98,3 @@ Memory is **semi-automatic** — facts are stored explicitly during sessions, bu
 
 `jpm(action="helpful"/"unhelpful", fact_id=...)` adjusts trust (`+0.05` / `-0.10` per rating). Facts below `min_trust` (default 0.3) are hidden. This keeps good facts rising, stale facts sinking.
 
-## Gateway Restart (Process Tree Bypass)
-
-When SSH is blocked by gateway process tree detection:
-1. Write restart script to `/tmp/r.sh` with `sleep 15 && systemctl restart joshaico-gateway.service`
-2. `nohup` the script in background
-3. Exit SSH before it fires (nohup detaches from the SSH session)
-4. Wait 20s, verify new PID and git commit
-
-## imgen Pipeline
-
-Local image generation on mia-compnn at `/usr/local/bin/imgen`. Uses sd-cpp with models at `/opt/ai-headshots.legacy/`. Supports `--nude`, `--nsfw`, `--send` (Telegram), mood/pose/venue/crop/style/time flags. Full 152-prompt library in `imgen-pipeline` skill.

@@ -42,7 +42,7 @@ from pathlib import Path
 
 # Make `agent.auxiliary_client` importable (it lives under core/). Mirror how the
 # gateway resolves it at runtime.
-_JOSHAICO_ROOT = Path(__file__).resolve().parents[2]  # /opt/joshaico
+_JOSHAICO_ROOT = Path(__file__).resolve().parents[2]  # repo root
 for _p in (str(_JOSHAICO_ROOT), str(_JOSHAICO_ROOT / "core")):
     if _p not in sys.path:
         sys.path.insert(0, _p)

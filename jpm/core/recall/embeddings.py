@@ -9,8 +9,7 @@ OLLAMA_URL (primary → fallback GPU) and failover logic are shared with the
 live embed listener and hybrid retrieval — never re-implemented here.
 
 vLLM provider (EMBED_PROVIDER=vllm) calls an OpenAI-compatible /v1/embeddings
-endpoint (e.g. vLLM serving nomic-embed-text on Tina). Additive — the ollama
-default is untouched.
+endpoint. Additive — the ollama default is untouched.
 """
 import json
 import logging
@@ -25,8 +24,8 @@ LOG = logging.getLogger("jpm.recall.embeddings")
 EMBED_MODEL = os.environ.get("EMBED_MODEL", "nomic-embed-text")
 EMBED_DIM = int(os.environ.get("EMBED_DIM", "768"))
 
-# vLLM endpoint (OpenAI-compatible). Default: Tina's vLLM server.
-VLLM_URL = os.environ.get("VLLM_URL", "http://100.123.92.106:11436/v1")
+# vLLM endpoint (OpenAI-compatible). No default host — set VLLM_URL to enable.
+VLLM_URL = os.environ.get("VLLM_URL", "")
 VLLM_TIMEOUT = int(os.environ.get("VLLM_TIMEOUT", "120"))
 
 

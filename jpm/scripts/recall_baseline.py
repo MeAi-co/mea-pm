@@ -62,7 +62,7 @@ QUERIES = [
      "class": "topical_overlap",
      "expect": ["knowledge:50", "knowledge:51", "knowledge:52"]},
     # --- 2x entity-resolution ---
-    {"q": "Josh gaming playtime total",
+    {"q": "user gaming playtime total",
      "class": "entity_resolution",
      "expect": ["knowledge:4", "knowledge:11", "knowledge:50", "knowledge:51", "knowledge:52"]},
     {"q": "skill db write fallback",

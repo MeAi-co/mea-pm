@@ -1,0 +1,12 @@
+-- 0045_knowledge_stale_count.sql
+-- Add a stale_count column to public.knowledge for the usefulness feedback
+-- loop (2026-08-14).
+--
+-- The per-turn state-sync call now judges which injected breadcrumbs were
+-- actually used vs ignored. Used breadcrumbs get retrieval_count+1 (promoted
+-- toward full injection); ignored ones get stale_count+1. A breadcrumb is
+-- archived (archived=1) only after N consecutive stale judgments (N=3,
+-- conservative) so a single miss doesn't kill a useful fact.
+--
+-- Idempotent via IF NOT EXISTS — safe to re-run on any node.
+ALTER TABLE public.knowledge ADD COLUMN IF NOT EXISTS stale_count integer NOT NULL DEFAULT 0;

@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
-# Runner for recall_baseline.py — loads the arm's .env (PG creds, OLLAMA) then
-# drives the REAL recall_context entry point as the arm user.
+# Runner for recall_baseline.py — loads the runtime .env (PG creds, OLLAMA) then
+# drives the REAL recall_context entry point.
+#
 # Usage: run_baseline.sh <label>
+#
+# Env:
+#   JOSHAICO_HOME   runtime home holding .env and config.yaml (required)
+#   PYTHON          interpreter to use (default: python3 on PATH)
 set -euo pipefail
 LABEL="${1:-run}"
 HERE="$(cd "$(dirname "$0")" && pwd)"
-HOME_DIR="/home/bench_a/.hermes"
-# Resolve the interpreter from the arm's LIVE install venv — that is where
-# psycopg2 lives (the bare tool python has no psycopg2). Never hardcode the
-# version dir: its name contains a substring the redaction layer masks.
-VENV="$(ls -d /home/bench_a/.hermes/installs/*/environments/*/venv 2>/dev/null | head -1)"
-PY="$VENV/bin/python3"
-[ -x "$PY" ] || { echo "FATAL: no arm venv python found under /home/bench_a/.hermes/installs/*/environments/*/venv" >&2; exit 1; }
+
+: "${JOSHAICO_HOME:?set JOSHAICO_HOME to the runtime home (holds .env + config.yaml)}"
+PY="${PYTHON:-python3}"
+
+command -v "$PY" >/dev/null 2>&1 || { echo "FATAL: interpreter '$PY' not found" >&2; exit 1; }
 
 # Load .env (export every KEY=VALUE, ignore comments/blanks).
-set -a
-# shellcheck disable=SC1091
-source "$HOME_DIR/.env"
-set +a
-export HERMES_HOME="$HOME_DIR"
+if [ -f "$JOSHAICO_HOME/.env" ]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$JOSHAICO_HOME/.env"
+  set +a
+fi
 
-OUT="/tmp/recall_${LABEL}.json"
+OUT="${OUT:-/tmp/recall_${LABEL}.json}"
 "$PY" "$HERE/recall_baseline.py" --label "$LABEL" --out "$OUT"
 echo "OUT=$OUT"

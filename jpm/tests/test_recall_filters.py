@@ -60,7 +60,7 @@ def test_p2_short_query_single_token_relaxation():
     pass (pre-fix this returned 0 blocks — the over-filter pitfall)."""
     q = "what is my name?"
     assert _recall_tokens(q) - _RECALL_GENERIC_TOKENS == {"name"}
-    assert _has_distinctive_lexical_evidence(q, "my name is Josh") is True
+    assert _has_distinctive_lexical_evidence(q, "my name is Alex") is True
     # and still rejects content that does not share the token
     assert _has_distinctive_lexical_evidence(q, "played video games for hours") is False
 

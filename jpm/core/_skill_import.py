@@ -65,12 +65,12 @@ def _skills_root() -> Path:
     """Resolve the on-disk skills tree for this runtime.
 
     JOSHAICO_HOME is set by main.py at startup; the skills tree lives beside
-    it. Falls back to the bench_a home so a bare import still resolves.
+    it. Falls back to the default home so a bare import still resolves.
     """
     home = os.environ.get("JOSHAICO_HOME", "")
     if home:
         return Path(home) / "skills"
-    return Path.home() / ".hermes" / "skills"
+    return Path.home() / ".joshaico" / "skills"
 
 
 def _count_disk_skills(root: Path | None = None) -> int:
