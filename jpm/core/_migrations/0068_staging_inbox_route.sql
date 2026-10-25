@@ -6,7 +6,7 @@
 -- WHY THIS MIGRATION EXISTS
 -- The staging loop is push-based: agent A POSTs a task to agent B's
 -- /staging/webhook, which writes a row into B's LOCAL staging_inbox. For B to
--- reply, it needs A's wire route (magicdns + webhook_port). Rather than query
+-- reply, it needs A's wire route (hostname + webhook_port). Rather than query
 -- a central registry (which does not exist fleet-wide — every node runs its
 -- own jpm-pg), the route RIDES THE MESSAGE: A stamps from_route into the
 -- payload, B stores it here, and B's staging_reply tool POSTs back to it.

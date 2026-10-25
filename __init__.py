@@ -2,7 +2,7 @@
 
 Thin wrapper that exposes the vendored ``jpm`` engine as a stock-Hermes
 MemoryProvider. The engine lives untouched in ``./jpm/`` (vendored from the
-Joshaico fork) so its 8 absolute ``from jpm.core...`` self-imports resolve.
+upstream fork) so its 8 absolute ``from jpm.core...`` self-imports resolve.
 
 Stock loader contract (plugins/memory/__init__.py):
   * discovery: this file must mention ``register_memory_provider`` or

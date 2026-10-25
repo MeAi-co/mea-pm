@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 def _get_config():
     """Read smart_search config from config.yaml, with sensible defaults.
 
-    Reads the real ~/.joshaico/config.yaml (via jpm.core._paths) so the
+    Reads the real $HERMES_HOME/config.yaml (via jpm.core._paths) so the
     ``smart_search.enabled`` kill-switch actually works. The old
     ``from jpm.config import config`` import was dead (no such module) and
     silently fell back to enabled=True, so the planner could never be
@@ -39,10 +39,10 @@ def _get_config():
     sc = {}
     cfg = {}
     try:
-        from jpm.core._paths import _get_joshaico_home
+        from jpm.core._paths import _get_agent_home
         from pathlib import Path
         import yaml
-        _cfg_path = Path(_get_joshaico_home()) / "config.yaml"
+        _cfg_path = Path(_get_agent_home()) / "config.yaml"
         if _cfg_path.exists():
             with open(_cfg_path) as _f:
                 _cfg = yaml.safe_load(_f) or {}

@@ -11,7 +11,7 @@ audit:
   - tool_flow_summarizer (core/agent/tool_flow_summarizer.py:287 ``_call_tool_flow_llm``)
 
 This module writes ONE JSON file per turn per loop to
-  ~/.joshaico/logs/side_loops/<loop_name>/<YYYYMMDD_HHMMSS>_<turn>.json
+  $HERMES_HOME/logs/side_loops/<loop_name>/<YYYYMMDD_HHMMSS>_<turn>.json
 with the request (what went in) and response (what came out). It is gated
 by the SAME ``agent.token_log`` config flag as the compact token log, so it
 flips on/off with that setting. The gate is read directly from config.yaml
@@ -40,25 +40,21 @@ _cfg_flag_ts: float = 0.0
 SIDE_LOOPS_DIR = "logs/side_loops"
 
 
-def _joshaico_home() -> Path:
-    """Resolve the joshaico home dir (same logic as the audit writer)."""
+def _agent_home() -> Path:
+    """Resolve the HOST agent's home dir (stock Hermes).
+
+    Delegates to the engine's single host-home helper so the trace gate and the
+    write path can never disagree about where the home is.
+    """
     global _cfg_home
     if _cfg_home is not None:
         return _cfg_home
-    # Use the SAME resolver as conversation_loop's token_log writer so the
-    # gate + write path agree on the home dir. (jpm._paths._get_joshaico_home
-    # defaults to the user home when JOSHAICO_HOME is unset, but the loop
-    # uses Path.home()/.joshaico — a mismatch that silently disabled traces
-    # in the live gateway. Match the loop, not the jpm resolver.)
     try:
-        from core.joshaico_constants import get_joshaico_home
-        _cfg_home = Path(get_joshaico_home())
+        from jpm.core._paths import _get_agent_home
+
+        _cfg_home = Path(_get_agent_home())
     except Exception:
-        try:
-            from joshaico_constants import get_joshaico_home
-            _cfg_home = Path(get_joshaico_home())
-        except Exception:
-            _cfg_home = Path(os.path.expanduser("~")) / ".joshaico"
+        _cfg_home = Path(os.path.expanduser("~")) / ".hermes"
     return _cfg_home
 
 
@@ -76,7 +72,7 @@ def side_loop_trace_enabled() -> bool:
         return _cfg_flag
     try:
         import yaml
-        path = _joshaico_home() / "config.yaml"
+        path = _agent_home() / "config.yaml"
         if path.exists():
             with open(path) as _f:
                 cfg = yaml.safe_load(_f) or {}
@@ -110,9 +106,9 @@ def trace_side_loop(
     if not side_loop_trace_enabled():
         logger.debug("side_loop_trace: disabled for %s (token_log gate off)", loop_name)
         return
-    #logger.info("side_loop_trace: writing %s trace (turn=%s) to %s", loop_name, turn_id, _joshaico_home() / SIDE_LOOPS_DIR / loop_name)
+    #logger.info("side_loop_trace: writing %s trace (turn=%s) to %s", loop_name, turn_id, _agent_home() / SIDE_LOOPS_DIR / loop_name)
     try:
-        loop_dir = _joshaico_home() / SIDE_LOOPS_DIR / loop_name
+        loop_dir = _agent_home() / SIDE_LOOPS_DIR / loop_name
         loop_dir.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         # avoid clobbering when several traces land in the same second

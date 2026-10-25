@@ -8,10 +8,32 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # ── 1. Resolve the stock runtime interpreter ────────────────────────────────
-# The launcher execs this exact interpreter (see .hermes/bin/hermes).
-PY="$(ls -d "${HERMES_HOME:-$HOME/.hermes}"/tools/python-*/bin/python3 2>/dev/null | head -1 || true)"
+# The runtime python is NOT always under $HERMES_HOME. On a packaged install it
+# sits beside the code tree (e.g. <base>/tools/python-*/bin/python3) while
+# HERMES_HOME points at the profile. Probe every plausible location, in order,
+# and let the caller override with HERMES_PYTHON.
+BASE_HOME="${HERMES_BASE_HOME:-$HOME/.hermes}"
+CODE_DIR="${HERMES_CODE:-${BASE_HOME}/hermes-agent}"
+
+find_py() {
+  local d
+  for d in \
+      "${HERMES_PYTHON:-}" \
+      "${HERMES_HOME:-$HOME/.hermes}"/tools/python-*/bin/python3 \
+      "${BASE_HOME}"/tools/python-*/bin/python3 \
+      "$(dirname "${CODE_DIR}")"/tools/python-*/bin/python3 \
+      "${CODE_DIR}"/tools/python-*/bin/python3 ; do
+    [[ -n "$d" && -x "$d" ]] && { echo "$d"; return 0; }
+  done
+  return 1
+}
+
+PY="$(find_py || true)"
 if [[ -z "${PY}" ]]; then
-  echo "ERROR: could not find the Hermes runtime python under \$HERMES_HOME/tools/python-*/bin/" >&2
+  echo "ERROR: could not find the Hermes runtime python." >&2
+  echo "       Probed: \$HERMES_PYTHON, \$HERMES_HOME/tools, \$HERMES_BASE_HOME/tools," >&2
+  echo "               <code-tree>/../tools, <code-tree>/tools" >&2
+  echo "       Set HERMES_PYTHON=/path/to/python3 and re-run." >&2
   exit 1
 fi
 echo "runtime python: ${PY}"

@@ -38,7 +38,7 @@ from pathlib import Path
 from typing import Any
 
 # ── Re-export all core symbols ──────────────────────────────────────
-from .core._paths import _get_joshaico_home, _get_yaml_path
+from .core._paths import _get_agent_home, _get_yaml_path
 from .core._parse import parse_kv
 from .core._cache import _LRUCache, _get_cache, _CACHE
 from .core._entities import _extract_entities

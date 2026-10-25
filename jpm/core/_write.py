@@ -135,9 +135,8 @@ def _extract_skill_tags(content: str) -> str:
     """Parse tags from SKILL.md frontmatter into the DB's list-string format.
 
     Resolution order (backward compatible):
-      1. metadata.joshaico.tags      (current canonical format)
-      2. metadata.joshaico.tags        (pre-rename format)
-      3. top-level tags:             (legacy flat format)
+      1. metadata.hermes.tags        (canonical format)
+      2. top-level tags:             (legacy flat format)
 
     Returns '' when no tags found, else a Python-list-style string like
     "['digest', 'reporting']" matching the existing skills.tags rows.
@@ -151,7 +150,7 @@ def _extract_skill_tags(content: str) -> str:
         tags = []
         metadata = fm.get("metadata")
         if isinstance(metadata, dict):
-            for key in ("joshaico", "hermes"):
+            for key in ("hermes",):
                 meta = metadata.get(key)
                 if isinstance(meta, dict):
                     tags = meta.get("tags") or []
@@ -336,7 +335,7 @@ def _ensure_skill_frontmatter(name: str, content: str, description: str = "") ->
         f"description: {json.dumps(_desc)}\n"
         "version: 1.0.0\n"
         "metadata:\n"
-        "  joshaico:\n"
+        "  hermes:\n"
         f"    tags: {_tag_list}\n"
         "---\n\n"
     )

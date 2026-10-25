@@ -64,13 +64,12 @@ SUPPORT_DIRS = ("references", "scripts", "templates", "assets")
 def _skills_root() -> Path:
     """Resolve the on-disk skills tree for this runtime.
 
-    JOSHAICO_HOME is set by main.py at startup; the skills tree lives beside
-    it. Falls back to the default home so a bare import still resolves.
+    The skills tree lives beside the HOST agent's home (stock Hermes), so this
+    resolves through the same host-home helper the rest of the engine uses.
     """
-    home = os.environ.get("JOSHAICO_HOME", "")
-    if home:
-        return Path(home) / "skills"
-    return Path.home() / ".joshaico" / "skills"
+    from ._paths import _get_agent_home
+
+    return Path(_get_agent_home()) / "skills"
 
 
 def _count_disk_skills(root: Path | None = None) -> int:

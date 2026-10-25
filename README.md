@@ -79,5 +79,5 @@ Set these in the profile's `.env` (secrets) — never inline in config.yaml.
 ```bash
 rsync -a --delete \
   --exclude='__pycache__' --exclude='*.pyc' --exclude='_OLD' \
-  /path/to/joshaico/core/jpm/ ./jpm/
+  /path/to/upstream/core/jpm/ ./jpm/
 ```

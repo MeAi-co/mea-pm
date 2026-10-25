@@ -24,7 +24,7 @@
 -- DESIGN
 --   * Stable handle is the hostname (survives IP changes), NOT the raw IP.
 --   * webhook_port is per-node (differs) and self-reported from each node's
---     JOSHAICO_STAGING_PORT env at boot via POST /agents/register.
+--     STAGING_PORT env at boot via POST /agents/register.
 --   * Addressing key is the (hostname, webhook_port) tuple: self-spawned
 --     copies share a host, so the port is the discriminator.
 --   * role ports to the /role feature (programmer|assistant|manager).
@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS public.staging_agents (
     hostname      TEXT NOT NULL,                 -- stable handle (survives IP changes)
     access_mode   TEXT NOT NULL DEFAULT 'ssh',   -- 'ssh' | 'http'
     key_path      TEXT,                          -- SSH key path when direct HTTP is unavailable
-    webhook_port  INTEGER,                       -- per-node, from JOSHAICO_STAGING_PORT
+    webhook_port  INTEGER,                       -- per-node, from STAGING_PORT
     role          TEXT NOT NULL DEFAULT 'worker',-- ports to /role: programmer|assistant|manager
     instance_of   TEXT,                          -- NULL for primary, parent alias for a spawned copy
     active        BOOLEAN NOT NULL DEFAULT true,
     last_seen     TIMESTAMPTZ,
-    UNIQUE (magicdns, webhook_port)
+    UNIQUE (hostname, webhook_port)
 );

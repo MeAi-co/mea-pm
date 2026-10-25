@@ -79,7 +79,7 @@ def is_pg_enabled() -> bool:
     except ImportError:
         raise RuntimeError(
             "jpm-pg: JPM_PG_HOST is set but psycopg2 is not installed. "
-            "Run from the joshaico venv or install psycopg2-binary."
+            "Run from the Hermes venv or install psycopg2-binary."
         )
     except Exception as exc:
         _pg_enabled = False

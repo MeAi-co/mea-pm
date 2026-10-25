@@ -8,7 +8,7 @@
 --
 -- Design:
 --   - Warm-start replay stamps the DB's real message_id back onto loaded
---     messages (fix in joshaico_state.get_messages_tail), so the existing
+--     messages (fix in the state layer's get_messages_tail), so the existing
 --     (session_id, message_id) index catches re-inserts. But if a message is
 --     genuinely re-persisted with a NEW message_id (e.g. a flush path that
 --     didn't stamp _msg_id), content-hash is the authoritative signal.

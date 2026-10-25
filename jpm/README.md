@@ -29,24 +29,30 @@ Stripped-down persistent memory for development agents. No personality tracking,
 |------|---------|
 | `plugin.yaml` | Plugin manifest |
 | `__init__.py` | Main plugin code — hooks, tool, YAML builder |
-| `scripts/backfill.py` | Optional seed script (see below) |
+| `scripts/migrate_from_stock.py` | Import stock Hermes history into PG (see below) |
 
 ## Installation
 
-1. Copy the `jpm` folder to the target agent's `~/.joshaico/plugins/` directory
+1. Copy the `jpm` folder to the target agent's `$HERMES_HOME/plugins/` directory
 2. Add `jpm` to `plugins.enabled` in `config.yaml`
 3. Restart the gateway
 
-## Backfill (optional)
+## Migrating existing history (optional)
 
-`scripts/backfill.py` seeds the tables with historical context from conversation history. **This is a suggestion, not a requirement.** The agent should review, prune, and add what fits their own context.
+`scripts/migrate_from_stock.py` imports an existing stock Hermes SQLite
+`state.db` into the PG tables. It is **dry-run by default** — nothing is written
+until you pass `--apply`.
 
-To run:
 ```bash
-python3 /path/to/jpm/scripts/backfill.py
+python3 /path/to/jpm/scripts/migrate_from_stock.py            # preview
+python3 /path/to/jpm/scripts/migrate_from_stock.py --apply    # write
+python3 /path/to/jpm/scripts/migrate_from_stock.py --verify   # check
 ```
 
-The script is safe to run multiple times — it uses INSERT OR IGNORE for knowledge entries and won't duplicate data.
+The source path resolves from `--state-db`, else `$HERMES_HOME/state.db`, else
+`~/.hermes/state.db`. Nothing is hardcoded. The import is idempotent and
+resumable — re-running only inserts what is missing. See `MIGRATION.md` at the
+repo root for the full procedure, the column mapping, and the known gaps.
 
 ## Usage
 

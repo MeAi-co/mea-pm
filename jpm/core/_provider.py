@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from ._paths import _get_joshaico_home
+from ._paths import _get_agent_home
 from ._pg import sync_conn, apply_schema, shutdown as _pg_shutdown
 from ._cache import _LRUCache, _get_cache
 from ._ensure import _ensure_db
@@ -187,8 +187,8 @@ def _rewrite_user_table_refs(sql, user_map):
 
 # ── Companion imports (role-gated — only companion profiles load tone/mood) ──
 try:
-    from ._paths import _get_joshaico_home
-    _cfg_path = Path(_get_joshaico_home()) / "config.yaml"
+    from ._paths import _get_agent_home
+    _cfg_path = Path(_get_agent_home()) / "config.yaml"
     if _cfg_path.exists():
         import yaml as _yaml
         with open(_cfg_path) as _f:
@@ -696,8 +696,8 @@ class JPMemoryProvider:
             {"key": "default_trust", "description": "Default trust score for new facts", "default": "0.5"},
         ]
 
-    def save_config(self, values: dict, joshaico_home: str) -> None:
-        config_path = Path(joshaico_home) / "config.yaml"
+    def save_config(self, values: dict, hermes_home: str) -> None:
+        config_path = Path(hermes_home) / "config.yaml"
         try:
             import yaml
             existing = {}

@@ -389,7 +389,7 @@ Your reply is machine-parsed. It is NOT read by a human. Prose is useless and wi
 # makes the model ECHO the agent's own prose instead of coaching. The fix:
 # pass this dedicated coach system prompt AND force a rebuild (bypass the
 # cache + DB restore) so the model is unambiguously in coach mode.
-_COACH_SYSTEM_PROMPT = """You are a coaching and self-improvement engine for the Joshaico agent. You are a supervisor reviewing the transcript.
+_COACH_SYSTEM_PROMPT = """You are a coaching and self-improvement engine for the agent. You are a supervisor reviewing the transcript.
 
 Your ONLY job is to review the conversation transcript provided and produce a coaching analysis. You do NOT  echo, repeat, or summarize the agent's own messages.
 
@@ -403,7 +403,7 @@ You analyze the agent's behavior and output structured coaching feedback in the 
 # snapshot (after the tool-flow summarizer) so it gets the condensed
 # summary of that turn, not the accumulated backlog.
 
-_STATE_SYSTEM_PROMPT = """You are a state-tracking and turn-assessment engine for the Joshaico agent. You are NOT the agent — you are an external observer reviewing a transcript.
+_STATE_SYSTEM_PROMPT = """You are a state-tracking and turn-assessment engine for the agent. You are NOT the agent — you are an external observer reviewing a transcript.
 
 Your job is to review the conversation transcript provided and produce a concise, accurate snapshot of the agent's current operational state (pulse, active, loops) AND a turn-quality assessment (mood, breadcrumb knowledge, reflection). You do NOT continue the agent's work and you do NOT speak as the agent.
 
@@ -1372,14 +1372,14 @@ def _call_structured(agent, messages_snapshot: list, prompt: str,
     # of learning.
     # Max output-token ceiling + LLM timeout. Centralized: read the single
     # shared `smart_search.max_tokens` (default 5000) and `smart_search.timeout`
-    # (default 600s) knobs from ~/.joshaico/config.yaml. The token ceiling keeps
+    # (default 600s) knobs from $HERMES_HOME/config.yaml. The token ceiling keeps
     # aligned with _smart_refine's _get_config() so there's ONE knob, not a
     # scattered literal. The timeout is the self_impr_state stall fix — with no
     # timeout, a wedged upstream model could hang the turn indefinitely; now it
     # fails fast and retries instead of blocking forever.
     import os
-    from jpm.core._paths import _get_joshaico_home
-    _cfg_path = os.path.join(_get_joshaico_home(), "config.yaml")
+    from jpm.core._paths import _get_agent_home
+    _cfg_path = os.path.join(_get_agent_home(), "config.yaml")
     _smart_max_tokens = 5000
     _llm_timeout = 600.0
     try:
@@ -2242,7 +2242,7 @@ def run_self_improvement(agent, messages_snapshot: list, review_memory: bool = F
         _mark_heartbeat_processed(session_id)
 
     # NOTE (2026-10-09): auto-promotion of high-confidence patterns to skills
-    # was UNWIRED. It wrote flat .md files into ~/.joshaico/skills/auto/ from
+    # was UNWIRED. It wrote flat .md files into $HERMES_HOME/skills/auto/ from
     # every patterns row with confidence >= 0.85 — including junk intent_*
     # patterns — producing bogus loadable skills. Skill creation is now
     # agent-authored in-band via skill_manage (see conversation_loop.py).
@@ -2344,9 +2344,9 @@ def _promote_high_conf_patterns() -> None:
 
     import os
     import yaml
-    from jpm.core._paths import _get_joshaico_home
+    from jpm.core._paths import _get_agent_home
 
-    skills_dir = os.path.join(_get_joshaico_home(), "skills", "auto")
+    skills_dir = os.path.join(_get_agent_home(), "skills", "auto")
     os.makedirs(skills_dir, exist_ok=True)
 
     for row in rows:

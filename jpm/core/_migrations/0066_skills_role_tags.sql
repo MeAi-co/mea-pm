@@ -13,7 +13,7 @@
 --
 -- What role_tags means
 -- --------------------
--- Comma-separated role slugs (matching ~/.joshaico/roles/<slug>.yaml) that a
+-- Comma-separated role slugs (matching the host agent roles/<slug>.yaml) that a
 -- skill BELONGS TO. Empty string = role-agnostic / global (always allowed).
 -- M:N by design — one skill may serve several roles. No join table; this is the
 -- same "TAGS not tables" pattern used for knowledge/project scope binding.
@@ -25,7 +25,7 @@
 -- Idempotent: COMMENT ON COLUMN overwrites; UPDATEs are guarded — safe to re-run.
 
 COMMENT ON COLUMN public.skills.role_tags IS
-  'Comma-separated role slugs (matching ~/.joshaico/roles/<slug>.yaml) this skill belongs to. Empty = role-agnostic/global. M:N, no join table. Rendered as the `role` field in skill_view/skills_list/skill_choose; hints the agent to role_choose(name=...) before using a role-specific skill.';
+  'Comma-separated role slugs (matching the host agent roles/<slug>.yaml) this skill belongs to. Empty = role-agnostic/global. M:N, no join table. Rendered as the `role` field in skill_view/skills_list/skill_choose; hints the agent to role_choose(name=...) before using a role-specific skill.';
 
 -- ── Seed builtin bindings (non-clobbering) ─────────────────────────────────
 -- Only touches rows still at the default empty string, so a node whose
@@ -43,12 +43,5 @@ UPDATE public.skills SET role_tags = 'programmer'
 -- assistant: generalist ops / diagnostics / daily-driver skills
 UPDATE public.skills SET role_tags = 'assistant'
  WHERE role_tags = '' AND name IN (
-   'ops', 'joshaico-diagnostics', 'jpm-workflow'
- );
-
--- programmer,assistant: dual-nature (do engineering work AND general ops)
-UPDATE public.skills SET role_tags = 'programmer,assistant'
- WHERE role_tags = '' AND name IN (
-   'cross-node-code-sync', 'joshaico-config-pipeline',
-   'joshaico-deployment', 'joshaico-service-lifecycle'
+   'ops'
  );

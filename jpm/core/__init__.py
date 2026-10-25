@@ -1,5 +1,5 @@
 """jpm core — shared modules used by all agents."""
-from ._paths import _get_joshaico_home, _get_yaml_path
+from ._paths import _get_agent_home, _get_yaml_path
 from ._parse import parse_kv
 from ._cache import _LRUCache, _get_cache, _CACHE
 from ._entities import _extract_entities

@@ -67,7 +67,7 @@ _ENRICHMENT_CFG_MTIME: float | None = None
 
 
 def _enrichment_config() -> dict:
-    """Read the memory_enrichment block from ~/.joshaico/config.yaml (fail-open).
+    """Read the memory_enrichment block from $HERMES_HOME/config.yaml (fail-open).
 
     Returns {"enabled": bool, "tables": [str, ...]} with the same defaults as
     the run.py memory_enrichment gate, so the plugin's per-turn adaptive recall
@@ -79,10 +79,10 @@ def _enrichment_config() -> dict:
     """
     try:
         import yaml as _yaml
-        from ._paths import _get_joshaico_home
+        from ._paths import _get_agent_home
         from pathlib import Path
 
-        cfg_path = Path(_get_joshaico_home()) / "config.yaml"
+        cfg_path = Path(_get_agent_home()) / "config.yaml"
         if cfg_path.exists():
             mtime = cfg_path.stat().st_mtime
             global _ENRICHMENT_CFG_CACHE, _ENRICHMENT_CFG_MTIME

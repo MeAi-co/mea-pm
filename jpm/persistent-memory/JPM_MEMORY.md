@@ -1,6 +1,6 @@
 # JPM Memory — Source of Truth
 
-All structured knowledge lives in `persistent_memory.db` (SQLite FTS5) at `$JOSHAICO_HOME/memory/persistent_memory.db`.
+All structured knowledge lives in `persistent_memory.db` (SQLite FTS5) at `$HERMES_HOME/memory/persistent_memory.db`.
 
 ## Architecture
 
@@ -61,7 +61,7 @@ All structured knowledge lives in `persistent_memory.db` (SQLite FTS5) at `$JOSH
 - `memory_entry` — Personal agent notes, shoebox entries. Tiered by importance.
 - `project` — Architecture decisions and system design
 - `tool` — Tool usage patterns
-- `skill` — Registered skill metadata (backfilled from `~/.joshaico/skills/`)
+- `skill` — Registered skill metadata (backfilled from `$HERMES_HOME/skills/`)
 - `skill_part` — Skill sub-parts (references, templates, scripts)
 - `general` — General knowledge, session sweeps, legacy data
 - `session_sweep` — Auto-mined session insights
@@ -85,14 +85,14 @@ The `<jpm_context>` block is built in this order:
 
 ## Memory Pipeline
 
-Backfill scripts in `jpm/scripts/`:
+Scripts in `jpm/scripts/`:
 
-- `backfill.py` — Backfill skills from `~/.joshaico/skills/` into knowledge
-- `backfill_from_sources.py` — Import from memory files, USER.md, MEMORY.md
-- `memory_pipeline.py` — Full pipeline: source → backfill → deduplicate → prune
-- `mine_sessions.py` — Mine session history for insights
+- `migrate_from_stock.py` — Import an existing stock Hermes SQLite `state.db`
+  (sessions + messages) into the PG tables. Dry-run by default; idempotent and
+  resumable. See `MIGRATION.md` at the repo root.
 
-Memory is **semi-automatic** — facts are stored explicitly during sessions, but pipelines batch-import skills and deduplicate stale entries.
+Memory is **semi-automatic** — facts are stored explicitly during sessions.
+There is no automatic skill backfill or dedup pipeline in this release.
 
 ## Trust Scoring
 

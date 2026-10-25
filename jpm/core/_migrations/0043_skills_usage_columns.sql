@@ -1,6 +1,6 @@
 -- 0043_skills_usage_columns.sql
 -- Add usage telemetry + lifecycle columns to public.skills.
--- Previously tracked in the sidecar file ~/.joshaico/skills/.usage.json
+-- Previously tracked in a sidecar file under the agent home's skills dir
 -- (see core/tools/skill_usage.py). PG is the single source of truth, so the
 -- sidecar is retired and usage is stored as real columns here.
 -- Columns mirror the record-dict keys in skill_usage.py exactly:
