@@ -1,7 +1,3 @@
-Scope: this MIT license covers the MeAI Vault plugin code in this repository,
-excluding the engine under jpm/. The engine is licensed separately and is not MIT.
-See jpm/LICENSE.
-
 MIT License
 
 Copyright (c) 2026 MeAi-co
