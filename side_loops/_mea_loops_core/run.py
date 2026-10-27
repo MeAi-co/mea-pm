@@ -85,22 +85,6 @@ def _loop_anchor(shim, payload: dict):
     return {"anchor": anchor, "persisted": ok}
 
 
-def _loop_skillmgr(shim, payload: dict):
-    """OOB skill-manager turn classifier (DB-only). Per turn.
-
-    Classifies the current user turn as reply/task/project via the aux LLM and
-    returns the verdict. Observation-only (the fork logs it, does not inject).
-    """
-    from _mea_loops_core.vendor.skill_manager import classify_turn
-    verdict = classify_turn(
-        payload.get("message_text") or "",
-        session_key=shim.session_id,
-        turn_id=payload.get("turn_id") or "",
-        enabled=True,
-    )
-    return {"verdict": verdict}
-
-
 def _loop_toolflow(shim, payload: dict):
     """Tool-flow summarizer (DB-only). Turn end, api_call_count >= 2.
 
@@ -145,7 +129,6 @@ _LOOPS = {
     "self_impr": _loop_self_impr,
     "agent_digest": _loop_agent_digest,
     "anchor": _loop_anchor,
-    "skillmgr": _loop_skillmgr,
     "toolflow": _loop_toolflow,
     "recompact": _loop_recompact,
 }

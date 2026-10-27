@@ -572,8 +572,7 @@ is independently installable, and none are required for the provider to work.
 | `mea_loop_anchor` | volatile session anchor, generated out of process |
 | `mea_loop_statesync` | turn end pulse, focus and loop sync |
 | `mea_loop_selfimpr` | self improvement pass over recent turns |
-| `mea_loop_skillmgr` | out of band skill manager turn classifier |
-| `mea_loop_skillnudge` | skill load and maintenance nudges (capped per turn) |
+| `mea_loop_skillnudge` | injects synthetic load and maintenance directives so the agent pulls the right skill itself, re-arming across multi loop turns (capped per turn) |
 | `mea_loop_recompact` | tier 2 session summary recompaction |
 | `mea_loop_digest` | LLM row compressor, **cron driven**, no per turn hook |
 | `mea_loop_toolflow` | non LLM tool flow summarizer, **cron driven** |
