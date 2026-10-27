@@ -103,16 +103,15 @@ The chatlogs for Test 3 were shipped with the arms swapped in the original expor
 They are relabelled here by reply identity, so the A file holds A's transcript and
 A's gateway log. Any earlier reading of that test has the arms inverted.
 
-Results do not agree across the block, and the reports keep them apart: A wins
-Tests 1 and 2, C wins Test 3 narrowly on provenance, and Tests 4 to 6 return to A.
-The earlier tests are not a trend line and are not averaged into a total.
+A wins all six runs, and the reports keep each one apart rather than averaging them
+into a total. Test 3 is the closest: C's provenance work there is the best in the
+block, and it still loses the run by writing an intention into the record as a
+completed purchase.
 
 `reports/Cross_Test_Consistency_Report.md` is the one document that reads across all
 six. It does not average them: it states what stayed constant in arm A's operating
 mode across every run, and attributes the answer deviations to the deliberately
-vague question set rather than to instability in the arm. It also reconciles the
-Test 3 result with that reading, keeping the per-test verdict standing on its own
-axis.
+vague question set rather than to instability in the arm.
 
 `reports/BenchC_UX_Dossier.md` audits the control arm as a user-facing tool rather
 than as a score: denials of existence issued before any lookup, the same denial
