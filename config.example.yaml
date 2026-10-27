@@ -1,0 +1,87 @@
+# MeAI Vault (mea_pm) reference configuration
+#
+# This is the configuration this stack ran with. Copy the blocks you need into
+# your profile's config.yaml and replace the placeholders.
+#
+# Secrets do NOT go here. They go in the profile's .env:
+#   JPM_PG_HOST / JPM_PG_PORT / JPM_PG_DB / JPM_PG_USER / JPM_PG_PASSWORD
+
+# --- model ---------------------------------------------------------------
+# Any provider works. A larger window means compression fires less often.
+model:
+  default: <your-model>
+  provider: <your-provider>
+  context_length: 131072
+  max_tokens: 16384
+
+# --- memory provider -----------------------------------------------------
+memory:
+  provider: mea_pm
+
+# --- plugins -------------------------------------------------------------
+# mea-vault, mea-sessions, mea-messages and mea-skills are the tool surface.
+# mea-prompt and mea-warmstart are the two that most improve the UX.
+plugins:
+  enabled:
+    - mea-vault
+    - mea-sessions
+    - mea-messages
+    - mea-skills
+    - mea-prompt
+    - mea-warmstart
+  entries:
+    mea-sessions:
+      # Let `sessions` replace stock session_search. Without this the core tool
+      # answers and the store is never queried.
+      allow_tool_override: true
+    mea-skills:
+      allow_tool_override: true
+    mea-warmstart:
+      settings:
+        enabled: true
+        on_cold_start: true
+        on_boot: true
+        last_n: 16
+        max_chars: 7000
+        min_messages: 4
+        source: pg
+        per_message_chars: 700
+
+# --- tool visibility -----------------------------------------------------
+# The stock tool_search bridge defers every non core plugin tool behind
+# tool_search/tool_describe/tool_call, which hides vault/sessions/messages from
+# the advertised surface while the prompt still names them. Keep them visible.
+tools:
+  tool_search:
+    enabled: "off"
+
+# --- compression ---------------------------------------------------------
+# Summaries are mechanical work. Route them to a cheap, fast model and cap the
+# call so a slow provider cannot stall turn close.
+auxiliary:
+  compression:
+    model: <cheap-fast-model>
+    provider: <your-provider>
+    timeout: 120
+
+compression:
+  enabled: true
+  # Ratio trigger.
+  threshold: 0.95
+  # Absolute trigger, fires at the lower of the two. Set near 75 percent of the
+  # model window so a model swap does not silently change when this fires.
+  threshold_tokens: 100000
+  # Deterministic, no LLM: stubs old tool results, dedups identical ones,
+  # truncates oversized tool arguments.
+  proactive_prune_tokens: 60000
+  # Second deterministic pass, post turn.
+  micro_compact: true
+  # Amortise the auxiliary summarisation call instead of paying it every turn.
+  micro_compact_every_n_turns: 3
+  micro_compact_defrag_threshold_tokens: 12000
+  # Hard cap on one summarisation call, in seconds.
+  micro_compact_timeout_seconds: 45
+  # Keep the opening instructions and the live tail out of the summariser.
+  protect_last_n: 20
+  protect_first_n: 10
+  in_place: true

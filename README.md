@@ -35,6 +35,62 @@ stock memory-provider seam.
 
 ---
 
+## Who it is for
+
+MeAI Vault is aimed at **intermediate to advanced users**, and it assumes you are
+comfortable with Postgres, environment files and reading a log when something
+fails. It is not a one click install for a laptop toy.
+
+It fits best when:
+
+- **Your agents run on a VPS or a server.** A long lived gateway plus a database is
+  the natural shape. Laptops sleep, and a store that is asleep is not memory.
+- **You run more than one agent.** Several profiles, several topics, a cron job and
+  a chat session, all needing the same memory without an export or a sync script.
+- **Memory has to move fast between them.** One query path for everyone, no queue,
+  no replication lag, no "which copy is current".
+- **The assistant is long lived.** Its value is the accumulated rules, preferences
+  and history, and you want that to survive resets and compaction.
+- **You want to inspect what it knows.** SQL access to your own memory, with the
+  schema and the rows visible instead of summarised into a prompt.
+
+If you want zero dependencies and a single file, stock file memory is still the
+simpler choice, and nothing here pretends otherwise.
+
+---
+
+## Requirements
+
+| Requirement | Detail |
+|---|---|
+| Host | A VPS or server running the gateway continuously. Any Linux that runs Hermes and Postgres |
+| PostgreSQL | 14 or newer, with the **pgvector** extension available |
+| Embedding path | Local (Ollama with `nomic-embed-text` by default) or an external OpenAI compatible endpoint. `EMBED_DIM` must match the model |
+| Runtime | The agent's own Python, which `install.sh` targets. No global install needed |
+| Access | Shell on the host to run `install.sh` and the importer, and network from the gateway to the Postgres port |
+| Storage | A disk with room for rows and embeddings, plus a backup target for `pg_dump` |
+| Network | If Postgres is remote, a private network or TLS. Memory over the open internet is a bad trade |
+
+Nothing else is required. The embedding service can be on the same box or a
+separate one, and the provider degrades to keyword search if it disappears.
+
+### Documentation your agent can follow
+
+The repo ships the instructions, not just a paragraph of prose, so you can point
+your own agent at them:
+
+- **[MIGRATION.md](MIGRATION.md)** walks the stock to Postgres move, including what
+  to check before and after.
+- **`jpm/scripts/migrate_from_stock.py`** is dry run by default, idempotent,
+  resumable, and opens the source SQLite read only. Nothing is destroyed on a first
+  pass.
+- **`install.sh`** is idempotent and verifies its own imports.
+
+A capable agent can read those files itself and carry out the migration, which is
+how this was deployed in the first place.
+
+---
+
 ## Memory the agent actually uses
 
 A memory system the agent does not actively use is a storage system with better
@@ -270,14 +326,7 @@ routing guidance, so it is not done.
 
 ## Quickstart
 
-### 1. Requirements
-
-- PostgreSQL 14 or newer, with the **pgvector** extension available
-- A stock Hermes install with an isolated runtime Python
-- An embedding endpoint (Ollama with `nomic-embed-text` by default). Optional, but
-  without it you get lexical search only
-
-### 2. Install
+### 1. Install
 
 ```bash
 cd <this dir>
@@ -288,7 +337,7 @@ Idempotent, prints each step, installs `ruamel.yaml`, `asyncpg`,
 `psycopg2-binary` and `pyyaml` into the runtime interpreter, and verifies the
 import. It never auto installs anything the manifest did not declare.
 
-### 3. Configure
+### 2. Configure
 
 In the target profile's `.env`. Secrets go here, never in `config.yaml`:
 
@@ -325,7 +374,7 @@ Embeddings (all optional):
 | `EMBED_WORKERS` | `2` |
 | `OLLAMA_URL` | none |
 
-### 4. Activate
+### 3. Activate
 
 ```yaml
 # config.yaml
@@ -335,7 +384,7 @@ memory:
 
 Restart the gateway, or start a new session.
 
-### 5. Verify
+### 4. Verify
 
 ```bash
 # did the schema apply? expect one row per file in jpm/core/_migrations
@@ -345,6 +394,88 @@ psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
 Then ask the agent to run `vault(action='fetch', section='pulse')`. If the provider
 is live it returns structured sections. If it silently returns nothing, check
 `JPM_PG_HOST` first.
+
+---
+
+## Reference configuration
+
+These are the settings this stack actually ran with, not a guess. The two that
+matter most are the plugin entries and the compression block.
+
+```yaml
+memory:
+  provider: mea_pm
+
+plugins:
+  enabled:
+    - mea-vault
+    - mea-sessions
+    - mea-messages
+    - mea-skills
+    - mea-prompt
+    - mea-warmstart
+  entries:
+    mea-sessions:
+      allow_tool_override: true    # let `sessions` replace stock session_search
+    mea-skills:
+      allow_tool_override: true    # let skills_* override the core tools
+    mea-warmstart:
+      settings:
+        enabled: true
+        on_cold_start: true
+        on_boot: true
+        last_n: 16
+        max_chars: 7000
+        min_messages: 4
+        source: pg                 # replay from Postgres, not a flat file
+        per_message_chars: 700
+
+tools:
+  tool_search:
+    enabled: "off"                 # keep vault/sessions/messages directly visible
+
+auxiliary:
+  compression:
+    model: <cheap fast model>      # summaries do not need the main model
+    timeout: 120
+
+compression:
+  enabled: true
+  threshold: 0.95                  # ratio trigger
+  threshold_tokens: 100000         # absolute trigger, see note below
+  proactive_prune_tokens: 60000    # deterministic tool result prune, no LLM
+  micro_compact: true              # second deterministic pass, post turn
+  micro_compact_every_n_turns: 3   # amortise the aux call, do not pay it every turn
+  micro_compact_defrag_threshold_tokens: 12000
+  micro_compact_timeout_seconds: 45
+  protect_last_n: 20
+  protect_first_n: 10
+  in_place: true
+```
+
+Why these keys, briefly:
+
+- **`tool_search.enabled: "off"`** keeps plugin tools on the advertised surface. The
+  stock bridge defers every non core tool behind `tool_search`, which hides `vault`,
+  `sessions` and `messages` while the prompt still names them. The agent then has
+  guidance for tools it cannot see.
+- **`allow_tool_override: true`** on sessions and skills is what makes the plugin
+  version the one that answers. Without it the core tool wins and the store is not
+  consulted.
+- **`threshold_tokens`** gives an absolute trigger alongside the ratio. Set it near
+  75 percent of the model's window so a model swap does not silently change when
+  compression fires.
+- **`proactive_prune_tokens`** stubs old tool results before the summariser runs.
+  Reclaiming tokens deterministically is cheaper than asking a model to do it.
+- **`micro_compact_every_n_turns: 3`** amortises the auxiliary call. At every turn
+  the summary latency lands on every turn.
+- **`protect_first_n`** and **`protect_last_n`** keep the opening instructions and
+  the live tail out of the summariser, which is where the answers usually are.
+- **The auxiliary compression route** matters on a small or local model. Summaries
+  are mechanical work, and routing them away from the main model keeps turn
+  latency predictable.
+
+A copy of this block ships as **[config.example.yaml](config.example.yaml)**.
 
 ---
 
@@ -421,20 +552,6 @@ that held the answer.
 Results were conclusive by the fourth scored run and stayed that way. See
 `bench/README.md` for the method, the arm definitions, and the transcripts behind
 each result.
-
----
-
-## What this is not
-
-- **Not a hosted service.** You run Postgres. That is the point, and it is also
-  the operational cost.
-- **Not conflict free across agents.** Two profiles can write contradictory facts
-  about the same entity. `vault(action='contradict')` surfaces that instead of
-  hiding it, but nothing resolves it for you.
-- **Not useful without embeddings.** It runs without them, and recall degrades to
-  keyword matching, which is the failure mode this project exists to replace.
-- **Not a replacement for the model's context window.** It reduces what has to be
-  carried, and it cannot make a small model reason better.
 
 ---
 
