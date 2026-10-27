@@ -2,6 +2,7 @@ name: mea-pm
 version: 0.2.0
 description: "MeAI Vault: permanent memory for Hermes agents. PostgreSQL-backed memory provider, ships as the mea_pm package."
 author: "MeAi-co"
+license: "MIT (plugin) / AGPL-3.0-only (jpm engine)"
 kind: standalone
 python_dependencies:
   - asyncpg
