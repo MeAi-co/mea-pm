@@ -42,12 +42,18 @@ memory for when it needs to audit instead of recall.
 
 **The verdict.** Six live tests, user and agent in the same loop, the same seeded
 history on both sides, this stack against stock Hermes plus Mnemosyne. This stack
-answered every question without being challenged and stayed consistent from the
-first test to the last, taking five of the six; the one it lost was a single skill
-axis that did not generalize. The comparison stack hedged, refused, corrected itself
-only after a push, and in one run went around its own tools to read the database
-file directly. Reports, chat logs and agent logs are in
-[`bench/`](bench/README.md).
+took five of the six. The one it lost went narrowly to the other stack on a
+deliberately isolated axis, provenance separation: the other stack traced a thread
+back to its source and said plainly it was not the user's, while this stack revised
+a total mid answer without flagging that the earlier figure had just been withdrawn.
+The runs are reported one at a time and are not averaged into a total, because the
+questions were vague on purpose and a single run only proves what its own axis
+measures. What held constant across all six was how this stack operates: its tools,
+its context envelope and its retrieval habit never changed, so its wrong answers
+tracked how vague the question was rather than instability in the stack. The other
+stack hedged, refused, corrected itself only after a push, and in one run went
+around its own tools to read the database file directly. Reports, chat logs and agent
+logs are in [`bench/`](bench/README.md).
 
 It is the assistant memory we wanted for our own daily work. That is why we built
 it, and why we are giving it away.
@@ -608,9 +614,12 @@ one shot has no human, no turn to turn drift and no compaction step, so it canno
 show what happens when an agent's own compression quietly removes the messages
 that held the answer.
 
-Results were conclusive by the fourth scored run and stayed that way. See
-`bench/README.md` for the method, the arm definitions, and the transcripts behind
-each result.
+Each run is reported on its own axis and the results do not agree across the block:
+this stack won the first two, lost the third narrowly on provenance, and won the last
+three. They are not a trend line and they are not averaged into a total. What the
+reports do establish, read together, is that this stack's tools, context envelope and
+retrieval habit did not change from the first run to the last. See `bench/README.md`
+for the method, the arm definitions, and the transcripts behind each result.
 
 ---
 
