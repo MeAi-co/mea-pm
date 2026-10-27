@@ -618,6 +618,33 @@ one shot has no human, no turn to turn drift and no compaction step, so it canno
 show what happens when an agent's own compression quietly removes the messages
 that held the answer.
 
+### The six runs, one line each
+
+| Run | Better combination | What decided it |
+|---|---|---|
+| 1 | MeAI Vault | The ledger was right and no entity was invented. The other arm wrote better and got the total wrong. |
+| 2 | MeAI Vault | The ledger and the turn to turn continuity held. The other arm retrieved more widely and could not add up what it retrieved. |
+| 3 | Mnemosyne | Provenance, narrowly, about 55/45. The other arm traced a borrowed thread to its source and said so. |
+| 4 | MeAI Vault | Retrieval was owned from the first turn instead of after being pushed. |
+| 5 | MeAI Vault | Retrieval continued under load. The other arm made no tool call, denied the memory and answered three seconds after being challenged. |
+| 6 | MeAI Vault | Conclusions were rebuilt by retrieving again. The other arm explained its own transcript as lost and was wrong about a file it was reading. |
+
+### Hard errors
+
+| Runs | MeAI Vault | Mnemosyne |
+|---|---|---|
+| Tests 1 to 3 | 0 | 6 |
+| Test 6 | 1 | 3 |
+
+A hard error is a factual claim the record contradicts: a wrong purchase item, a
+finished game's hours dropped, a premise invented and then used as the basis for
+arithmetic. In Tests 1 to 3 the six against the control arm are two wrong purchase
+items, two omissions of a game's hours, one fabricated premise and one item asserted
+as bought when the thread only says it is being considered. Test 6's one against this
+stack is a correct answer abandoned under pressure, which is a judgment failure
+rather than an invention. Tests 4 and 5 were graded on the criteria and are not
+tallied here. Per run detail is in `bench/reports/`.
+
 Each run is reported on its own axis and the results do not agree across the block:
 this stack won the first two, lost the third narrowly on provenance, and won the last
 three. They are not a trend line and they are not averaged into a total. What the
