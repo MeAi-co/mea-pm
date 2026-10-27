@@ -152,11 +152,25 @@ EOF
 
 ```bash
 # 4. restart the gateway, then check the schema landed
-psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
+psql -h "$JPM_PG_HOST" -p "$JPM_PG_PORT" -U "$JPM_PG_USER" -d "$JPM_PG_DB" \
+  -c "SELECT count(*) FROM _schema_migrations;"
 ```
 
-If that returns a row count, the store is live. Ask the agent for
-`vault(action='fetch', section='pulse')` and it should come back structured.
+If that returns a row count, the store is live. The number should match the
+migration files on disk:
+
+```bash
+ls jpm/core/_migrations/*.sql | wc -l
+```
+
+If `psql` is not installed where the gateway runs, the same check needs no client:
+
+```
+vault(action='query', sql='SELECT count(*) FROM _schema_migrations')
+```
+
+Either way, ask the agent for `vault(action='fetch', section='pulse')` and it should
+come back structured.
 
 **Prerequisites for those four steps:** Postgres 14 or newer with pgvector, and a
 database the gateway user can reach. Embeddings are optional and only change
