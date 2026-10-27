@@ -61,6 +61,14 @@ verdict; an arm that is cheaper and wrong has not won.
 Error classes are graded, not lumped. A recoverable over-inference and a confident
 fabricated count are different defects.
 
+Hard errors are tallied per run, never across the block. Tests 1 to 3: **A 0, C 6**,
+where C's six are two wrong purchase items, two omissions of a finished game's hours,
+one fabricated premise used as the basis for arithmetic, and one item asserted as
+bought when the thread only says it is being considered. Test 6 records **A 1, C 3**:
+A abandoned a correct answer under pressure, C produced two false counts and one
+false causal explanation. Tests 4 and 5 are graded on the criteria above and are not
+tallied here.
+
 ## Reports
 
 `reports/Test6_Evaluation_Report.md` is the criteria and the current result.

@@ -49,9 +49,11 @@ Its hedges often behave as surplus rather than caution: it refuses a winter-holi
 
 A works at the level of individual messages and entry IDs, and says so: it cites the two messages in one session that disagree, notes that "two $50s in my notes and only one of them is real", and runs one repair thread across six turns, closing a promise it made earlier in the session.
 
-The cost is visible. A spams identifiers, offers repeated repair passes, and its formatting is worse than C's. It is also not error-free: it pulls Gris into a backlog it does not belong to, overstates how many titles are 60-to-100-hour commitments, asserts a "Southern California yard" never established in the record, and drifts on one interval from "5 to 18 weeks" to "2 to 4 months" to "1–4 months".
+The cost is visible. A spams identifiers, offers repeated repair passes, and its formatting is worse than C's.
 
-The asymmetry that decides the run: A's errors are local and correctable inside the conversation; C's error is the headline number.
+It over-infers in one place: it reasons about the hummingbird as a bird in a "Southern California yard", a location the record does not establish, and the species argument hangs off that premise. That is a recoverable over-inference, not a fabricated fact, and A marks its own uncertainty in the same breath ("either you got extremely lucky, or the ID drifted"). Two charges an earlier reading made against this run do not survive the transcript. Gris is not pulled into the backlog: it appears once, in the "maybe someday" pile, named as a three-hour game to contrast with the sixty-to-hundred-hour commitments beside it. And the interval figures are not drift: "5 to 18 weeks" is keyed to a spring meeting, "2 to 4 months" to a weekend meeting, "1 to 4 months" to the Ava reading, and A states that the readings cannot both be right.
+
+The asymmetry that decides the run: A's over-inferences are local, disclosed and correctable inside the conversation; C's error is the headline number.
 
 ---
 
@@ -89,12 +91,11 @@ Q11 is a near-verbatim repeat of Q4. Neither arm noticed, which is a harness obs
 - **False contradiction.** Reading a four-day and a one-day gap as mutually impossible.
 - **Self-retracted metric.** It reports recorded hours in the maybe pile as zero, then withdraws the zero as missing data.
 
-### Bench A (recoverable)
+### Bench A (recoverable, no hard errors)
 
-- Gris introduced into a backlog it does not belong to.
-- "Six of those are 60-to-100-hour commitments" overstates the titles that fit that band.
-- "Southern California yard" asserts a region never established.
-- One interval drifts across three successive phrasings.
+- "Southern California yard" is an unstated regional premise carrying a species argument, disclosed as uncertain in the same turn.
+
+Two further items an earlier reading listed here, Gris pulled into the backlog and a three-phrasing interval drift, do not survive the transcript and are removed. "Six of those are 60-to-100-hour commitments" is a band applied to a pile the report cannot count from the transcript, so it is neither confirmed nor charged.
 
 ### Unconfirmed
 

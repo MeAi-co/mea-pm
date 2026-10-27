@@ -51,7 +51,7 @@ Its arithmetic is the recurring weakness. Odyssey's hours are declared never log
 
 A is auditable where it works: its percentages check, it tracks a stale duplicate entry (216) and an open loop (195) across turns, and it catches a bulk-import artefact, noting that legacy messages are stamped within the same minute rather than reflecting real conversation times.
 
-It also slips. "Strip out the replay and TLOU2 is 30 hours, putting you at 110 total" is 115 by its own numbers. It claims the user said something twice that the transcript cannot show. It emits bot boilerplate mid-answer and a broken code fragment.
+It also slips, but not where an earlier scoring put it. "Strip out the replay and TLOU2 is 30 hours, putting you at 110 total" is 115 by its own subtraction, five hours low, inside a hypothetical that does not touch the 140 answer. What it does not do is invent a duplicate. At Q5 it names the two completions outright, "30h on hard plus 25h on normal = 55h, but that's two separate completions of the same game, not one long one", and later it warns that counting the 30-hour run a second time would put one playthrough at 60 hours and the total at 170, which is the opposite of double counting. The duplicate it does flag, entry 216 as a stale copy of 201 with pre-correction wording, is a database housekeeping note about a superseded row. It is not a claim about how many times the user played. It emits bot boilerplate mid-answer and a broken code fragment.
 
 ---
 
@@ -85,13 +85,14 @@ It also slips. "Strip out the replay and TLOU2 is 30 hours, putting you at 110 t
 - "Eight months of blank… not one emotionally weighted event", contradicted by its own Yellowstone "last month" entry.
 - Names entities it cannot surface in the store (Himalayan pink salt block, bedroom area rug) while leaving them unsupported.
 
-### Bench A (recoverable)
+### Bench A (recoverable, no hard errors)
 
-- Purchase question refused, then answered with the wrong item (orchid).
-- Arithmetic slip: 110 where its own figures give 115.
-- Unverifiable "you told me the hard run took 30 hours, twice".
+- Purchase question refused, then offered as a guess (orchid). The refusal is explicit and the guess is marked as one, so it is a miss, not an asserted fabrication.
+- Arithmetic slip: 110 where its own figures give 115, inside a hypothetical.
 - "Bhutan — never visited, no species ever named", which contradicts C's named endemics; at most one arm is right and the transcripts cannot arbitrate.
 - Boilerplate leak at 18:57 and a malformed code-run fragment.
+
+The earlier scoring of this run counted one more item against A, that it "claims the user said the 30-hour run twice" and had therefore invented a duplicate. That reading does not survive the transcript. The two completions are stated in the record, A reports both, and the duplicate A raises is a stale row. Scored as a hard error it was wrong, and it is removed here. Hard error means a factual claim the record contradicts. A guess, a hedge, an arithmetic slip inside a hypothetical and a housekeeping note do not qualify.
 
 ---
 
@@ -121,7 +122,7 @@ The comparison is therefore asymmetric, and this report says so rather than impl
 
 | Criterion | Winner | Margin |
 |---|---|---|
-| Accuracy | A | ~0.5 (not the ~1.1 the original score implied) |
+| Accuracy | A | ~0.7 (zero hard errors this run; the removed duplicate charge was the only one scored) |
 | Continuity | A | ~0.4 |
 | Retrieval thoroughness | **C** | ~0.3 |
 | Hedging quality | A | ~0.2 |

@@ -72,7 +72,7 @@ The questions were deliberately rewritten from stock LongMemEval lookups into va
 
 Three features of the runs support that attribution:
 
-1. **A's errors concentrate where the question is least specific.** The purchase question ("the gesture side", Test 2) and the hours question ("how many hours", Test 3) both require deciding which of several records the user means. Where the question names its target, A lands it (Test 1's ledger, Test 4's trip untangling, Test 5's arithmetic).
+1. **A's misses concentrate where the question is least specific, and they are misses rather than fabrications.** The purchase question ("the gesture side", Test 2) and the hours question ("how many hours", Test 3) both require deciding which of several records the user means. On both A declines to bind a fact it cannot place, and in Test 3 it states the alternate reading instead of hiding the ambiguity. Where the question names its target, A lands it (Test 1's ledger, Test 4's trip untangling, Test 5's arithmetic).
 2. **A's wrong answers stay inside the corpus.** Every number it gives traces to an entry it retrieved. It does not import outside titles, dates or figures.
 3. **Call volume rises where answers get vaguer** (Section 3), which is the arm responding to vagueness by working harder rather than guessing sooner.
 
