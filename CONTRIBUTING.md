@@ -48,6 +48,12 @@ the open, with the correction stated rather than the old line quietly deleted.
 Reports keep the same shape: criteria, question by question findings, the difference
 in that run, and the evidence index.
 
+## Licensing of contributions
+
+`jpm/` is AGPL-3.0-only and the rest of the repository is MIT. A pull request is
+taken as agreement to contribute under the license of the directory it touches.
+Do not paste in code you cannot license that way. See `LICENSING.md`.
+
 ## Commit messages
 
 One imperative line, no body. `Fix profile home resolution`, not a paragraph
