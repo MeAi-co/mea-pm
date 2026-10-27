@@ -135,7 +135,7 @@ your own agent at them:
   pass.
 - **`install.sh`** is idempotent and verifies its own imports.
 
-A capable agent can read those files itself and carry out the migration, which is
+Your stock Hermes agent can read those files and carry out the rest of the migration, which is
 how this was deployed in the first place.
 
 ---
