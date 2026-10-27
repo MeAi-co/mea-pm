@@ -60,20 +60,11 @@ it, and why we are giving it away.
 
 ---
 
-## The short version
-
-- **Memory is stored, not recited.** What gets injected each turn is a small
-  curated slice. Everything else is retrieved on demand, by meaning, not by luck.
-- **The store is central.** One Postgres instance serves the whole box: every
-  profile, every chat, every topic, every cron job, all reading and writing the
-  same rows, safely and at the same time.
-- **`vault` is not a memory tool.** It is an interface to the store: recall,
-  graph traversal, curation, schema inspection, table creation and arbitrary SQL.
-  The agent can ask its memory questions instead of hoping the right paragraph was
-  injected, and it can extend the schema when the data does not fit a fixed shape.
-
 ---
 
+**On this page:** [The short version](#the-short-version) · [Who it is for](#who-it-is-for) · [Requirements](#requirements) · [Quickstart](#quickstart) · [Configuration you can start from](#reference-configuration) · [Memory the agent actually uses](#memory-the-agent-actually-uses) · [Why flat memory stops working](#why-flat-memory-stops-working) · [A central Postgres store beats a local memory plugin](#a-central-postgres-store-beats-a-local-memory-plugin) · [`vault` is an admin console, not a lookup](#vault-is-an-admin-console-not-a-lookup) · [The agent builds its own schema](#the-agent-builds-its-own-schema) · [One box, many agents, many topics](#one-box-many-agents-many-topics) · [Architecture](#architecture) · [Coming from stock Hermes](#coming-from-stock-hermes) · [Side loops](#side-loops) · [Evaluation](#evaluation) · [Re-vendoring the engine](#re-vendoring-the-engine) · [About the name](#about-the-name) · [License](#license)
+
+## The short version
 ## Who it is for
 
 MeAI Vault is aimed at **intermediate to advanced users**, and it assumes you are
@@ -129,6 +120,166 @@ your own agent at them:
 
 A capable agent can read those files itself and carry out the migration, which is
 how this was deployed in the first place.
+
+---
+
+## Quickstart
+
+Repo: **https://github.com/MeAi-co/mea-pm.git**
+
+Four steps. Clone it into the profile whose gateway runs your agent, install, point
+it at Postgres, switch the provider on.
+
+```bash
+# 1. into the profile, as a plugin
+git clone https://github.com/MeAi-co/mea-pm.git ~/.hermes/plugins/mea_pm
+cd ~/.hermes/plugins/mea_pm && ./install.sh
+
+# 2. credentials go in the profile .env, never in config.yaml
+cat >> ~/.hermes/.env <<'EOF'
+JPM_PG_HOST=127.0.0.1
+JPM_PG_PORT=5432
+JPM_PG_DB=jpm
+JPM_PG_USER=postgres
+JPM_PG_PASSWORD=change_me
+EOF
+
+# 3. switch the provider on
+#    edit config.yaml and add:
+#      memory:
+#        provider: mea_pm
+```
+
+```bash
+# 4. restart the gateway, then check the schema landed
+psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
+```
+
+If that returns a row count, the store is live. Ask the agent for
+`vault(action='fetch', section='pulse')` and it should come back structured.
+
+**Prerequisites for those four steps:** Postgres 14 or newer with pgvector, and a
+database the gateway user can reach. Embeddings are optional and only change
+whether recall is semantic or lexical.
+
+That is the whole install. Everything past this point is detail you can hand to
+your agent: the variable table, the two failure modes, the embedding options and
+the migration path are all written to be read by it.
+
+### Every variable, and the two that bite
+
+In the target profile's `.env`:
+
+| Var | Required | Default |
+|---|---|---|
+| `JPM_PG_HOST` | **yes** | none |
+| `JPM_PG_PORT` | no | `5432` |
+| `JPM_PG_DB` | no | `jpm` |
+| `JPM_PG_USER` | no | `postgres` |
+| `JPM_PG_PASSWORD` | no | empty / `.pgpass` |
+| `JPM_KNOWLEDGE_SCOPE` | no | `own` (`all` shares knowledge across profiles) |
+
+> **`JPM_PG_HOST` is the one that bites.** Unset, the provider reports itself
+> unavailable and the host falls back to its own memory backend. You get a working
+> looking install that never touches Postgres. Set but unreachable, you get a hard
+> error instead, which is the correct behaviour.
+
+Embeddings, all optional. Without them recall is keyword only:
+
+| Var | Default |
+|---|---|
+| `EMBED_MODEL` | `nomic-embed-text` |
+| `EMBED_DIM` | `768` |
+| `EMBED_NUM_GPU` | `-1` (all) |
+| `EMBED_BATCH` | `32` |
+| `EMBED_WORKERS` | `2` |
+| `OLLAMA_URL` | none |
+
+`install.sh` is idempotent, prints each step, installs `ruamel.yaml`, `asyncpg`,
+`psycopg2-binary` and `pyyaml` into the runtime interpreter, and verifies the
+import. It never installs anything the manifest did not declare.
+
+---
+
+## Reference configuration
+
+These are the settings this stack actually ran with, not a guess. The two that
+matter most are the plugin entries and the compression block.
+
+```yaml
+memory:
+  provider: mea_pm
+
+plugins:
+  enabled:
+    - mea-vault
+    - mea-sessions
+    - mea-messages
+    - mea-skills
+    - mea-prompt
+    - mea-warmstart
+  entries:
+    mea-sessions:
+      allow_tool_override: true    # let `sessions` replace stock session_search
+    mea-skills:
+      allow_tool_override: true    # let skills_* override the core tools
+    mea-warmstart:
+      settings:
+        enabled: true
+        on_cold_start: true
+        on_boot: true
+        last_n: 16
+        max_chars: 7000
+        min_messages: 4
+        source: pg                 # replay from Postgres, not a flat file
+        per_message_chars: 700
+
+tools:
+  tool_search:
+    enabled: "off"                 # keep vault/sessions/messages directly visible
+
+auxiliary:
+  compression:
+    model: <cheap fast model>      # summaries do not need the main model
+    timeout: 120
+
+compression:
+  enabled: true
+  threshold: 0.95                  # ratio trigger
+  threshold_tokens: 100000         # absolute trigger, see note below
+  proactive_prune_tokens: 60000    # deterministic tool result prune, no LLM
+  micro_compact: true              # second deterministic pass, post turn
+  micro_compact_every_n_turns: 3   # amortise the aux call, do not pay it every turn
+  micro_compact_defrag_threshold_tokens: 12000
+  micro_compact_timeout_seconds: 45
+  protect_last_n: 20
+  protect_first_n: 10
+  in_place: true
+```
+
+Why these keys, briefly:
+
+- **`tool_search.enabled: "off"`** keeps plugin tools on the advertised surface. The
+  stock bridge defers every non core tool behind `tool_search`, which hides `vault`,
+  `sessions` and `messages` while the prompt still names them. The agent then has
+  guidance for tools it cannot see.
+- **`allow_tool_override: true`** on sessions and skills is what makes the plugin
+  version the one that answers. Without it the core tool wins and the store is not
+  consulted.
+- **`threshold_tokens`** gives an absolute trigger alongside the ratio. Set it near
+  75 percent of the model's window so a model swap does not silently change when
+  compression fires.
+- **`proactive_prune_tokens`** stubs old tool results before the summariser runs.
+  Reclaiming tokens deterministically is cheaper than asking a model to do it.
+- **`micro_compact_every_n_turns: 3`** amortises the auxiliary call. At every turn
+  the summary latency lands on every turn.
+- **`protect_first_n`** and **`protect_last_n`** keep the opening instructions and
+  the live tail out of the summariser, which is where the answers usually are.
+- **The auxiliary compression route** matters on a small or local model. Summaries
+  are mechanical work, and routing them away from the main model keeps turn
+  latency predictable.
+
+A copy of this block ships as **[config.example.yaml](config.example.yaml)**.
 
 ---
 
@@ -385,166 +536,6 @@ routing guidance, so it is not done.
 
 ---
 
-## Quickstart
-
-Repo: **https://github.com/MeAi-co/mea-pm.git**
-
-Four steps. Clone it into the profile whose gateway runs your agent, install, point
-it at Postgres, switch the provider on.
-
-```bash
-# 1. into the profile, as a plugin
-git clone https://github.com/MeAi-co/mea-pm.git ~/.hermes/plugins/mea_pm
-cd ~/.hermes/plugins/mea_pm && ./install.sh
-
-# 2. credentials go in the profile .env, never in config.yaml
-cat >> ~/.hermes/.env <<'EOF'
-JPM_PG_HOST=127.0.0.1
-JPM_PG_PORT=5432
-JPM_PG_DB=jpm
-JPM_PG_USER=postgres
-JPM_PG_PASSWORD=change_me
-EOF
-
-# 3. switch the provider on
-#    edit config.yaml and add:
-#      memory:
-#        provider: mea_pm
-```
-
-```bash
-# 4. restart the gateway, then check the schema landed
-psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
-```
-
-If that returns a row count, the store is live. Ask the agent for
-`vault(action='fetch', section='pulse')` and it should come back structured.
-
-**Prerequisites for those four steps:** Postgres 14 or newer with pgvector, and a
-database the gateway user can reach. Embeddings are optional and only change
-whether recall is semantic or lexical.
-
-That is the whole install. Everything past this point is detail you can hand to
-your agent: the variable table, the two failure modes, the embedding options and
-the migration path are all written to be read by it.
-
-### Every variable, and the two that bite
-
-In the target profile's `.env`:
-
-| Var | Required | Default |
-|---|---|---|
-| `JPM_PG_HOST` | **yes** | none |
-| `JPM_PG_PORT` | no | `5432` |
-| `JPM_PG_DB` | no | `jpm` |
-| `JPM_PG_USER` | no | `postgres` |
-| `JPM_PG_PASSWORD` | no | empty / `.pgpass` |
-| `JPM_KNOWLEDGE_SCOPE` | no | `own` (`all` shares knowledge across profiles) |
-
-> **`JPM_PG_HOST` is the one that bites.** Unset, the provider reports itself
-> unavailable and the host falls back to its own memory backend. You get a working
-> looking install that never touches Postgres. Set but unreachable, you get a hard
-> error instead, which is the correct behaviour.
-
-Embeddings, all optional. Without them recall is keyword only:
-
-| Var | Default |
-|---|---|
-| `EMBED_MODEL` | `nomic-embed-text` |
-| `EMBED_DIM` | `768` |
-| `EMBED_NUM_GPU` | `-1` (all) |
-| `EMBED_BATCH` | `32` |
-| `EMBED_WORKERS` | `2` |
-| `OLLAMA_URL` | none |
-
-`install.sh` is idempotent, prints each step, installs `ruamel.yaml`, `asyncpg`,
-`psycopg2-binary` and `pyyaml` into the runtime interpreter, and verifies the
-import. It never installs anything the manifest did not declare.
-
----
-
-## Reference configuration
-
-These are the settings this stack actually ran with, not a guess. The two that
-matter most are the plugin entries and the compression block.
-
-```yaml
-memory:
-  provider: mea_pm
-
-plugins:
-  enabled:
-    - mea-vault
-    - mea-sessions
-    - mea-messages
-    - mea-skills
-    - mea-prompt
-    - mea-warmstart
-  entries:
-    mea-sessions:
-      allow_tool_override: true    # let `sessions` replace stock session_search
-    mea-skills:
-      allow_tool_override: true    # let skills_* override the core tools
-    mea-warmstart:
-      settings:
-        enabled: true
-        on_cold_start: true
-        on_boot: true
-        last_n: 16
-        max_chars: 7000
-        min_messages: 4
-        source: pg                 # replay from Postgres, not a flat file
-        per_message_chars: 700
-
-tools:
-  tool_search:
-    enabled: "off"                 # keep vault/sessions/messages directly visible
-
-auxiliary:
-  compression:
-    model: <cheap fast model>      # summaries do not need the main model
-    timeout: 120
-
-compression:
-  enabled: true
-  threshold: 0.95                  # ratio trigger
-  threshold_tokens: 100000         # absolute trigger, see note below
-  proactive_prune_tokens: 60000    # deterministic tool result prune, no LLM
-  micro_compact: true              # second deterministic pass, post turn
-  micro_compact_every_n_turns: 3   # amortise the aux call, do not pay it every turn
-  micro_compact_defrag_threshold_tokens: 12000
-  micro_compact_timeout_seconds: 45
-  protect_last_n: 20
-  protect_first_n: 10
-  in_place: true
-```
-
-Why these keys, briefly:
-
-- **`tool_search.enabled: "off"`** keeps plugin tools on the advertised surface. The
-  stock bridge defers every non core tool behind `tool_search`, which hides `vault`,
-  `sessions` and `messages` while the prompt still names them. The agent then has
-  guidance for tools it cannot see.
-- **`allow_tool_override: true`** on sessions and skills is what makes the plugin
-  version the one that answers. Without it the core tool wins and the store is not
-  consulted.
-- **`threshold_tokens`** gives an absolute trigger alongside the ratio. Set it near
-  75 percent of the model's window so a model swap does not silently change when
-  compression fires.
-- **`proactive_prune_tokens`** stubs old tool results before the summariser runs.
-  Reclaiming tokens deterministically is cheaper than asking a model to do it.
-- **`micro_compact_every_n_turns: 3`** amortises the auxiliary call. At every turn
-  the summary latency lands on every turn.
-- **`protect_first_n`** and **`protect_last_n`** keep the opening instructions and
-  the live tail out of the summariser, which is where the answers usually are.
-- **The auxiliary compression route** matters on a small or local model. Summaries
-  are mechanical work, and routing them away from the main model keeps turn
-  latency predictable.
-
-A copy of this block ships as **[config.example.yaml](config.example.yaml)**.
-
----
-
 ## Coming from stock Hermes
 
 If you already have history in `$HERMES_HOME/state.db`, it does **not** move
@@ -643,8 +634,9 @@ Then re-run `./install.sh` and restart. Migrations apply on the next provider in
 permanent memory, and the name you will see in `memory.provider`, import paths and
 plugin directories. The engine underneath is the vendored `jpm` tree.
 
-Three names, one thing: permanent memory for your agent, kept in Postgres, shared
-across every profile on the box.
+The engine is why the tool is called `vault` and why its actions still read as `jpm`
+in the logs. In practice: call it MeAI Vault in conversation, `mea_pm` when you touch
+config, and ignore `jpm` unless you are reading the engine's own output.
 
 ---
 

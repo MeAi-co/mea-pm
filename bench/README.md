@@ -43,7 +43,6 @@ and Test 6 confirmed that reading rather than deciding it.
 
 - **Bench A** — stock Hermes + MEA plugins + PostgreSQL + embeddings.
 - **Bench C** — stock Hermes + Mnemosyne + embeddings. The control.
-- **B** — `hindsight`, retired 2026-10-18.
 
 The memory provider is the only intended variable. Model, provider, base URL,
 sampling, toolset and turn budget are held identical; a divergence there is a defect.
