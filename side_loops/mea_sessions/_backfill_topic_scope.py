@@ -34,7 +34,29 @@ import sqlite3
 import sys
 from pathlib import Path
 
-PROFILE_HOME = Path(__file__).resolve().parent.parent.parent
+def _resolve_state_db() -> Path:
+    """state.db lives in the profile home, not next to the plugin.
+
+    ``Path(__file__).resolve()`` points into the source repo when the plugin
+    directory is a symlink, so check the declared home first and fall back to the
+    ancestor walk only when it actually holds a store.
+    """
+    import os
+
+    candidates = []
+    if os.environ.get("HERMES_HOME"):
+        candidates.append(Path(os.environ["HERMES_HOME"]).expanduser())
+    candidates += [
+        Path(__file__).parent.parent.parent,
+        Path(__file__).resolve().parent.parent.parent,
+    ]
+    for cand in candidates:
+        if (cand / "state.db").exists():
+            return cand
+    return candidates[0]
+
+
+PROFILE_HOME = _resolve_state_db()
 STATE_DB = PROFILE_HOME / "state.db"
 
 

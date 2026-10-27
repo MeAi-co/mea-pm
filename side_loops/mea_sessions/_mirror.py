@@ -41,8 +41,32 @@ from pathlib import Path
 
 LOG = logging.getLogger(__name__)
 
-# __file__ = <home>/.hermes/plugins/mea_sessions/_mirror.py
-PROFILE_HOME = Path(__file__).resolve().parent.parent.parent
+# Profile home holds state.db. Do NOT derive it from ``Path(__file__).resolve()``
+# alone: the plugin directory is a symlink into the source repo in the installed
+# layout, so resolving it points inside plugins/mea_pm and the store is missed
+# (symptom: mirror reports "no state.db" and silently stops advancing).
+def _profile_home() -> Path:
+    candidates: list[Path] = []
+    env = os.environ.get("HERMES_HOME")
+    if env:
+        candidates.append(Path(env).expanduser())
+    try:
+        from hermes_constants import get_hermes_home  # type: ignore
+
+        candidates.append(Path(get_hermes_home()))
+    except Exception:
+        pass
+    # Unresolved __file__ keeps the symlinked path, so the ancestor walk still
+    # lands on the profile home in both layouts.
+    candidates.append(Path(__file__).parent.parent.parent)
+    candidates.append(Path(__file__).resolve().parent.parent.parent)
+    for cand in candidates:
+        if (cand / "state.db").exists():
+            return cand
+    return candidates[0] if candidates else Path.home() / ".hermes"
+
+
+PROFILE_HOME = _profile_home()
 STATE_DB = PROFILE_HOME / "state.db"
 
 # SQLite columns we copy, in the order we bind them to PG.
