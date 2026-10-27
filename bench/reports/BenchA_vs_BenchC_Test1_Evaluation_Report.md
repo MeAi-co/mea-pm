@@ -28,6 +28,7 @@ That is not a difference of phrasing. One arm retrieved the numbers and added th
 3. **Retrieval thoroughness** — keep searching until the claim is verified, not until a story can be told.
 4. **Hedging quality** — hedging that marks real doubt is good; hedging that disguises thin evidence or a bad total is not.
 5. **Noise and polish** — secondary. Noise can be filtered; a wrong total cannot.
+6. **Tokenomics** — input tokens per call, API round-trips per turn, and memory-payload volume. Recorded here with real measurements; it explains cost, it does not decide the verdict.
 
 Token, cache and latency figures are operational observation in §6, never the verdict.
 
@@ -112,6 +113,17 @@ Measured from the two gateway logs for this window (observation, not scoring):
 - Both arms answered all 14 turns; no turn was dropped or retried.
 
 A was slightly faster and slightly longer per answer, but the margin is small and inside run-to-run variance. It is not the reason A won.
+
+### Tokenomics
+
+Measured from arm A's per-call context dumps for this window, and from the tool lines in arm C's transcript:
+
+- **A:** 43 API calls across 14 turns, median 63,942 input tokens per call, peak 100,911, 2,516,533 tokens summed over the window. System prompt holding the memory injection and instructions: 21,408 characters median. 31 tool schemas offered on every call.
+- **C:** 42 memory-tool lines across 14 turns, about 3.0 per turn, several turns issuing six or seven recalls before answering.
+
+C's context dumps and agent log sit under a home directory this account cannot read, so its token figures are not measured here; only its call counts are. What is measurable in this window already points the way: C reaches the same store with roughly three recall calls per user turn, and in Test 6, where payload sizes are recorded for both arms, each of those calls returns a median 12,557 characters against A's 3,496.
+
+Test 1 therefore cannot separate "C retrieves more" from "C is fed more". Both arms saw the same seeded corpus, but not the same context budget.
 
 ---
 

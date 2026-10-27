@@ -34,6 +34,7 @@ Net: A still wins on the two criteria that decide runs, accuracy and continuity.
 3. **Retrieval thoroughness** — breadth of verified recall, not just the first sufficient answer.
 4. **Hedging quality** — doubt that is marked and earned, versus refusal used as a substitute for retrieval.
 5. **Noise and polish** — leaks, boilerplate, malformed output.
+6. **Tokenomics** — input tokens per call, API round-trips per turn, and memory-payload volume. Recorded with real measurements; it explains cost, it does not decide the verdict.
 
 ---
 
@@ -103,6 +104,15 @@ From the two gateway logs for this window:
 - Both arms answered every turn.
 
 The original verdict of this run also recorded API-call and tool-payload counts from a captured late window: A averaged about two API calls per question against C's 3.4, and returned roughly a quarter of C's tool-result volume. Those figures are not re-derived here and are not part of the verdict.
+
+### Tokenomics
+
+From arm A's per-call context dumps for this window and the tool lines in arm C's transcript:
+
+- **A:** 25 API calls across 11 substantive turns, median 48,868 input tokens per call, peak 74,982, 1,138,999 summed. System prompt median 21,275 characters; 31 tool schemas per call.
+- **C:** 23 memory-tool lines across 12 user turns, about 1.9 per turn. Token figures unavailable: its home directory is not readable from this account and it kept no dumps for this window.
+
+The comparison is therefore asymmetric, and this report says so rather than implying equal cost. Across the two windows where both arms' call patterns are visible, C issues more memory calls per turn and each call returns materially more text (Test 6 records a median 12,557 characters per C recall against 3,496 per A call). A pays for its precision in API round-trips, C pays in context volume.
 
 ---
 

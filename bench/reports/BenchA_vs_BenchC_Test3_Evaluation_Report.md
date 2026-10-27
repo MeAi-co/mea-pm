@@ -32,6 +32,7 @@ Against that, A won the noise axis and produced the only post-rebuild evidence i
 3. **Retrieval thoroughness** — breadth plus provenance: knowing whose sentence a fact came from.
 4. **Hedging quality** — marking a real limit, versus refusing to work.
 5. **Noise and polish** — structure, length discipline, malformed output.
+6. **Tokenomics** — input tokens per call, API round-trips per turn, and memory-payload volume. Recorded with real measurements; it explains cost, it does not decide the verdict.
 
 ---
 
@@ -106,6 +107,15 @@ From the two gateway logs for this window:
 - Both arms answered all 17 turns.
 
 A's recompact is the only mid-conversation rebuild observed in Tests 1–3, and it did not visibly cost A its thread. That is one observation, not a measurement of compression safety.
+
+### Tokenomics
+
+From arm A's per-call context dumps for this window and the tool lines in arm C's transcript:
+
+- **A:** 49 API calls across 17 turns, median 55,830 input tokens per call, peak 100,313, 2,769,444 summed. System prompt median 20,872 characters; 31 tool schemas per call.
+- **C:** 20 memory-tool lines across 17 turns, about 1.2 per turn. Token figures unavailable; no readable dumps exist for its home.
+
+C wrote more than A here (35,444 characters against 29,430) while making fewer memory calls, which is the inverse of Tests 1 and 2 and is consistent with this being the run where C leaned on reasoning over retrieval. A's cost sits in API round-trips: roughly three calls per turn, each carrying a median 55k-token prompt.
 
 ---
 
