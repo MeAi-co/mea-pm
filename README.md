@@ -16,8 +16,8 @@ add columns, index them, and query them with raw SQL. A watchlist, a fleet chart
 ledger or a project tracker lives in the same brain as its rules and its history. 
 It is a small PG admin console for the agent, pointed at its own memory.
 
-Based on our tests, it helps the agent retrieves autonomously, leading to getting more right 
-and less made-up facts. Provenance is a column, not a convention: every message row carries 
+Based on our tests, it helps the agent retrieve autonomously, leading to more grounded answers, 
+fewer invented facts (hallucination). Provenance is a column, not a convention: every message row carries 
 its role, and a separate user-only table records what the user actually said, so recall 
 can return that instead of the agent's own earlier output. 
 Ask a vague question and the difference stops being about metrics, and more about accuracy. 
@@ -50,8 +50,6 @@ The other tells a plausible story by connecting a few dots and filling the gaps.
 · [Coming from stock Hermes](#coming-from-stock-hermes)
 · [Side loops](#side-loops)
 · [Evaluation](#evaluation)
-· [Re-vendoring the engine](#re-vendoring-the-engine)
-· [About the name](#about-the-name)
 · [License](#license)
 · [Disclaimer](#disclaimer)
 
