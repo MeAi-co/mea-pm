@@ -24,6 +24,26 @@ Two limits, stated plainly:
 - **Behaviour claims stop at the transcript/log boundary.** Several chatlogs carry a gateway log tail. Log lines are timing and telemetry, not agent speech, and are used here only for that.
 - **Arm C kept no readable telemetry of its own.** Its home directory is not accessible to the account that produced this bench, so its per-call context dumps and agent log are unavailable except where Test 5 and Test 6 embed tool and token lines in the chatlog itself.
 
+## 2.1 Instruction and framing confounds
+
+Two runs contain an explicit instruction to use the memory tools, and both must be disclosed because they tell the arm to do the thing being measured.
+
+**Test 3, first message of the run (L5):**
+
+> gonna ask you a few questions. Strictly use your memory tools, sessions etc to arrive at an answer.
+
+**Test 4, mid-run after the store denials (L187):**
+
+> use your memory tools only
+
+The Test 3 line precedes every question in that run and applies to both arms equally. The Test 4 line arrives after the agent had already declared the store empty (Section 4), so part of C's recovery there is user-directed rather than self-initiated.
+
+**Tests 1 and 2 contain no such instruction.** Both open straight into the substantive question ("hi" at 4:53 PM, then the trip/wildlife question at 4:54 PM; "/reset" at 6:57 PM, then the same question). No line in either run mentions memory tools, sessions or benchmarking.
+
+The framing point that survives, however, is real and narrower than an instruction: **every question in the set is written in memory vocabulary.** Test 1's opening question is "The holiday trips and the wildlife ones keep overlapping in my memory", which primes retrieval by naming the store. So Tests 1 and 2 are unprompted in the instructional sense and still primed in the lexical sense.
+
+That distinction matters for Section 7: Test 1 is not a clean control, but it is not a hinted run either. On its first substantive turn, with no instruction of any kind, Bench C issued five `mnemosyne_recall` calls and Bench A issued three. Both arms reached for the store unprompted when the question mentioned memory.
+
 ## 3. Exhibit 1: denial before any retrieval (Test 5)
 
 The turn at 10:22 is the clearest instance of the behaviour under test, and it is visible in three lines of the log.
@@ -138,7 +158,7 @@ Scoring the user's phrasing is not the same as answering the question, and three
 
 **Mild, Test 3.** Low-grade and structural rather than open argument: topping the user's framing ("You're right, and the structure of it is even cleaner than you put it", L40), and rebutting a number the user never gave ("Not 140", L131, where 140 appears in no user turn of that run).
 
-**Does not fit, Test 1.** No tool-existence denial, no cockiness, five denials all retrieval-backed, and the firmest refusal is a refusal to invent:
+**Does not fit, Test 1.** No tool-existence denial, no cockiness, five denials all retrieval-backed, and the firmest refusal is a refusal to invent. Test 1 also had no instruction to use the tools (Section 2.1), so this is the closest thing in the corpus to an unprompted run, though its questions still name memory explicitly:
 
 > I'm not going to invent a Christmas to match the shape of the question (L170)
 

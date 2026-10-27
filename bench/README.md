@@ -24,6 +24,8 @@ what to fetch next, cross-check it and reconcile dates that disagree. The bench 
 therefore measuring tool use, that is, which arm reconstructs the answer from what it
 can retrieve and how many steps that takes, not which arm guesses best.
 
+Two runs add a hint: Test 3 opens with an instruction to use the memory tools, and Test 4 carries one mid-run after the control arm had already declared its store empty. Both are disclosed in the reports that use them, because an instruction to retrieve cannot be evidence about whether an arm retrieves on its own. Tests 1 and 2 have no such line, and both arms searched on their first question regardless.
+
 That is also why the failure Test 6 caught is visible here at all: an arm whose
 compaction dropped the very messages holding the answers, then reported the resulting
 zeros as fact, cannot appear in a headless bench that never compresses anything.

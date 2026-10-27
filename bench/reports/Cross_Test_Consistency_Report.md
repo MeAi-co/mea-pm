@@ -47,6 +47,8 @@ This is the behaviour the whole bench turns on, and it is where the arms separat
 
 Bench C's dossier documents the opposite pattern twice at the log level: a false denial issued with zero tool calls (Test 5, 10:22:18, `api_calls=1`, no tool), and a store declared empty before the agent read it (Test 4, "The machine is empty", corrected to "the Aspen Valley records were sitting in the store the whole time").
 
+One disclosure belongs here, because it affects how much this claim proves. Two runs instruct the agents to use their memory tools: Test 3 opens with "gonna ask you a few questions. Strictly use your memory tools, sessions etc to arrive at an answer." (L5), and Test 4 has "use your memory tools only" mid-run (L187), after the control arm had already declared the store empty. Tests 1 and 2 carry no such instruction, and both arms still retrieved on their first substantive turn without one: Bench C issued five recall calls, Bench A three.
+
 A's transcripts show continuous tool use, and the one A refusal examined in detail is retrieval-backed. Test 2, where A declines to name the deliberate purchase and guesses the orchid:
 
 > [10/18/26 6:58 PM] bench_8857784145 A_MEA_JPM: ⚙️ jpm: "challenge difficult perseverance quit..."
