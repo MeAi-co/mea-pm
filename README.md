@@ -1,24 +1,50 @@
 # MeAI Vault™
 
-**Permanent memory for stock Hermes agents.** MeAI Vault is the product. `mea_pm`
-is the package it ships as, short for MEAI permanent memory.
+**Permanent memory for stock Hermes agents.**
 
-Most AI tools suffer from short term memory loss. The second you close a chat
-window or start a new task, they forget your rules, your history and your
-preferences.
+Your agent forgets everything the moment the window closes. Not just the facts you
+told it: the rules you spent a week tuning, the project it was halfway through, the
+preference you corrected twice. Close a tab, start a new task, come back after
+lunch, and it greets you as a stranger. Then the first ten turns of every session
+go into getting it back to where it already was.
 
-MeAI Vault exists to solve that exact problem. It is the backend engine that gives
-an agent true persistent memory. Instead of resetting, the agent cross-references
-your past notes, remembers key facts on demand, and keeps your full operational
-context from the first turn to the last.
+MeAI Vault ends that. It gives a stock Hermes agent permanent memory: conversations,
+facts, rules, preferences, entities, reflections and skills stored as rows in
+Postgres, vectorised so recall works by meaning instead of exact wording. Close the
+window, restart the gateway, compact the context, open a different topic on a
+different profile three weeks later. The agent keeps the same brain.
+
+**What it is.** A PostgreSQL-backed memory provider for stock Hermes. One store for
+the whole box, not one file per profile. Every chat, topic, cron job and profile
+reads and writes the same rows. No fork, no core patches, no upstream update to
+chase.
+
+**Why it exists.** Because a memory plugin that lives in a file the agent has to be
+reminded to open is a coin toss in practice. We watched agents store the right fact
+and then fail to find it, store it and look it up under a different string, deny the
+store existed until challenged, and come back from compaction with no idea what they
+were doing. So we built the version where the store is the authority, the tools sit
+on the surface instead of behind a search box, and the agent reaches for them
+without being prompted.
+
+**How it differs from standard memory plugins.** They are fact stores the agent
+consults when probed, and they answer out of whatever happened to be injected into
+the prompt. MeAI Vault is read and written by the agent as part of the turn,
+retrieves with vector and full text together, survives compaction because the rows
+were never in the prompt to begin with, and hands the agent SQL access to its own
+memory for when it needs to audit instead of recall.
+
+**The verdict.** Six live tests, user and agent in the same loop, the same seeded
+history on both sides, this stack against stock Hermes plus Mnemosyne. This stack
+answered every question without being challenged and stayed consistent from the
+first test to the last, taking five of the six; the one it lost was a single skill
+axis that did not generalize. The comparison stack hedged, refused, corrected itself
+only after a push, and in one run went around its own tools to read the database
+file directly. Reports, chat logs and agent logs are in
+[`bench/`](bench/README.md).
 
 It is the assistant memory we wanted for our own daily work. That is why we built
 it, and why we are giving it away.
-
-Under the hood it is a PostgreSQL-backed memory provider: conversations, facts,
-rules, entities, reflections and skills live as rows in a store that survives
-restarts, resets, reboots and compaction. No core modifications, it plugs into the
-stock memory-provider seam.
 
 ---
 
