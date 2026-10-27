@@ -159,5 +159,8 @@ method is reproducible, not the command.
 - **n is small.** A handful of questions. Report error counts, not score deltas.
 - **Not every cited file ships.** `agent.log`, `gateway.log` and the seeded personal
   markdown files live in the arm homes; the excerpts here are windows cut from them.
+- **Tool surfaces were not policed.** One control-arm run read its own store file
+  directly with SQLite instead of using its memory tools; the report for that run
+  discloses it. Arithmetic in code happened on both arms and is not a defect.
 - **Compression differs architecturally,** so latency comparisons are partly
   compression strategy, not recall quality.

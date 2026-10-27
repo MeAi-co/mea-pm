@@ -166,6 +166,28 @@ A test suite that only quoted Tests 2, 4 and 6 would overstate the case. Test 1 
 
 **Tool-existence denial as a category: not found in any test.** No run contains a claim to lack a tool it has, or an explicit refusal to search. The defect is narrower and worse: declaring absence or emptiness without calling the tool first, and then defending the declaration.
 
+## 7.1 Store bypass: reading the database instead of the tool
+
+A fairness question was raised about this arm: whether it exported the knowledge base and ran code against the file rather than retrieving through its own tools. The audit below separates what is provable from what is not.
+
+**Proven, Test 4, 09:14.** Arm C opened its own store file with shell and Python:
+
+> `cd ~/.hermes/mnemosyne/data && sqlite...`
+> `which sqlite3 || echo NO_SQLITE3; pyt...`
+> `🐍 Running code import sqlite3 c = sqlite3.connect('/...`
+
+and reported the result as a direct query:
+
+> I queried working_memory directly in ~/.hermes/mnemosyne/data/mnemosyne.db (444 rows, source bfa499f7, 2023-05-29 16:16).
+
+That is outside the memory-tool surface. It lets the arm enumerate without recall ranking, which is the capability the bench exists to compare. In the same run arm A made 21 `vault` and 1 `sessions` call and opened no file.
+
+**Not provable either way, Tests 1 to 3.** No `sqlite`, `psql`, `export`, `SELECT` or `knowledge_base` string appears in any of the three Bench C transcripts. The shell use in those runs is arithmetic: Test 2's visible command is `echo "TLOU2 normal 25 + hard 30 + Cel...`, and the other four are `python3 -c " ...` one-liners whose bodies the export truncates at the quote. Those four bodies cannot be inspected, and no C-side agent log exists for those windows, so this dossier does not claim the arm stayed inside its tools there. It claims only that nothing in the transcripts shows otherwise.
+
+**Test 3 is clean on this axis:** zero shell or code calls in the entire run; every tool call is a memory tool.
+
+The distinction that matters for scoring is not shell use as such. Both arms ran arithmetic in code. The difference is *what the code reads*: values already retrieved, or the storage file itself.
+
 ## 8. Injection reliance
 
 Two different things get called injection reliance, and only the first is measurable here.

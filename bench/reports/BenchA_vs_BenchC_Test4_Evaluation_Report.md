@@ -90,6 +90,25 @@ The combination of low retrieval initiative + high caution/hedging is treated as
 **Bench C**
 - Fewer initial tool calls on the hardest provenance questions.
 - Greater reliance on user clarification and on secondary checks (filesystem, later raw DB inspection).
+
+### Surface note: the raw DB inspection went around the tool surface
+
+Arm C's recovery in this run was not achieved through its memory tools. At 09:14, after the user asked "so you dont have those records in store?", it ran shell and Python against its own store file. The transcript preserves the command banners:
+
+> `cd ~/.hermes/mnemosyne/data && sqlite...`
+> `which sqlite3 || echo NO_SQLITE3; pyt...`
+> `🐍 Running code import sqlite3 c = sqlite3.connect('/...`
+
+and its own account of the result:
+
+> No — I was wrong, and I checked properly this time by reading the raw DB rather than trusting top-k recall. I queried working_memory directly in ~/.hermes/mnemosyne/data/mnemosyne.db (444 rows, source bfa499f7, 2023-05-29 16:16).
+
+Arm A used only its memory tools in this run (`vault` 21 calls, `sessions` 1), plus `execute_code` for arithmetic over values it had retrieved. It opened no database file.
+
+Two consequences, kept separate:
+
+- **The verdict does not change.** A won Test 4, and C's best recovery in it came through a channel the bench does not intend to measure.
+- **The run is not a clean comparison of recall.** Reading the store file directly lets an arm enumerate without recall ranking, so C's later accuracy here is partly attributable to bypassing the retrieval layer rather than using it. Future runs should either forbid filesystem access to the store or score that path separately.
 - Stronger meta-critique once challenged, but the default path is caution and deferral.
 
 ---
