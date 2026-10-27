@@ -69,15 +69,34 @@ fabricated count are different defects.
 `reports/BenchA_vs_BenchC_Test5_Evaluation_Report.md` are retained in full, as
 recorded on 19 October 2026, each with both of its chatlogs beside it.
 
+`reports/BenchA_vs_BenchC_Test1_Evaluation_Report.md`,
+`reports/BenchA_vs_BenchC_Test2_Evaluation_Report.md` and
+`reports/BenchA_vs_BenchC_Test3_Evaluation_Report.md` follow the same form and each
+has both chatlogs beside it.
+
 Test 5 applies the same criteria ordering as Test 6 and reaches the same conclusion.
 Test 4 prints an earlier ordering, with retrieval thoroughness ahead of continuity, so
 its findings stand alone. Nothing is averaged, summed or compared across tests: each
 report carries its own numbers and its own conclusion, and no figure migrates from one
 to another.
 
-Tests 1 to 3 are not here because no report in this format was ever written for them.
-Their outputs are verdict and analysis documents, not `*_TestX_Evaluation_Report.md`,
-and the chatlogs alone would be evidence without a stated result.
+Tests 1, 2 and 3 were originally judged on matrices of their own and left no
+`*_TestX_Evaluation_Report.md` behind, so their reports here are reassessments
+written from the retained chatlogs under the criteria Test 6 states. Each one says
+so at the top and carries no number from its original scoring.
+
+All three sit in the pre-compaction window: no compaction fires inside those
+conversations, apart from one recompact launched mid-run by arm A in Test 3.
+Continuity is therefore scored there on referent drift across turns, and they cannot
+speak to behaviour after a context rebuild. That evidence starts at Test 4.
+
+The chatlogs for Test 3 were shipped with the arms swapped in the original export.
+They are relabelled here by reply identity, so the A file holds A's transcript and
+A's gateway log. Any earlier reading of that test has the arms inverted.
+
+Results do not agree across the block, and the reports keep them apart: A wins
+Tests 1 and 2, C wins Test 3 narrowly on provenance, and Tests 4 to 6 return to A.
+The earlier tests are not a trend line and are not averaged into a total.
 
 ## Evidence
 
