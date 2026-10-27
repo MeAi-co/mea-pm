@@ -1,6 +1,6 @@
 name: mea-pm
 version: 0.2.0
-description: "MEAI Persistent Memory — PG-backed memory provider (vendored jpm engine)."
+description: "MeAI Vault: permanent memory for Hermes agents. PostgreSQL-backed memory provider, ships as the mea_pm package."
 author: "MeAi-co"
 kind: standalone
 python_dependencies:

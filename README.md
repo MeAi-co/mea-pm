@@ -1,7 +1,7 @@
 # MeAI Vault™
 
-**Persistent memory for stock Hermes.** `mea_pm` is the package, MeAI Vault is what
-it does for your agent.
+**Permanent memory for stock Hermes agents.** MeAI Vault is the product. `mea_pm`
+is the package it ships as, short for MEAI permanent memory.
 
 Most AI tools suffer from short term memory loss. The second you close a chat
 window or start a new task, they forget your rules, your history and your
@@ -54,8 +54,10 @@ It fits best when:
 - **You want to inspect what it knows.** SQL access to your own memory, with the
   schema and the rows visible instead of summarised into a prompt.
 
-If you want zero dependencies and a single file, stock file memory is still the
-simpler choice, and nothing here pretends otherwise.
+If you are after permanent memory for a Hermes agent that runs for months across
+profiles, topics and cron jobs, this is the shape you want. If you want zero
+dependencies and a single file, stock file memory is still the simpler choice, and
+nothing here pretends otherwise.
 
 ---
 
@@ -102,15 +104,15 @@ something was worth keeping, reads because it needs the answer, corrects what it
 got wrong, and lets stale entries fade. That loop is the product. Storage is the
 plumbing underneath it.
 
-mea_pm is built around that loop, and then adds optional layers that improve the
-experience of running it: tiered injection so the prompt stays small, warm start
+MeAI Vault is built around that loop, and then adds optional layers that improve
+the experience of running it: tiered injection so the prompt stays small, warm start
 so a new session is not a cold one, a stable and drift prompt split that keeps
 prefix caching intact, skill nudges, recompaction, digest and toolflow loops. All
 optional. None of them are the point, and each one can be switched off.
 
 ### The core difference from other memory plugins
 
-| | Typical memory plugin | mea_pm |
+| | Typical memory plugin | MeAI Vault |
 |---|---|---|
 | Does the agent store and retrieve on its own | Only when it is probed, or when the phrasing happens to trigger it. Otherwise nothing is written and nothing is read | The agent is expected to use the store: the guidance names it as the authority, the tool is cheap to call, and the write path is the same tool as the read path |
 | Is tool use reliable | A coin toss. The same question twice can produce a retrieval one time and a confident guess the next | One tool name per capability, one owner per tool, and routing guidance in the prompt, so the model does not have two ways to do the same thing and pick neither |
@@ -142,8 +144,10 @@ restart starts the agent cold. Whatever it learned is gone unless it happened to
 be written to a file, and a file that is re-read in full every turn is not a
 memory, it is a liability.
 
-mea_pm fixes all three by moving memory into Postgres with pgvector, and by
-separating what gets injected from what gets retrieved.
+MeAI Vault fixes all three by moving memory into Postgres with pgvector, and by
+separating what gets injected from what gets retrieved. The result is permanent
+agent memory rather than a session scratchpad: the store holds the facts, not the
+prompt.
 
 ---
 
@@ -154,7 +158,7 @@ matter of tuning. A local memory plugin, the Mnemosyne pattern, keeps its state
 in a file inside one agent's home directory and injects what it knows into the
 prompt. That design is cheap to install and it hits a ceiling quickly.
 
-| Dimension | Local memory plugin (file in one home) | mea_pm (central Postgres) |
+| Dimension | Local memory plugin (file in one home) | MeAI Vault (central Postgres) |
 |---|---|---|
 | Where memory lives | A file inside one profile's directory | One Postgres database, shared by the box |
 | Who can read it | That one agent, that one profile | Every profile, session, topic and cron job you point at it |
@@ -293,9 +297,9 @@ recorded in `_schema_migrations` so each runs exactly once. Upgrading is
 ### Session continuity
 
 Sessions, messages and their embeddings live in the same database as the facts.
-That is what makes warm start, cross session recall and the `messages` and
-`sessions` tools possible: the agent reads its own history instead of being told
-about it.
+That is what makes permanent memory for a Hermes agent possible at all: warm start,
+cross session recall, and the `messages` and `sessions` tools all read the same
+rows, so the agent reads its own history instead of being told about it.
 
 ---
 
@@ -566,6 +570,17 @@ rsync -a --delete \
 ```
 
 Then re-run `./install.sh` and restart. Migrations apply on the next provider init.
+
+---
+
+## About the name
+
+**MeAI Vault** is the product. `mea_pm` is the package it ships as, short for MEAI
+permanent memory, and the name you will see in `memory.provider`, import paths and
+plugin directories. The engine underneath is the vendored `jpm` tree.
+
+Three names, one thing: permanent memory for your agent, kept in Postgres, shared
+across every profile on the box.
 
 ---
 
