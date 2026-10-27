@@ -2,58 +2,42 @@
 
 **Permanent memory for stock Hermes agents.**
 
-Your agent forgets everything the moment the window closes. Not just the facts you
-told it: the rules you spent a week tuning, the project it was halfway through, the
-preference you corrected twice. Close a tab, start a new task, come back after
-lunch, and it greets you as a stranger. Then the first ten turns of every session
-go into getting it back to where it already was.
+Tired of agents going blank mid-task? Rules you tuned for a week, the project halfway
+done, the preference you corrected twice: gone with compression? The next session
+spends its first turns recovering what it already knew, if the agent remembers how.
 
-MeAI Vault ends that. It gives a stock Hermes agent permanent memory: conversations,
-facts, rules, preferences, entities, reflections and skills stored as rows in
-Postgres, vectorised so recall works by meaning instead of exact wording. Close the
-window, restart the gateway, compact the context, open a different topic on a
-different profile three weeks later. The agent keeps the same brain.
+MeAI Vault ends that. Conversations, facts, rules, preferences, entities, reflections
+and skills live as rows in Postgres, vectorised so recall works by meaning, not exact
+wording. Close the window, restart the gateway, compact the context, open a different
+topic on a different profile three weeks later. The agent keeps the same brain.
 
-**What it is.** A PostgreSQL-backed memory provider for stock Hermes. One store for
-the whole box, not one file per profile. Every chat, topic, cron job and profile
-reads and writes the same rows. No fork, no core patches, no upstream update to
-chase.
+The schema is not fixed. The agent can create its own tables, add columns, index them,
+and query them with raw SQL. A watchlist, a fleet charter, a trade ledger or a project
+tracker lives in the same brain as its rules and its history. It is a small PG admin
+console for the agent, pointed at its own memory.
 
-**The part no other memory plugin does.** The schema is not fixed. The agent can
-create its own tables, add columns, index them, and query them with raw SQL, so a
-watchlist, a fleet charter, a trade ledger or a project tracker all live in the same
-brain as its rules and its history. It is a small PG admin console for the agent,
-pointed at its own memory.
+It also retrieves less and gets more right. Provenance is a column, not a convention:
+every message row carries its role, and a separate user-only table records what the
+user actually said, so recall can return that instead of the agent's own earlier
+output. In six instrumented runs against the popular alternative, it took five, and in
+the first three the fabrication count was zero against six.
 
-**Why it exists.** Because a memory plugin that lives in a file the agent has to be
-reminded to open is a coin toss in practice. We watched agents store the right fact
-and then fail to find it, store it and look it up under a different string, deny the
-store existed until challenged, and come back from compaction with no idea what they
-were doing. So we built the version where the store is the authority, the tools sit
-on the surface instead of behind a search box, and the agent reaches for them
-without being prompted.
+| | MeAI Vault | Mnemosyne |
+|---|---|---|
+| Runs won, of six | 5 | 1 |
+| Hard errors, runs 1 to 3 | 0 | 6 |
+| Hard errors, run 6 | 1 | 3 |
 
-**How it differs from standard memory plugins.** They are fact stores the agent
-consults when probed, and they answer out of whatever happened to be injected into
-the prompt. MeAI Vault is read and written by the agent as part of the turn,
-retrieves with vector and full text together, survives compaction because the rows
-were never in the prompt to begin with, and hands the agent SQL access to its own
-memory for when it needs to audit instead of recall.
+Hard errors are tallied per run and never across the block. A hard error is a factual
+claim the record contradicts; a disclosed over-inference and a refusal are not. The
+single error against this stack, in run 6, is a correct answer abandoned under
+pressure, not an invention. Runs 4 and 5 were graded on their own criteria and are not
+tallied.
 
-**The verdict.** Six live tests, user and agent in the same loop, the same seeded
-history on both sides, this stack against stock Hermes plus Mnemosyne. This stack
-took five of the six. The one it lost went narrowly to the other stack on a
-deliberately isolated axis, provenance separation: the other stack traced a thread
-back to its source and said plainly it was not the user's, while this stack revised
-a total mid answer without flagging that the earlier figure had just been withdrawn.
-The runs are reported one at a time and are not averaged into a total, because the
-questions were vague on purpose and a single run only proves what its own axis
-measures. What held constant across all six was how this stack operates: its tools,
-its context envelope and its retrieval habit never changed, so its wrong answers
-tracked how vague the question was rather than instability in the stack. The other
-stack hedged, refused, corrected itself only after a push, and in one run went
-around its own tools to read the database file directly. Reports, chat logs and agent
-logs are in [`bench/`](bench/README.md).
+The one run it lost went to the alternative on a deliberately isolated axis, provenance
+separation: the other stack traced a borrowed thread back to its source and said
+plainly it was not the user's. That run is reported in full, with every chat log and
+agent log, in [`bench/`](bench/README.md).
 
 It is the assistant memory we wanted for our own daily work. That is why we built
 it, and why we are giving it away.
