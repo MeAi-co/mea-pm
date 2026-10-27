@@ -1,5 +1,5 @@
 name: mea-prompt
 version: 0.1.0
-description: "MEAI Prompt — stable/drift system-prompt split via llm_request middleware (prefix-cache safe)."
+description: "MEAI Prompt, stable/drift system-prompt split via llm_request middleware (prefix-cache safe)."
 author: "Josh G"
 kind: standalone

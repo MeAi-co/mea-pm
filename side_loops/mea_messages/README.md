@@ -1,4 +1,4 @@
-# mea_messages — MEAI Messages
+# mea_messages: MEAI Messages
 
 The **`messages`** tool: message-level recall across all past sessions,
 exposed from the vendored `jpm` engine as a stock-Hermes plugin.
@@ -7,18 +7,18 @@ exposed from the vendored `jpm` engine as a stock-Hermes plugin.
 
 A thin wrapper that registers the engine's message-recall function under the
 bare tool name **`messages`**. The model sees `messages`, never `mea_messages`
-— the `mea_` prefix lives on the plugin directory only.
+, the `mea_` prefix lives on the plugin directory only.
 
 | Layer | Value |
 |---|---|
-| Plugin dir | `mea_messages` (underscore — valid Python identifier) |
+| Plugin dir | `mea_messages` (underscore, valid Python identifier) |
 | Manifest name | `mea-messages` |
 | Tool (model-facing) | `messages` |
 | Toolset | `session_search` |
 | Emoji | 💬 |
 
 Stock Hermes has **no** `messages` tool (only `session_search`), so this is a
-**pure addition** — no `override=True`, no operator grant required.
+**pure addition**, no `override=True`, no operator grant required.
 
 ## Install
 
@@ -34,8 +34,8 @@ Tracked and idempotent. It:
 
 ## Activate
 
-`mea_messages` is a `standalone` plugin — it must be listed in the profile's
-`config.yaml` **by its manifest key** (`mea-messages`, hyphen — NOT the dir
+`mea_messages` is a `standalone` plugin, it must be listed in the profile's
+`config.yaml` **by its manifest key** (`mea-messages`, hyphen, NOT the dir
 name):
 
 ```yaml

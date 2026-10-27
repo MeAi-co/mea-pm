@@ -1,6 +1,6 @@
 name: mea-skills
 version: 0.1.0
-description: "MEAI Skills — the `skills_list`, `skill_view`, `skill_manage` tools (PG-backed overrides) plus the new `skill_choose` tool."
+description: "MEAI Skills, the `skills_list`, `skill_view`, `skill_manage` tools (PG-backed overrides) plus the new `skill_choose` tool."
 author: "Josh G"
 kind: standalone
 provides_tools:

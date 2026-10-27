@@ -1,5 +1,5 @@
 name: mea-loop-digest
 version: 0.2.0
-description: "DEMOTED to cron (scripts/mea_digest_cron.py) — no post_llm_call hook. LLM-based in-place row compressor; runs on a cadence, not every turn end."
+description: "DEMOTED to cron (scripts/mea_digest_cron.py), no post_llm_call hook. LLM-based in-place row compressor; runs on a cadence, not every turn end."
 author: "Josh G"
 kind: standalone

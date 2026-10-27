@@ -1,5 +1,5 @@
 name: mea-loop-skillmgr
 version: 0.1.0
-description: "MEAI Loop — OOB skill-manager turn classifier (reply/task/project) in its own detached process."
+description: "MEAI Loop, OOB skill-manager turn classifier (reply/task/project) in its own detached process."
 author: "Josh G"
 kind: standalone

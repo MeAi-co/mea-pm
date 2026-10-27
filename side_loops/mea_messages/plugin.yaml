@@ -1,6 +1,6 @@
 name: mea-messages
 version: 0.1.0
-description: "MEAI Messages — the `messages` tool (message-level recall across all sessions, vendored jpm engine)."
+description: "MEAI Messages, the `messages` tool (message-level recall across all sessions, vendored jpm engine)."
 author: "Josh G"
 kind: standalone
 provides_tools:

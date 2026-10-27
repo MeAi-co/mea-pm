@@ -1,6 +1,6 @@
 name: mea-vault
 version: 0.1.0
-description: "MEAI Vault — the `vault` tool (PG-backed memory + schema/SQL access, vendored jpm engine)."
+description: "MEAI Vault, the `vault` tool (PG-backed memory + schema/SQL access, vendored jpm engine)."
 author: "Josh G"
 kind: standalone
 provides_tools:

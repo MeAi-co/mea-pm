@@ -1,5 +1,5 @@
 name: mea-warmstart
 version: 0.1.0
-description: "MEAI Warm Start — replays the last N conversational messages of the prior session on a cold start (/new, /reset, gateway reboot) via llm_request middleware."
+description: "MEAI Warm Start, replays the last N conversational messages of the prior session on a cold start (/new, /reset, gateway reboot) via llm_request middleware."
 author: "Josh G"
 kind: standalone

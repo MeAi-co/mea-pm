@@ -1,4 +1,4 @@
-# mea_skills — MEAI Skills
+# mea_skills: MEAI Skills
 
 Stock-Hermes plugin exposing the MEAI skill toolset. Ports the Joshaico fork's
 skill tools onto stock Hermes **without touching the stock tree**, so
@@ -40,7 +40,7 @@ mea_skills/
 
 The script:
 1. Resolves the stock runtime interpreter from the **base** home
-   (`$HOME/.hermes/tools/python-*/bin/python3`) — not the profile home.
+   (`$HOME/.hermes/tools/python-*/bin/python3`), not the profile home.
 2. Installs deps (`ruamel.yaml`, `asyncpg`, `psycopg2-binary`, `pyyaml`) into it.
 3. Verifies the imports.
 4. Loads the plugin in a fresh process and asserts all four tools register.
@@ -60,7 +60,7 @@ plugins:
 ```
 
 Both `plugins.enabled` and `plugins.entries` are keyed by the **manifest key**
-(`mea-skills`, hyphen) — the loader sets `plugin_id = manifest_key(manifest)`
+(`mea-skills`, hyphen), the loader sets `plugin_id = manifest_key(manifest)`
 (`plugins_loader.py`), and `manifest_key` is the path-derived key, which for a
 flat plugin dir equals the manifest `name:`. The **directory name**
 (`mea_skills`, underscore) is never used as the config key.
@@ -79,7 +79,7 @@ imported) installs alias modules into `sys.modules`:
 | `joshaico_cli.plugins` | `hermes_cli.plugins` (`_get_disabled_plugins`, `get_plugin_manager`, `discover_plugins`) |
 | `tools.role_choose_tool._current_role` | stub returning `None` |
 
-The vendored sources are **not edited** — the shims make them run unmodified.
+The vendored sources are **not edited**, the shims make them run unmodified.
 
 ## Load order (why `override=True` wins)
 
@@ -95,5 +95,5 @@ registers with `override=True` and replaces them.
    not the directory name (`mea_skills`).** Without it,
    `register_tool(..., override=True)` raises `PluginToolOverrideError`.
 3. **The runtime interpreter lives under the base home**, not the profile.
-4. **`config.yaml` is guard-protected** — edit it with an anchored text replace,
+4. **`config.yaml` is guard-protected**, edit it with an anchored text replace,
    not `patch`/`write_file`.

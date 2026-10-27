@@ -1,6 +1,6 @@
 name: mea-sessions
 version: 0.1.2
-description: "MEAI Sessions — the `sessions` tool (PG-backed session recall with vector search; disables stock session_search)."
+description: "MEAI Sessions, the `sessions` tool (PG-backed session recall with vector search; disables stock session_search)."
 author: "Josh G"
 kind: standalone
 provides_tools:

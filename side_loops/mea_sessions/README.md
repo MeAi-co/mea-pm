@@ -1,4 +1,4 @@
-# mea_sessions — MEAI Sessions
+# mea_sessions: MEAI Sessions
 
 The **`sessions`** tool: PG-backed session recall for stock Hermes, forked from
 the Joshaico fork's `session_search` and retargeted at the MEAI PostgreSQL
@@ -44,7 +44,7 @@ plugins:
 ```
 
 - `plugins.enabled` matches the manifest **key** (`mea-sessions`, hyphen).
-- The override grant key is the **plugin_id** (`mea_sessions`, underscore) —
+- The override grant key is the **plugin_id** (`mea_sessions`, underscore), 
   required because the plugin deregisters the built-in `session_search`.
 
 PG credentials live in the profile `.env` (`JPM_PG_HOST`, `JPM_PG_PORT`,

@@ -1,4 +1,4 @@
-# JPM — Workhorse Memory
+# JPM: Workhorse Memory
 
 Stripped-down persistent memory for development agents. No personality tracking, no emotional fluff, no small talk. Pure project context.
 
@@ -28,7 +28,7 @@ Stripped-down persistent memory for development agents. No personality tracking,
 | File | Purpose |
 |------|---------|
 | `plugin.yaml` | Plugin manifest |
-| `__init__.py` | Main plugin code — hooks, tool, YAML builder |
+| `__init__.py` | Main plugin code, hooks, tool, YAML builder |
 | `scripts/migrate_from_stock.py` | Import stock Hermes history into PG (see below) |
 
 ## Installation
@@ -40,7 +40,7 @@ Stripped-down persistent memory for development agents. No personality tracking,
 ## Migrating existing history (optional)
 
 `scripts/migrate_from_stock.py` imports an existing stock Hermes SQLite
-`state.db` into the PG tables. It is **dry-run by default** — nothing is written
+`state.db` into the PG tables. It is **dry-run by default**, nothing is written
 until you pass `--apply`.
 
 ```bash
@@ -51,21 +51,21 @@ python3 /path/to/jpm/scripts/migrate_from_stock.py --verify   # check
 
 The source path resolves from `--state-db`, else `$HERMES_HOME/state.db`, else
 `~/.hermes/state.db`. Nothing is hardcoded. The import is idempotent and
-resumable — re-running only inserts what is missing. See `MIGRATION.md` at the
+resumable, re-running only inserts what is missing. See `MIGRATION.md` at the
 repo root for the full procedure, the column mapping, and the known gaps.
 
 ## Usage
 
 The unified `jpm` tool supports these actions:
 
-- `fetch` — `section=pulse|active|loops|knowledge|reflections|capabilities|task_context`
-- `update` — `section=pulse content=status:blocked summary:API rate limited`
-- `add` — `category=project content=type:system name:redis description:used for session cache`
-- `search` — `query=full text search`
-- `probe` — `entity=MySystem`
-- `related` — `entity=MySystem`
-- `reason` — `entities=["A","B"]`
-- `helpful` / `unhelpful` — `fact_id=123`
+- `fetch`, `section=pulse|active|loops|knowledge|reflections|capabilities|task_context`
+- `update`, `section=pulse content=status:blocked summary:API rate limited`
+- `add`, `category=project content=type:system name:redis description:used for session cache`
+- `search`, `query=full text search`
+- `probe`, `entity=MySystem`
+- `related`, `entity=MySystem`
+- `reason`, `entities=["A","B"]`
+- `helpful` / `unhelpful`, `fact_id=123`
 
 ## YAML Injection
 

@@ -1,5 +1,5 @@
 name: mea-loop-skillnudge
 version: 0.1.0
-description: "MEAI Loop — skill load + maintenance nudges, injected in-process via the llm_request middleware (capped at 3 fires/turn)."
+description: "MEAI Loop, skill load + maintenance nudges, injected in-process via the llm_request middleware (capped at 3 fires/turn)."
 author: "Josh G"
 kind: standalone

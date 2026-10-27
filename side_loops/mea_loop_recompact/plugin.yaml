@@ -1,5 +1,5 @@
 name: mea-loop-recompact
 version: 0.1.0
-description: "MEAI Loop — tier-2 session-summary recompact (chapter log -> sessions.summary) in its own detached process."
+description: "MEAI Loop, tier-2 session-summary recompact (chapter log -> sessions.summary) in its own detached process."
 author: "Josh G"
 kind: standalone

@@ -1,4 +1,4 @@
-# mea_vault — MEAI Vault
+# mea_vault: MEAI Vault
 
 The **`vault`** tool: PG-backed memory + schema/SQL access, exposed from the
 vendored `jpm` engine as a stock-Hermes plugin.
@@ -6,12 +6,12 @@ vendored `jpm` engine as a stock-Hermes plugin.
 ## What it is
 
 A thin wrapper that registers the engine's unified dispatcher under the bare
-tool name **`vault`**. The model sees `vault`, never `mea_vault` — the `mea_`
+tool name **`vault`**. The model sees `vault`, never `mea_vault`, the `mea_`
 prefix lives on the plugin directory only.
 
 | Layer | Value |
 |---|---|
-| Plugin dir | `mea_vault` (underscore — valid Python identifier) |
+| Plugin dir | `mea_vault` (underscore, valid Python identifier) |
 | Manifest name | `mea-vault` |
 | Tool (model-facing) | `vault` |
 | Toolset | `vault` |
@@ -31,8 +31,8 @@ Tracked and idempotent. It:
 
 ## Activate
 
-`mea_vault` is a `standalone` plugin — it must be listed in the profile's
-`config.yaml` **by its manifest key** (`mea-vault`, hyphen — NOT the dir name):
+`mea_vault` is a `standalone` plugin, it must be listed in the profile's
+`config.yaml` **by its manifest key** (`mea-vault`, hyphen, NOT the dir name):
 
 ```yaml
 plugins:
@@ -68,5 +68,5 @@ mea_vault/
 - The engine is vendored **unchanged** so its absolute `from jpm.core...`
   self-imports resolve. `__init__.py` inserts the plugin dir at `sys.path[0]`.
 - No core file is touched. A stock auto-update / `git pull` cannot clobber this.
-- The progress bubble renders `🤖 vault: "…"` for free — the raw tool name is
+- The progress bubble renders `🤖 vault: "…"` for free, the raw tool name is
   the label when no curated verb exists.
