@@ -60,7 +60,7 @@ it, and why we are giving it away.
 
 ---
 
-**On this page:** [Advantages](#advantages) · [Who it is for](#who-it-is-for) · [Requirements](#requirements) · [Quickstart](#quickstart) · [Configuration you can start from](#reference-configuration) · [Memory the agent actually uses](#memory-the-agent-actually-uses) · [Why flat memory stops working](#why-flat-memory-stops-working) · [A central Postgres store beats a local memory plugin](#a-central-postgres-store-beats-a-local-memory-plugin) · [`vault` is an admin console, not a lookup](#vault-is-an-admin-console-not-a-lookup) · [The agent builds its own schema](#the-agent-builds-its-own-schema) · [One box, many agents, many topics](#one-box-many-agents-many-topics) · [Architecture](#architecture) · [Coming from stock Hermes](#coming-from-stock-hermes) · [Side loops](#side-loops) · [Evaluation](#evaluation) · [Re-vendoring the engine](#re-vendoring-the-engine) · [About the name](#about-the-name) · [License](#license)
+**On this page:** [Advantages](#advantages) · [Who it is for](#who-it-is-for) · [Requirements](#requirements) · [Quickstart](#quickstart) · [Configuration you can start from](#reference-configuration) · [Memory the agent actually uses](#memory-the-agent-actually-uses) · [Why flat memory stops working](#why-flat-memory-stops-working) · [A central Postgres store beats a local memory plugin](#a-central-postgres-store-beats-a-local-memory-plugin) · [`vault` is an admin console, not a lookup](#vault-is-an-admin-console-not-a-lookup) · [The agent builds its own schema](#the-agent-builds-its-own-schema) · [One box, many agents, many topics](#one-box-many-agents-many-topics) · [Architecture](#architecture) · [Coming from stock Hermes](#coming-from-stock-hermes) · [Side loops](#side-loops) · [Evaluation](#evaluation) · [Re-vendoring the engine](#re-vendoring-the-engine) · [About the name](#about-the-name) · [License](#license) · [Disclaimer](#disclaimer)
 
 ## Advantages
 
@@ -113,6 +113,11 @@ different agent.
 **10. Operationally transparent.** Explicit environment failure modes, optional
 embeddings with keyword fallback, and a reference config that matches what was
 benched. No fork, no core patches, and the plugin code is MIT.
+
+**11. Your data, your store.** The memory lives in your Postgres, in tables you can
+open, index, back up and export without asking anyone. There is no hosted memory
+service in the path, no vendor account holding the record, and no format to migrate
+away from: `pg_dump` is the exit.
 
 ## Who it is for
 
@@ -737,3 +742,20 @@ The plugin code in this repository is MIT. See [LICENSE](LICENSE).
 The engine under `jpm/` is licensed separately and is not MIT: it may be used as
 part of the plugin, and it may not be copied out, redistributed or resold on its
 own. See [jpm/LICENSE](jpm/LICENSE).
+
+---
+
+## Disclaimer
+
+**The agent keeps its own memory.** It is expected to store what matters, correct what
+is wrong, drop what is stale, and reach for the store without being prompted every
+turn. That is the design, and it is also the cost. A memory system the agent never
+touches is only storage. A memory system the agent owns can drift, overwrite, or
+neglect entries when the model's habits are weak. You get permanence and agency
+together, and you inherit the agent's judgment about what belongs in the vault.
+
+**You own your data, and you own the guardrails.** Tool overrides, write approval,
+knowledge scope across profiles, which statements the agent may run, compression
+settings, backups and who can reach Postgres are operator decisions. The plugin does
+not replace your policy. It gives the agent a durable store and surface tools; how far
+that surface is allowed to go is yours to set.
