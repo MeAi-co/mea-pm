@@ -660,6 +660,32 @@ one shot has no human, no turn to turn drift and no compaction step, so it canno
 show what happens when an agent's own compression quietly removes the messages
 that held the answer.
 
+### Ask a vague question
+
+Ask a vague question and watch what the two arms do. One tells you which reading it
+took and why. The other picks one and states it as fact. That is the product:
+accuracy is the proof, recovery is the mechanism.
+
+**Accuracy.** The alternative told the user it had bought a chair that never left the
+"thinking about it" stage. It reported its own game recommendations back as his play
+history. It replaced a necklace with a coffee grinder, then with a water bottle. Each
+answer arrived with the same confidence as the correct ones.
+
+MeAI Vault said "that isn't in the record" and let him correct it in one line. A
+refusal costs one clarifying turn. A fabrication costs the whole thread, because the
+user acts on it.
+
+**Recovery, which is the part nobody else has.** Vague questions are the normal case,
+not the edge case. "How many hours have I played" has two defensible readings in this
+record, and the store carries a stale duplicate row that makes a third.
+
+MeAI Vault gave 140 as the answer, named the alternate reading at 110 to 115, and
+flagged the duplicate row for cleanup, unprompted. The alternative picked one reading
+and presented it as fact.
+
+That is not a scoring difference. It is the difference between an agent you can audit
+and an agent you have to trust.
+
 ### The six runs, one line each
 
 | Run | Better combination | What decided it |
