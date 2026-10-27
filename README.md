@@ -642,73 +642,6 @@ one shot has no human, no turn to turn drift and no compaction step, so it canno
 show what happens when an agent's own compression quietly removes the messages
 that held the answer.
 
-### Ask a vague question
-
-Ask a vague question and watch what the two arms do. One tells you which reading it
-took and why. The other picks one and states it as fact. That is the product:
-accuracy is the proof, recovery is the mechanism.
-
-**Accuracy.** The alternative told the user it had bought a chair that never left the
-"thinking about it" stage. It reported its own game recommendations back as his play
-history. It replaced a necklace with a coffee grinder, then with a water bottle. Each
-answer arrived with the same confidence as the correct ones.
-
-MeAI Vault said "that isn't in the record" and let him correct it in one line. A
-refusal costs one clarifying turn. A fabrication costs the whole thread, because the
-user acts on it.
-
-**Recovery, which is the part nobody else has.** Vague questions are the normal case,
-not the edge case. "How many hours have I played" has two defensible readings in this
-record, and the store carries a stale duplicate row that makes a third.
-
-MeAI Vault gave 140 as the answer, named the alternate reading at 110 to 115, and
-flagged the duplicate row for cleanup, unprompted. The alternative picked one reading
-and presented it as fact.
-
-That is not a scoring difference. It is the difference between an agent you can audit
-and an agent you have to trust.
-
-### The measurements behind it
-
-| | MeAI Vault | Mnemosyne |
-|---|---|---|
-| Fabricated facts | **0** | 6 |
-| Hard errors, a later run on new questions | **1** | 3 |
-| Retrieval before asserting | A tool call on every turn | No call at all in one run, declared the store empty in another |
-| Continuity after compaction | Referents intact | Dropped 7 of the 16 messages, then reported the zeros as fact |
-| Worst turn latency | **41.4s** | 101.1s |
-| Worst compression event | **30.5s**, incremental | 70.2s, blocking |
-| Median tool payload | **3,496 chars** | 12,557 chars |
-| Context envelope drift | 642 chars across five runs | Not measured |
-
-Measured from the gateway and agent logs. A hard error is a factual claim the record
-contradicts; a disclosed over-inference and a refusal are not. The error rows cover the
-runs graded on the same questions; later runs were graded on their own criteria and are
-not folded in. Reports, chat logs and agent logs are in [`bench/`](bench/README.md).
-
-### Where the difference showed
-
-| Run | Better combination | What decided it |
-|---|---|---|
-| 1 | MeAI Vault | The ledger was right and no entity was invented. The other arm wrote better and got the total wrong. |
-| 2 | MeAI Vault | The ledger and the turn to turn continuity held. The other arm retrieved more widely and could not add up what it retrieved. |
-| 3 | Mnemosyne | Provenance, narrowly, about 55/45. The other arm traced a borrowed thread to its source and said so. |
-| 4 | MeAI Vault | Retrieval was owned from the first turn instead of after being pushed. |
-| 5 | MeAI Vault | Retrieval continued under load. The other arm made no tool call, denied the memory and answered three seconds after being challenged. |
-| 6 | MeAI Vault | Conclusions were rebuilt by retrieving again. The other arm explained its own transcript as lost and was wrong about a file it was reading. |
-
-## Re-vendoring the engine
-
-The `jpm/` tree is vendored, not developed here. To update it:
-
-```bash
-rsync -a --delete \
-  --exclude='__pycache__' --exclude='*.pyc' --exclude='_OLD' \
-  /path/to/upstream/core/jpm/ ./jpm/
-```
-
-Then re-run `./install.sh` and restart. Migrations apply on the next provider init.
-
 ---
 
 ## License
@@ -745,3 +678,23 @@ permanent memory, and the name you will see in `memory.provider`, import paths a
 plugin directories. The engine underneath is the vendored `jpm` tree.
 
 In practice: call it Vault in user-agent conversation. 
+
+---
+
+## Getting help
+
+Bugs and install problems go in [Issues](https://github.com/MeAi-co/mea-pm/issues).
+Search first; most install failures are covered in
+[Every variable, and the two that bite](#every-variable-and-the-two-that-bite).
+
+Questions that are not bugs belong in
+[Discussions](https://github.com/MeAi-co/mea-pm/discussions), which is now open.
+
+Security issues do not go in either. Use GitHub's private vulnerability
+reporting, described in [SECURITY.md](SECURITY.md).
+
+There is no paid tier and no response-time guarantee. Both are answered on a
+best-effort basis.
+
+If you want this running on your own box with agents that maintain it, open an
+issue titled "setup" and say what you are trying to run.
