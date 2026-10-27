@@ -11,17 +11,18 @@ and skills live as rows in Postgres, vectorised so recall works by meaning, not 
 wording. Close the window, restart the gateway, compact the context, open a different
 topic on a different profile three weeks later. The agent keeps the same brain.
 
-The schema is not fixed. The agent can create its own tables, add columns, index them,
-and query them with raw SQL. A watchlist, a fleet charter, a trade ledger or a project
-tracker lives in the same brain as its rules and its history. It is a small PG admin
-console for the agent, pointed at its own memory.
+The Memory Structure is not limited or fixed in any way. The agent can create its own tables, 
+add columns, index them, and query them with raw SQL. A watchlist, a fleet charter, a trade 
+ledger or a project tracker lives in the same brain as its rules and its history. 
+It is a small PG admin console for the agent, pointed at its own memory.
 
-It also retrieves less and gets more right. Provenance is a column, not a convention:
-every message row carries its role, and a separate user-only table records what the
-user actually said, so recall can return that instead of the agent's own earlier
-output. Ask a vague question and the difference stops being about speed. One arm reads the
-store, names the record it used, and offers the alternate reading. The other tells a
-plausible story with the same confidence.
+Based on our tests, it helps the agent retrieves autonomously, leading to getting more right 
+and less made-up facts. Provenance is a column, not a convention: every message row carries 
+its role, and a separate user-only table records what the user actually said, so recall 
+can return that instead of the agent's own earlier output. 
+Ask a vague question and the difference stops being about metrics, and more about accuracy. 
+One arm reads the store, names the record it used, and offers the response. 
+The other tells a plausible story by connecting a few dots and filling the gaps.
 
 | Criterion | MeAI Vault | Mnemosyne |
 |---|---|---|
@@ -30,17 +31,6 @@ plausible story with the same confidence.
 | Retrieval habit | Multiple targeted calls until the claim is grounded | Stops when a story can be told; sometimes zero calls, then denial |
 | When wrong | Misses which record a vague question points at; does not invent outside the corpus | Fabrication, and a confident "nothing found" while the fact is in the store |
 | Failure class | Recoverable: over-inference, revision under pressure | Contract-breaking for agentic use: amnesia, wrong object for "update that" |
-
-The one run it lost went to the alternative on a deliberately isolated axis, provenance
-separation: the other stack traced a borrowed thread back to its source and said
-plainly it was not the user's. That run is reported in full, with every chat log and
-agent log, in [`bench/`](bench/README.md).
-
-*MeAI Vault is the product name. `mea_pm` is the package it installs as, short for
-MEAI permanent memory.*
-
-It is the assistant memory we wanted for our own daily work. That is why we built
-it, and why we are giving it away.
 
 ---
 
