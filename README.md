@@ -212,10 +212,11 @@ In the target profile's `.env`:
 | `JPM_PG_PASSWORD` | no | empty / `.pgpass` |
 | `JPM_KNOWLEDGE_SCOPE` | no | `own` (`all` shares knowledge across profiles) |
 
-> **`JPM_PG_HOST` is the one that bites.** Unset, the provider reports itself
-> unavailable and the host falls back to its own memory backend. You get a working
-> looking install that never touches Postgres. Set but unreachable, you get a hard
-> error instead, which is the correct behaviour.
+> **`JPM_PG_HOST` is the one that bites.** Unset, the provider fails at session
+> start with `JPM_PG_HOST is not set or PG is unreachable`, so nothing pretends to
+> work. Set but unreachable, you get the same hard error with the connection
+> failure underneath it, including a missing database. There is no file-memory
+> fallback in either case: a store it cannot reach is a store it does not fake.
 
 Embeddings, all optional. Without them recall is keyword only:
 
