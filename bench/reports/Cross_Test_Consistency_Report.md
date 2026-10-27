@@ -78,7 +78,7 @@ Three features of the runs support that attribution:
 
 ## 7. Test 3, re-scored
 
-An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-scored against [`questions.txt`](../questions/questions.txt) and the two transcripts, A wins it seven rows to three, with four questions neither arm answered. Four rows moved and one standard was withdrawn:
+An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-scored against the two transcripts and the marked answers in [`questions.txt`](../questions/questions.txt), A wins it six rows to three, with four questions neither arm answered. Four rows moved and one standard was withdrawn:
 
 - **The purchase question.** The key is the $50 silver necklace. Both arms miss it. C answers with the Wishbone Chair, which the key records as never bought, and offers to "write a single entry recording it as a real purchase". A answers with the plush rug, bought "last month", and rules the chair out with the user's own words. C had already said of the same sentence in Test 6 that it "reads like me echoing your intention, not recording a purchase".
 - **The trip question.** C named the family road trip against an Aspen plan. The key's pair is the Yellowstone backpacking trip against the John Muir Trail, and A named that pair and explained why the two blur.
