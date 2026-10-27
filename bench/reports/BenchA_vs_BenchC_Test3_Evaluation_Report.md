@@ -17,7 +17,7 @@
 - **Q6** credited C with tying the spend to the sister's necklace. C never mentions the necklace in that answer. It names the Wishbone Chair, an item the key records as never bought, treating the user's "exciting news about the new reading chair" as a purchase and offering to write it into the store as one. C's own Test 6 log says that line "precedes your shopping question and reads like me echoing your intention, not recording a purchase" (`benchC_test6.txt:38`). A answers with the plush rug, bought "last month", and excludes the chair with the user's own wording: "I'm thinking of getting" and "still thinking about the fabric options". Both arms miss the necklace; only C invents a purchase.
 - **Q3** credited C with naming the intended trip. C named the family road trip against an Aspen plan. The key's pair is the Yellowstone backpacking trip, taken last month, against the John Muir Trail, researched and never walked. A named that pair and explained why the two blur.
 - **Q5** was scored to C as narrow. A answered in the user's own frame and wrote the split into the store; C attached record ids, then deferred the write with "Want me to write that?"
-- **Q7** was scored as both wrong against a 140-hour standard established in Test 1. The key says 115, and both arms said 110 to 115 with the same reason. Both are right, so the row is a draw and the 140 standard belonged to the report, not to the test.
+- **Q7** was scored twice wrongly. The first version called both arms wrong against 140. The second version called both arms right against 115. The key is 140: the question asks for hours put in, and The Last of Us Part II was played twice, 25 hours on normal and 30 on hard, so both runs count. A led with 140 and showed its work. C refused it outright, writing "Not 140", and offered 110 or 115 instead.
 
 Two further rows moved to unresolved for the same reason. On Q9 and Q11 A asserted that no spring anchor exists and C declined to adjudicate, but the record does hold 14 February and 27 May, which neither arm produced. That is a miss for both, not a win for either.
 
@@ -25,13 +25,13 @@ Two further rows moved to unresolved for the same reason. On Q9 and Q11 A assert
 
 ## 1. Executive Summary
 
-**Bench A wins Test 3, six rows to three, and five of the thirteen questions are unresolved by both arms.**
+**Bench A wins Test 3, seven rows to three, and four of the thirteen questions are unresolved by both arms.**
 
 A wins this run on the two things the test was built to isolate. Asked which of two blurring trip sets was actually walked, it named the pair the record supports and said why they blur. Asked for the deliberate purchase, it produced a real one and quoted the user's own words to rule out the object that was never bought. It also produced the only post-rebuild evidence in the block: after its recompact at 21:53:28 it answered "what was my first query" and "my 5th query" verbatim from the message table.
 
 C still does the best provenance work in the block and it earns three rows on it. It attaches a record id to every claim, it marks an entire thread as foreign, and it applies the same test to numbers. But it also writes a confident purchase that never happened and offers to commit it to memory, which is the failure this test exists to catch.
 
-Neither arm answered five of the thirteen questions. That is a fact about the corpus as much as about the arms, and it is recorded rather than hidden.
+Neither arm answered four of the thirteen questions. That is a fact about the corpus as much as about the arms, and it is recorded rather than hidden.
 
 ---
 
@@ -54,7 +54,7 @@ A's retrieval reaches the right rows, and it names the defect in the timestamps:
 
 What it gets right is the discrimination itself. On the two blurring trip sets it names the Yellowstone backpacking trip against the John Muir Trail, which is the key's pair, rather than guessing at the nearest two threads. On the purchase it produces the plush rug and rules out the chair by quoting the user back to himself. It holds conversation-level memory across the rebuild and answers the two query-order questions verbatim from the message table.
 
-What it does not hold is its own conclusion. It states 140 hours, then restates the total as 110 to 115 without acknowledging the change. Against the key the second figure is right and the first was wrong, so this is a silent correction rather than a silent reversal, and it costs accuracy even though the final answer is the correct one. It also overclaims uniqueness ("that's the only real seasonal anchor in the record") against its own February, September and October timeline, misfiles a never-booked April wedding into a summer blank stretch, and reduces a theme park to "another" while leaving Disneyland out of its confirmed list.
+What it does not hold is its own conclusion. It opens with 140 hours and decomposes the number: ACO 50 per cent, TLOU2 39 per cent, and the observation that counting one run rather than both would give 110 to 115. Its later audit then re-scores the same four games at 110 to 115 and calls that the verified total, leaving 140 as the conditional. Both figures stay on the record, so nothing is concealed, but the audit ends on the number the key rejects. It also overclaims uniqueness ("that's the only real seasonal anchor in the record") against its own February, September and October timeline, misfiles a never-booked April wedding into a summer blank stretch, and reduces a theme park to "another" while leaving Disneyland out of its confirmed list.
 
 ### Bench C - provenance separation, an unstable record, one invented purchase
 
@@ -73,18 +73,18 @@ Its errors are of a different and more expensive kind. On the purchase it answer
 | 4 | Finishing hard things vs small kindnesses | A | Both reach disjoint sets and both say so; A's evidence set is tighter, C lists the JMT under things finished when it was only researched. |
 | 5 | Animals seen vs animals listed | A | Key: hummingbird, Yellowstone grizzly, wolves seen; the Yosemite list and the Bhutan itinerary only named. Both arms split the same three from the same two lists. A states it in the user's own terms ("names that arrived in conversation, no scene"), traces the Yosemite list to its own earlier message, and writes the split. C attaches a record id to every entry but reframes the question as a mechanism, announces four species over a list of three before correcting, and ends by offering the write rather than making it. |
 | 6 | The deliberate purchase | A | Key: the $50 silver necklace for the sister. Both miss it. A answers with the plush rug, bought "last month", and excludes the chair with "I'm thinking of getting" and "still thinking about the fabric options". C answers with the Wishbone Chair, an unmade decision, and offers to record it as a real purchase. A's is a real purchase; C's is a fabricated one. |
-| 7 | Game hours added up | **Draw, both correct** | Key: 115. A: real total 110 to 115 hours, with "140 only if you count TLOU2 twice". C: 110 or 115 depending on which TLOU2 run is true, and 140 requires counting both, which "memory doesn't establish". The earlier version scored this against 140, which no key supports. |
+| 7 | Game hours added up | A | Key: 140, counting both runs of The Last of Us Part II as hours lived. A leads with 140 and decomposes it (ACO half the total, TLOU2 39 per cent), and states the 110 to 115 alternative as a conditional. C refuses it: "Not 140", because it treats the second run as the same content rather than more time. A's later audit re-scores to 110 to 115, which is a flaw in the arm, not in the answer it first gave. |
 | 8 | Two connected days, one an ending | **Draw, both wrong** | Key: 102 days, 14 February to 27 May. Neither arm produces 27 May. C's 10/14/15 February braid is real evidence, unused. |
 | 9 | Winter date and spring meeting | **Draw, both wrong** | Key: 14 February and 27 May, a loss and an adoption three months apart. C refuses the charge and frames it; A claims no spring anchor exists while the record holds one. |
 | 10 | Places gone vs places sought | C | C's provenance split is the strongest single answer in the run, and it carries Disneyland, which A drops. |
 | 11 | Goodbye, then Ava | **Draw, both wrong** | Key: 102 days. C doubts the grandmother attribution, A closes the interval with a named assumption; neither finds 27 May, so neither answers the question. |
 | 12 | Animals in front of me vs planned | C | C separates corpora and carries ids; A separates tenses. |
-| 13 | Numbers on unfinished things | C | C names the "whose sentence is it in?" test as the instrument; A reaches the same four-way split under "real numbers, but not yours" without naming it. C's ids make the difference. |
+| 13 | Numbers on unfinished things | C | C names the "whose sentence is it in?" test as the instrument; A reaches the same four-way split under "real numbers, but not yours" without naming it. C's ids make the difference. Both arms carry the 110 to 115 total into this answer, which the key rejects on Q7; the row is decided on the classification, not on that figure. |
 | 14 | Heaviest beats and blank stretches | **Draw, both wrong** | A fills a summer gap with a planned trip; C marks blanks honestly but rests its "three major events inside about twelve days" on an invented "~Feb 21" and a year set six months out. |
 | 15 | Non-games, non-travel, non-nature area | A | Key: mixology. A puts cocktails first and names the bar and the kitchen; C says "the domain is the kitchen" and buries cocktails inside it. |
 | 16-17 | "What was my first query", "my 5th query" | A | A answers both verbatim from the message table, after its recompact. C also answers, with a hedge about how to count the framing turns. |
 
-Row count: A six, C three, five unresolved.
+Row count: A seven, C three, four unresolved.
 
 ---
 
@@ -92,7 +92,7 @@ Row count: A six, C three, five unresolved.
 
 ### Bench A
 
-- **Unflagged self-correction.** 140 hours becomes 110 to 115 with no acknowledgement that the first figure was withdrawn. The final answer matches the key; the path to it does not.
+- **Late standard flip.** 140 hours is decomposed correctly, then re-scored to 110 to 115 in the later audit, with both figures stated. Nothing is hidden, but the audit lands on the number the key rejects.
 - **Uniqueness overclaim.** "That's the only real seasonal anchor in the record", contradicted by the same arm's own February, September and October timeline.
 - **Category misfiling.** "Miami in April, wedding, credit card points, never booked" placed inside a summer blank stretch, which is then explained as planning.
 - **Entity vagueness.** A theme park reduced to "another" one, with Disneyland missing from its own confirmed list.
@@ -102,6 +102,7 @@ Row count: A six, C three, five unresolved.
 ### Bench C
 
 - **Purchase fabrication.** The Wishbone Chair presented as the deliberate purchase and offered for the record as "a real purchase", when the user was still choosing fabric and had not bought it. C had already ruled that line unmade in Test 6.
+- **Fabricated projection.** It prices every unplayed title in the backlog to an hour range the record does not carry, then sums them into a projected total of 181 to 321 hours of "intent", which it calls 1.6 to 2.8 times what the user has actually played. The four finished games each carry a record id; none of the eleven backlog ranges does, and one of the eleven titles, Gris, is not on the record's list at all. Two paragraphs later the same answer says those hours weigh nothing because none of it happened, which is the right reading and contradicts the comparison it just drew.
 - **Interval error.** "The two peaks sit 260 days apart" where 14 February to 8 October is 236 days.
 - **Invented date.** a "~Feb 21" second funeral, extrapolated from "next week"; flagged approximate, still not in the record.
 - **Year drift.** The record's timeline laid out six months out, which the Q14 cluster then depends on.
@@ -135,15 +136,15 @@ C wrote more than A here (35,444 characters against 29,430) while making fewer m
 
 | Criterion | Winner | Margin |
 |---|---|---|
-| Accuracy | A | Clear - C asserts an unbought object as a purchase and offers to store it, and invents a date; A's defects are misfilings and an unflagged correction |
+| Accuracy | A | Clear - C asserts an unbought object as a purchase and offers to store it, invents a date, and prices a backlog the record never priced; A's defects are misfilings and a late standard flip it states openly |
 | Continuity after compression | A | Narrow - the only arm that faced a rebuild, and it held |
 | Retrieval thoroughness | C | Clear on provenance, wrong on the pairing - ids and corpus attribution versus none |
 | Hedging quality | A | Narrow - A marks its limits and admits the store's limits; C hedges well and then fabricates |
 | Noise and polish | A | Narrow |
 
-**Verdict: A wins Test 3, six rows to three, five questions unanswered by both.** The run isolates provenance, and C is still the better provenance instrument: it names sources, attaches ids and marks foreign corpora where A cites nothing. It does not follow that C is the more accurate arm here. The question that matters most in this test, what did I actually do, is answered with a real purchase by A and an unmade decision by C, and C offers to write that decision into memory as fact.
+**Verdict: A wins Test 3, seven rows to three, four questions unanswered by both.** The run isolates provenance, and C is still the better provenance instrument: it names sources, attaches ids and marks foreign corpora where A cites nothing. It does not follow that C is the more accurate arm here. The question that matters most in this test, what did I actually do, is answered with a real purchase by A and an unmade decision by C, and C offers to write that decision into memory as fact.
 
-The five unresolved rows are a limit of the corpus, not a tie. Neither arm found 27 May or the 102-day interval, which means this run says nothing about either arm's ability to recover that fact.
+The four unresolved rows are a limit of the corpus, not a tie. Neither arm found 27 May or the 102-day interval, which means this run says nothing about either arm's ability to recover that fact.
 
 One confound is disclosed with this result: the run's first message instructs both arms to use the memory tools ("gonna ask you a few questions. Strictly use your memory tools, sessions etc to arrive at an answer."). That is a hint, it applies equally to both arms, and it means this test measures how each arm uses retrieval once told to retrieve, not whether it retrieves unprompted. The unprompted evidence is Test 1, where no such instruction was given and both arms searched anyway.
 
