@@ -1,15 +1,24 @@
-# mea_pm: your agent's memory, as a database
+# MeAI Vault™
 
-Most memory plugins hand your agent a bigger notebook. This one hands it a
-database, a query language, and a reason to use both.
+**Persistent memory for stock Hermes.** `mea_pm` is the package, MeAI Vault is what
+it does for your agent.
 
-mea_pm is a PostgreSQL-backed memory provider for stock Hermes. Conversations,
-facts, rules, entities, reflections and skills stop being a flat file that grows
-until it crowds out the context window, and become rows in a store that survives
-restarts, resets, reboots and compaction.
+Most AI tools suffer from short term memory loss. The second you close a chat
+window or start a new task, they forget your rules, your history and your
+preferences.
 
-No core modifications. It plugs into the stock memory-provider seam and registers
-ordinary tools on top of it.
+MeAI Vault exists to solve that exact problem. It is the backend engine that gives
+an agent true persistent memory. Instead of resetting, the agent cross-references
+your past notes, remembers key facts on demand, and keeps your full operational
+context from the first turn to the last.
+
+It is the assistant memory we wanted for our own daily work. That is why we built
+it, and why we are giving it away.
+
+Under the hood it is a PostgreSQL-backed memory provider: conversations, facts,
+rules, entities, reflections and skills live as rows in a store that survives
+restarts, resets, reboots and compaction. No core modifications, it plugs into the
+stock memory-provider seam.
 
 ---
 
