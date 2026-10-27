@@ -26,13 +26,18 @@ verdict; an arm that is cheaper and wrong has not won.
 Error classes are graded, not lumped. A recoverable over-inference and a confident
 fabricated count are different defects.
 
-## One scored run
+## Reports
 
-`reports/Test6_Evaluation_Report.md` is the criteria and the result. Tests 1–5 were
-calibration on an earlier criteria ordering; their scores are stale and are not
-shipped.
+`reports/Test6_Evaluation_Report.md` is the criteria and the current result.
+`reports/Test6_Run_Notes_20261020.md` holds the raw run notes behind it.
 
-`reports/Test6_Run_Notes_20261020.md` holds the raw run notes behind that report.
+`reports/BenchA_vs_BenchC_Test4_Evaluation_Report.md` is retained in full, as
+recorded on 19 October 2026, with both Test 4 chatlogs beside it. It prints its own
+criteria ordering, which differs from Test 6's, so its findings stand alone: nothing
+from Test 4 is carried into a Test 6 number, and no number from either is averaged,
+summed or compared across the two.
+
+Tests 1, 2, 3 and 5 were scored against earlier orderings and are not shipped.
 
 ## Evidence
 
@@ -41,18 +46,25 @@ bench/
 ├── README.md
 ├── questions/questions.txt
 ├── reports/
+│   ├── BenchA_vs_BenchC_Test4_Evaluation_Report.md
 │   ├── Test6_Evaluation_Report.md
 │   └── Test6_Run_Notes_20261020.md
 └── evidence/
-    ├── chatlogs/test6/   benchA_test6.txt  benchC_test6.txt
-    ├── agentlogs/        benchA_test6_agentlog.txt  benchC_test6_agentlog.txt
-    ├── gateway/          bench_a_gateway_oct18-21.log  bench_c_gateway_oct18-21.log
-    └── smoke/            smoke_a.log  smoke_c.log
+    ├── chatlogs/
+    │   ├── test4/  benchA_test4.txt  benchC_test4.txt
+    │   └── test6/  benchA_test6.txt  benchC_test6.txt
+    ├── agentlogs/  benchA_test6_agentlog.txt  benchC_test6_agentlog.txt
+    ├── gateway/    bench_a_gateway_oct18-21.log  bench_c_gateway_oct18-21.log
+    └── smoke/      smoke_a.log  smoke_c.log
 ```
 
 Chatlogs are the primary evidence; the agent and gateway logs carry turn boundaries,
 tool-call counts and compression events that a transcript cannot show. The gateway
-files are the 2026-10-18 → 2026-10-21 window covering the run, not the whole log.
+files are the 2026-10-18 → 2026-10-21 window covering the runs, not the whole log.
+
+**Test 4 has no agent logs.** None were kept for that run, so the directory holds the
+report and the two chatlogs only. The chatlogs cover one 09:06–09:26 window with
+unequal turn counts per arm, so per-turn comparisons there are not paired.
 
 The harness that drove the gateways is not shipped: it needs live arm homes, a model
 endpoint and a scratch PostgreSQL, so a bundled runner could not work elsewhere. The
