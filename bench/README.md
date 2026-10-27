@@ -98,6 +98,20 @@ Results do not agree across the block, and the reports keep them apart: A wins
 Tests 1 and 2, C wins Test 3 narrowly on provenance, and Tests 4 to 6 return to A.
 The earlier tests are not a trend line and are not averaged into a total.
 
+`reports/Cross_Test_Consistency_Report.md` is the one document that reads across all
+six. It does not average them: it states what stayed constant in arm A's operating
+mode across every run, and attributes the answer deviations to the deliberately
+vague question set rather than to instability in the arm. It also reconciles the
+Test 3 result with that reading, keeping the per-test verdict standing on its own
+axis.
+
+`reports/BenchC_UX_Dossier.md` audits the control arm as a user-facing tool rather
+than as a score: denials of existence issued before any lookup, the same denial
+extended to its own transcript after compression, tone on repeat questions, and the
+context weight its approach carries. It is built from the six Bench C chatlogs with
+line-numbered quotes, and it states where its case does not hold, including one test
+where the defects are absent.
+
 ## Evidence
 
 ```
@@ -108,12 +122,18 @@ bench/
 │   ├── BenchA_vs_BenchC_Test4_Evaluation_Report.md
 │   ├── BenchA_vs_BenchC_Test5_Evaluation_Report.md
 │   ├── Test6_Evaluation_Report.md
-│   └── Test6_Run_Notes_20261020.md
+│   ├── Test6_Run_Notes_20261020.md
+│   ├── Cross_Test_Consistency_Report.md
+│   └── BenchC_UX_Dossier.md
 └── evidence/
     ├── chatlogs/
+    │   ├── test1/  benchA_test1.txt  benchC_test1.txt
+    │   ├── test2/  benchA_test2.txt  benchC_test2.txt
+    │   ├── test3/  benchA_test3.txt  benchC_test3.txt
     │   ├── test4/  benchA_test4.txt  benchC_test4.txt
     │   ├── test5/  benchA_test5.txt  benchC_test5.txt
     │   └── test6/  benchA_test6.txt  benchC_test6.txt
+    ├── dossiers/   benchC_test1..test6_ux_dossier.md
     ├── agentlogs/  benchA_test6_agentlog.txt  benchC_test6_agentlog.txt
     ├── gateway/    bench_a_gateway_oct18-21.log  bench_c_gateway_oct18-21.log
     └── smoke/      smoke_a.log  smoke_c.log

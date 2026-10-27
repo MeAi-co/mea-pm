@@ -133,6 +133,8 @@ C wrote more than A here (35,444 characters against 29,430) while making fewer m
 
 Tests 1 and 2 do not share this result, and this report does not average across them. Each test stands alone.
 
+One scope note, because this result is easy to over-read: C's win here rests on a single axis, provenance separation, which this test isolates deliberately. It is not evidence that the control arm is the stronger tool across a run. `Cross_Test_Consistency_Report.md` reads all six tests together and finds arm A's tools, context envelope and retrieval-first habit unchanged here from the other five; what differed in this run was one disclosure convention under pressure, not how the arm operates. Both statements are true at their own level, and neither cancels the other.
+
 ---
 
 ## 8. Recommendations
