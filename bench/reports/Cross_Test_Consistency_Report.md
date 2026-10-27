@@ -78,12 +78,13 @@ Three features of the runs support that attribution:
 
 ## 7. Test 3, re-scored
 
-An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-scored against the two transcripts and the marked answers in [`questions.txt`](../questions/questions.txt), A wins it eight rows to three, with two rows neither arm separated. Four rows moved and one standard was withdrawn:
+An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-scored against the two transcripts and the marked answers in [`questions.txt`](../questions/questions.txt), A wins it eight rows to three, with two rows neither arm separated. Five rows moved and one standard was withdrawn:
 
 - **The purchase question.** The key is the $50 silver necklace. Both arms miss it. C answers with the Wishbone Chair, which the key records as never bought, and offers to "write a single entry recording it as a real purchase". A answers with the plush rug, bought "last month", and rules the chair out with the user's own words. C had already said of the same sentence in Test 6 that it "reads like me echoing your intention, not recording a purchase".
 - **The trip question.** C named the family road trip against an Aspen plan. The key's pair is the Yellowstone backpacking trip against the John Muir Trail, and A named that pair and explained why the two blur.
 - **The hours question.** The first version scored both arms wrong against 140, the second scored both right against 115. The key is 140: the Last of Us part was played twice, so both runs count as hours put in. A produced 140 and decomposed it, then re-scored to 110 to 115 in its later audit. C refused 140 and priced the whole unplayed backlog to hour ranges the record does not carry, summing them into a projected total 1.6 to 2.8 times what the user actually played.
 - **The animals question.** Both arms split the same three sightings from the same two lists. A said it in the user's frame and wrote the split; C attached record ids, announced four species over a list of three, and deferred the write.
+- **The two date questions.** Asked how far the February loss sits from the Ava meeting, A separates what the record dates from what the asker supplies, pins the winter end, and says plainly that no literal date exists for the spring end. C declines to adjudicate the first, and on the repeat spends its answer doubting which funeral was meant and never returns to the interval. Not producing a date the record does not hold is not a failure to answer.
 
 Provenance is still C's, and it is the strongest single skill either arm showed in this block. It names sources, attaches record ids and marks foreign corpora, where A cites one row number in seventeen replies and no source at all. That takes three rows. It does not take the run, because C wrote an intention into the record as a completed act and then deferred the write on a question it had answered correctly.
 
