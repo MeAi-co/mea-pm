@@ -85,7 +85,7 @@ An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-
 - **The hours question.** The first version scored both arms wrong against 140, the second scored both right against 115. The key is 140: the Last of Us part was played twice, so both runs count as hours put in. A produced 140 and decomposed it, then re-scored to 110 to 115 in its later audit. C refused 140 and priced the whole unplayed backlog to hour ranges the record does not carry, summing them into a projected total 1.6 to 2.8 times what the user actually played.
 - **The animals question.** Both arms split the same three sightings from the same two lists. A said it in the user's frame and wrote the split; C attached record ids, announced four species over a list of three, and deferred the write.
 
-Provenance is still C's, and it is what keeps the run close. It names sources, attaches record ids and marks foreign corpora, where A cites one row number in seventeen replies and no source at all. It takes three rows on that strength. It lost the run by writing an intention into the record as a completed act.
+Provenance is still C's, and it is the strongest single skill either arm showed in this block. It names sources, attaches record ids and marks foreign corpora, where A cites one row number in seventeen replies and no source at all. That takes three rows. It does not take the run, because C wrote an intention into the record as a completed act and then deferred the write on a question it had answered correctly.
 
 The revision corrects scoring, not criteria. It also strengthens the cross-test reading rather than weakening it: A is now the same tool in all six runs, including the one built to isolate the skill C is best at.
 

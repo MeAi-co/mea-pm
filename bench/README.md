@@ -104,9 +104,8 @@ They are relabelled here by reply identity, so the A file holds A's transcript a
 A's gateway log. Any earlier reading of that test has the arms inverted.
 
 A wins all six runs, and the reports keep each one apart rather than averaging them
-into a total. Test 3 is the closest: C's provenance work there is the best in the
-block, and it still loses the run by writing an intention into the record as a
-completed purchase.
+into a total. In Test 3, C's provenance work is the best in the block and still
+loses the run: it wrote an intention into the record as a completed purchase.
 
 `reports/Cross_Test_Consistency_Report.md` is the one document that reads across all
 six. It does not average them: it states what stayed constant in arm A's operating
