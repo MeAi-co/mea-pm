@@ -62,9 +62,8 @@ it, and why we are giving it away.
 
 ---
 
-**On this page:** [The short version](#the-short-version) · [Who it is for](#who-it-is-for) · [Requirements](#requirements) · [Quickstart](#quickstart) · [Configuration you can start from](#reference-configuration) · [Memory the agent actually uses](#memory-the-agent-actually-uses) · [Why flat memory stops working](#why-flat-memory-stops-working) · [A central Postgres store beats a local memory plugin](#a-central-postgres-store-beats-a-local-memory-plugin) · [`vault` is an admin console, not a lookup](#vault-is-an-admin-console-not-a-lookup) · [The agent builds its own schema](#the-agent-builds-its-own-schema) · [One box, many agents, many topics](#one-box-many-agents-many-topics) · [Architecture](#architecture) · [Coming from stock Hermes](#coming-from-stock-hermes) · [Side loops](#side-loops) · [Evaluation](#evaluation) · [Re-vendoring the engine](#re-vendoring-the-engine) · [About the name](#about-the-name) · [License](#license)
+**On this page:** [Who it is for](#who-it-is-for) · [Requirements](#requirements) · [Quickstart](#quickstart) · [Configuration you can start from](#reference-configuration) · [Memory the agent actually uses](#memory-the-agent-actually-uses) · [Why flat memory stops working](#why-flat-memory-stops-working) · [A central Postgres store beats a local memory plugin](#a-central-postgres-store-beats-a-local-memory-plugin) · [`vault` is an admin console, not a lookup](#vault-is-an-admin-console-not-a-lookup) · [The agent builds its own schema](#the-agent-builds-its-own-schema) · [One box, many agents, many topics](#one-box-many-agents-many-topics) · [Architecture](#architecture) · [Coming from stock Hermes](#coming-from-stock-hermes) · [Side loops](#side-loops) · [Evaluation](#evaluation) · [Re-vendoring the engine](#re-vendoring-the-engine) · [About the name](#about-the-name) · [License](#license)
 
-## The short version
 ## Who it is for
 
 MeAI Vault is aimed at **intermediate to advanced users**, and it assumes you are
