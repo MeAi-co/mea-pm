@@ -1,0 +1,299 @@
+2026-10-20 21:02:30,394 INFO mnemosyne_hermes: Mnemosyne initialized: session=hermes_agent:main:telegram:dm:1762309326
+2026-10-20 21:02:30,396 INFO mnemosyne_hermes: Mnemosyne registered Hermes auxiliary LLM backend for memory operations
+2026-10-20 21:02:30,396 INFO run_agent: Memory provider 'mnemosyne' activated
+2026-10-20 21:02:30,398 WARNING agent.context_pin: model.context_length pins deepseek-v4.1-flash:cloud at 131,072 tokens but the provider advertises 1,048,576; the pin wins. Remove model.context_length from config.yaml to use the advertised window.
+2026-10-20 21:02:30,408 INFO run_agent: Ollama num_ctx capped: 1048576 -> 131072 (model.context_length override)
+2026-10-20 21:02:30,445 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=0 msg='Hey'
+2026-10-20 21:02:30,488 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-17 (<lambda>):140584781063872 provider=custom base_url=http://localhost:11434/v1 model=deepseek-v4.1-flash:cloud
+2026-10-20 21:02:31,803 agent.conversation_loop: API call #1: model=deepseek-v4.1-flash:cloud provider=custom in=22276 out=46 total=22322 latency=1.3s cache=768/22276 (3%) id=chatcmpl-611
+2026-10-20 21:02:31,820 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (deepseek-v4.1-flash:cloud)
+2026-10-20 21:02:31,820 INFO agent.auxiliary_client: Auxiliary title_generation: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:02:31,822 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=0 last_msg_role=assistant response_len=174 session=20261020_210230_cee17ee0
+2026-10-20 21:02:31,963 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=1.9s api_calls=1 response=174 chars
+2026-10-20 21:02:31,984 INFO gateway.platforms.base: [Telegram] Sending response (174 chars) to 1762309326
+2026-10-20 21:02:48,757 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (225 chars)
+2026-10-20 21:02:48,777 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='There’s one thing I spent real money on that still feels like I chose it on purp' reply_to_id=None reply_to_text=''
+2026-10-20 21:02:48,809 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=2 msg='There’s one thing I spent real money on that still feels like I chose it on purp...'
+2026-10-20 21:02:50,667 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=673216->590820 rss_anon_kib=590992->508596 threads=25 duration_ms=161.2
+2026-10-20 21:02:51,616 agent.conversation_loop: API call #2: model=deepseek-v4.1-flash:cloud provider=custom in=23384 out=292 total=23676 latency=2.7s cache=22272/23384 (95%) id=chatcmpl-347
+2026-10-20 21:02:51,621 INFO agent.auxiliary_client: Auxiliary title_generation: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:02:51,627 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=0 last_msg_role=assistant response_len=270 session=20261020_210230_cee17ee0
+2026-10-20 21:02:51,676 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=2.9s api_calls=1 response=270 chars
+2026-10-20 21:02:51,697 INFO gateway.platforms.base: [Telegram] Sending response (270 chars) to 1762309326
+2026-10-20 21:03:02,076 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (12 chars)
+2026-10-20 21:03:02,097 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='are you sure' reply_to_id=None reply_to_text=''
+2026-10-20 21:03:02,135 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=4 msg='are you sure'
+2026-10-20 21:03:03,587 agent.conversation_loop: API call #3: model=deepseek-v4.1-flash:cloud provider=custom in=24549 out=201 total=24750 latency=1.4s cache=23552/24549 (96%) id=chatcmpl-18
+2026-10-20 21:03:03,706 agent.tool_executor: tool mnemosyne_recall completed (0.10s, 14559 chars)
+2026-10-20 21:03:03,778 agent.tool_executor: tool mnemosyne_recall completed (0.07s, 9620 chars)
+2026-10-20 21:03:06,567 agent.conversation_loop: API call #4: model=deepseek-v4.1-flash:cloud provider=custom in=33088 out=404 total=33492 latency=2.8s cache=24576/33088 (74%) id=chatcmpl-873
+2026-10-20 21:03:06,580 agent.tool_executor: tool session_search completed (0.01s, 495 chars)
+2026-10-20 21:03:06,691 agent.tool_executor: tool mnemosyne_recall completed (0.11s, 7187 chars)
+2026-10-20 21:03:41,445 INFO tui_gateway.server: Reclaimed 1 orphaned active-session lease(s)
+2026-10-20 21:03:50,815 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=599380->594516 rss_anon_kib=517160->512296 threads=24 duration_ms=140.6
+2026-10-20 21:03:52,586 agent.conversation_loop: API call #5: model=deepseek-v4.1-flash:cloud provider=custom in=36198 out=200 total=36398 latency=45.9s cache=33280/36198 (92%) id=chatcmpl-76
+2026-10-20 21:03:52,597 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=2 last_msg_role=assistant response_len=593 session=20261020_210230_cee17ee0
+2026-10-20 21:03:52,634 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=50.5s api_calls=3 response=593 chars
+2026-10-20 21:03:52,651 INFO gateway.platforms.base: [Telegram] Sending response (593 chars) to 1762309326
+2026-10-20 21:04:43,026 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (39 chars)
+2026-10-20 21:04:43,038 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='quick confirmation, was that purchased?' reply_to_id=None reply_to_text=''
+2026-10-20 21:04:43,075 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=12 msg='quick confirmation, was that purchased?'
+2026-10-20 21:04:44,695 agent.conversation_loop: API call #6: model=deepseek-v4.1-flash:cloud provider=custom in=36408 out=203 total=36611 latency=1.5s cache=36352/36408 (100%) id=chatcmpl-768
+2026-10-20 21:04:44,765 agent.tool_executor: tool mnemosyne_recall completed (0.06s, 10094 chars)
+2026-10-20 21:04:44,834 agent.tool_executor: tool mnemosyne_recall completed (0.06s, 10228 chars)
+2026-10-20 21:04:46,546 agent.conversation_loop: API call #7: model=deepseek-v4.1-flash:cloud provider=custom in=43508 out=196 total=43704 latency=1.7s cache=36608/43508 (84%) id=chatcmpl-516
+2026-10-20 21:04:46,561 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=2/9223372036854775807 budget=2/9223372036854775807 tool_turns=3 last_msg_role=assistant response_len=544 session=20261020_210230_cee17ee0
+2026-10-20 21:04:46,622 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=3.6s api_calls=2 response=544 chars
+2026-10-20 21:04:46,643 INFO gateway.platforms.base: [Telegram] Sending response (544 chars) to 1762309326
+2026-10-20 21:04:50,946 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=598148->595984 rss_anon_kib=515928->513732 threads=22 duration_ms=123.6
+2026-10-20 21:05:00,391 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (28 chars)
+2026-10-20 21:05:00,399 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='so then your asnwer is wrong' reply_to_id=None reply_to_text=''
+2026-10-20 21:05:00,432 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=17 msg='so then your asnwer is wrong'
+2026-10-20 21:05:03,045 agent.conversation_loop: API call #8: model=deepseek-v4.1-flash:cloud provider=custom in=44244 out=276 total=44520 latency=2.5s cache=43648/44244 (99%) id=chatcmpl-113
+2026-10-20 21:05:03,063 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=3 last_msg_role=assistant response_len=421 session=20261020_210230_cee17ee0
+2026-10-20 21:05:03,109 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=2.7s api_calls=1 response=421 chars
+2026-10-20 21:05:03,132 INFO gateway.platforms.base: [Telegram] Sending response (421 chars) to 1762309326
+2026-10-20 21:05:51,085 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=598920->596248 rss_anon_kib=516700->514028 threads=21 duration_ms=134.1
+2026-10-20 21:05:52,173 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (219 chars)
+2026-10-20 21:05:52,183 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='Looking back, the evidence that I finish hard things and the evidence that I do ' reply_to_id=None reply_to_text=''
+2026-10-20 21:05:52,220 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=19 msg='Looking back, the evidence that I finish hard things and the evidence that I do ...'
+2026-10-20 21:05:55,183 agent.conversation_loop: API call #9: model=deepseek-v4.1-flash:cloud provider=custom in=45582 out=395 total=45977 latency=2.9s cache=44416/45582 (97%) id=chatcmpl-311
+2026-10-20 21:05:55,301 agent.tool_executor: tool mnemosyne_recall completed (0.11s, 11751 chars)
+2026-10-20 21:05:55,381 agent.tool_executor: tool mnemosyne_recall completed (0.08s, 12737 chars)
+2026-10-20 21:05:59,966 agent.conversation_loop: API call #10: model=deepseek-v4.1-flash:cloud provider=custom in=54342 out=708 total=55050 latency=4.6s cache=45952/54342 (85%) id=chatcmpl-122
+2026-10-20 21:06:00,032 agent.tool_executor: tool mnemosyne_remember completed (0.06s, 260 chars)
+2026-10-20 21:06:02,464 agent.conversation_loop: API call #11: model=deepseek-v4.1-flash:cloud provider=custom in=55133 out=348 total=55481 latency=2.4s cache=55040/55133 (100%) id=chatcmpl-43
+2026-10-20 21:06:02,483 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=5 last_msg_role=assistant response_len=1461 session=20261020_210230_cee17ee0
+2026-10-20 21:06:02,533 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=10.3s api_calls=3 response=1461 chars
+2026-10-20 21:06:02,548 INFO gateway.platforms.base: [Telegram] Sending response (1461 chars) to 1762309326
+2026-10-20 21:06:51,226 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=602768->600008 rss_anon_kib=520548->517788 threads=21 duration_ms=137.6
+2026-10-20 21:06:52,550 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (180 chars)
+2026-10-20 21:06:52,562 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='There are creatures  I’ve actually seen with my own eyes and  those only ever ex' reply_to_id=None reply_to_text=''
+2026-10-20 21:06:52,592 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=26 msg='There are creatures  I’ve actually seen with my own eyes and  those only ever ex...'
+2026-10-20 21:06:55,987 agent.conversation_loop: API call #12: model=deepseek-v4.1-flash:cloud provider=custom in=56421 out=470 total=56891 latency=3.3s cache=55424/56421 (98%) id=chatcmpl-18
+2026-10-20 21:06:56,116 agent.tool_executor: tool mnemosyne_recall completed (0.12s, 15333 chars)
+2026-10-20 21:06:56,177 agent.tool_executor: tool mnemosyne_recall completed (0.06s, 10568 chars)
+2026-10-20 21:07:01,240 agent.conversation_loop: API call #13: model=deepseek-v4.1-flash:cloud provider=custom in=65559 out=948 total=66507 latency=5.1s cache=56832/65559 (87%) id=chatcmpl-158
+2026-10-20 21:07:01,257 INFO tools.file_tools: Creating new local environment for task session:...
+2026-10-20 21:07:01,371 INFO tools.environments.base: Session snapshot created (session=2cb7a3c18576, cwd=/home/bench_c)
+2026-10-20 21:07:01,372 INFO tools.file_tools: local environment ready for task session:
+2026-10-20 21:07:01,425 agent.tool_executor: tool write_file completed (0.18s, 239 chars)
+2026-10-20 21:07:01,434 agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (deepseek-v4.1-flash:cloud)
+2026-10-20 21:07:03,643 agent.conversation_loop: API call #14: model=deepseek-v4.1-flash:cloud provider=custom in=66595 out=346 total=66941 latency=2.2s cache=66432/66595 (100%) id=chatcmpl-43
+2026-10-20 21:07:03,690 agent.tool_executor: tool mnemosyne_remember completed (0.04s, 260 chars)
+2026-10-20 21:07:05,833 agent.conversation_loop: API call #15: model=deepseek-v4.1-flash:cloud provider=custom in=67028 out=299 total=67327 latency=2.1s cache=66816/67028 (100%) id=chatcmpl-122
+2026-10-20 21:07:05,845 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=4/9223372036854775807 budget=4/9223372036854775807 tool_turns=8 last_msg_role=assistant response_len=1177 session=20261020_210230_cee17ee0
+2026-10-20 21:07:05,927 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=13.4s api_calls=4 response=1177 chars
+2026-10-20 21:07:05,944 INFO gateway.platforms.base: [Telegram] Sending response (1177 chars) to 1762309326
+2026-10-20 21:07:51,378 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=607120->603672 rss_anon_kib=524900->521420 threads=23 duration_ms=142.2
+2026-10-20 21:08:00,618 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (157 chars)
+2026-10-20 21:08:00,630 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='I’ve talked about them that were right in front of me and some were only part of' reply_to_id=None reply_to_text=''
+2026-10-20 21:08:00,671 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=35 msg='I’ve talked about them that were right in front of me and some were only part of...'
+2026-10-20 21:08:03,059 agent.conversation_loop: API call #16: model=deepseek-v4.1-flash:cloud provider=custom in=68185 out=372 total=68557 latency=2.3s cache=67200/68185 (99%) id=chatcmpl-765
+2026-10-20 21:08:03,166 agent.tool_executor: tool mnemosyne_recall completed (0.10s, 14602 chars)
+2026-10-20 21:08:03,233 agent.tool_executor: tool mnemosyne_recall completed (0.06s, 13202 chars)
+2026-10-20 21:08:07,768 agent.conversation_loop: API call #17: model=deepseek-v4.1-flash:cloud provider=custom in=78110 out=881 total=78991 latency=4.5s cache=68480/78110 (88%) id=chatcmpl-110
+2026-10-20 21:08:07,776 WARNING [20261020_210230_cee17ee0] agent.tool_executor: Tool write_file returned error (0.00s): {"error": "Refusing to overwrite /home/bench_c/bird-life-list.md: /home/bench_c/bird-life-list.md exists but this task has not seen its full current content (never read, patched without a prior full r
+2026-10-20 21:08:08,705 agent.conversation_loop: API call #18: model=deepseek-v4.1-flash:cloud provider=custom in=79191 out=48 total=79239 latency=0.9s cache=78976/79191 (100%) id=chatcmpl-391
+2026-10-20 21:08:08,715 agent.tool_executor: tool read_file completed (0.00s, 1805 chars)
+2026-10-20 21:08:10,841 agent.conversation_loop: API call #19: model=deepseek-v4.1-flash:cloud provider=custom in=79815 out=613 total=80428 latency=2.1s cache=79232/79815 (99%) id=chatcmpl-985
+2026-10-20 21:08:10,899 agent.tool_executor: tool write_file completed (0.05s, 239 chars)
+2026-10-20 21:08:12,880 agent.conversation_loop: API call #20: model=deepseek-v4.1-flash:cloud provider=custom in=80516 out=398 total=80914 latency=2.0s cache=80384/80516 (100%) id=chatcmpl-913
+2026-10-20 21:08:12,950 agent.tool_executor: tool mnemosyne_remember completed (0.06s, 260 chars)
+2026-10-20 21:08:15,061 agent.conversation_loop: API call #21: model=deepseek-v4.1-flash:cloud provider=custom in=81000 out=413 total=81413 latency=2.1s cache=80896/81000 (100%) id=chatcmpl-148
+2026-10-20 21:08:15,076 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=6/9223372036854775807 budget=6/9223372036854775807 tool_turns=13 last_msg_role=assistant response_len=1699 session=20261020_210230_cee17ee0
+2026-10-20 21:08:15,176 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=14.5s api_calls=6 response=1699 chars
+2026-10-20 21:08:15,196 INFO gateway.platforms.base: [Telegram] Sending response (1699 chars) to 1762309326
+2026-10-20 21:08:42,184 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (186 chars)
+2026-10-20 21:08:42,190 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='I’ve got two sets of trip memories that keep bleeding into each other. One of th' reply_to_id=None reply_to_text=''
+2026-10-20 21:08:42,222 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=48 msg='I’ve got two sets of trip memories that keep bleeding into each other. One of th...'
+2026-10-20 21:08:51,524 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=608232->605160 rss_anon_kib=526012->522908 threads=26 duration_ms=143.6
+2026-10-20 21:09:51,665 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=611948->611076 rss_anon_kib=529728->528856 threads=26 duration_ms=138.4
+2026-10-20 21:10:16,678 agent.conversation_loop: API call #22: model=deepseek-v4.1-flash:cloud provider=custom in=82422 out=1340 total=83762 latency=94.4s cache=81408/82422 (99%) id=chatcmpl-898
+2026-10-20 21:10:16,690 WARNING [20261020_210230_cee17ee0] agent.tool_executor: Tool write_file returned error (0.00s): {"error": "Refusing to overwrite /home/bench_c/bird-life-list.md: /home/bench_c/bird-life-list.md exists but this task has not seen its full current content (never read, patched without a prior full r
+2026-10-20 21:10:19,952 agent.conversation_loop: API call #23: model=deepseek-v4.1-flash:cloud provider=custom in=83962 out=803 total=84765 latency=3.2s cache=83712/83962 (100%) id=chatcmpl-125
+2026-10-20 21:10:20,002 agent.tool_executor: tool write_file completed (0.04s, 245 chars)
+2026-10-20 21:10:23,251 agent.conversation_loop: API call #24: model=deepseek-v4.1-flash:cloud provider=custom in=84857 out=547 total=85404 latency=3.2s cache=84736/84857 (100%) id=chatcmpl-162
+2026-10-20 21:10:23,264 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=15 last_msg_role=assistant response_len=1685 session=20261020_210230_cee17ee0
+2026-10-20 21:10:23,339 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=101.1s api_calls=3 response=2102 chars
+2026-10-20 21:10:23,355 INFO gateway.platforms.base: [Telegram] Sending response (2102 chars) to 1762309326
+2026-10-20 21:10:51,807 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=615440->612404 rss_anon_kib=533220->530152 threads=24 duration_ms=138.9
+2026-10-20 21:11:51,961 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=612808->612264 rss_anon_kib=530588->530044 threads=23 duration_ms=150.8
+2026-10-20 21:12:52,127 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=612780->612360 rss_anon_kib=530560->530108 threads=23 duration_ms=146.7
+2026-10-20 21:13:10,761 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (198 chars)
+2026-10-20 21:13:10,773 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='The places I’ve actually gone and the kind of experiences I keep looking for see' reply_to_id=None reply_to_text=''
+2026-10-20 21:13:10,813 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=54 msg='The places I’ve actually gone and the kind of experiences I keep looking for see...'
+2026-10-20 21:13:17,800 agent.conversation_loop: API call #25: model=deepseek-v4.1-flash:cloud provider=custom in=86222 out=1255 total=87477 latency=6.8s cache=85376/86222 (99%) id=chatcmpl-830
+2026-10-20 21:13:17,868 agent.tool_executor: tool mnemosyne_remember completed (0.06s, 262 chars)
+2026-10-20 21:13:20,909 agent.conversation_loop: API call #26: model=deepseek-v4.1-flash:cloud provider=custom in=87563 out=508 total=88071 latency=3.0s cache=87424/87563 (100%) id=chatcmpl-532
+2026-10-20 21:13:20,921 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=2/9223372036854775807 budget=2/9223372036854775807 tool_turns=16 last_msg_role=assistant response_len=1981 session=20261020_210230_cee17ee0
+2026-10-20 21:13:21,006 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=10.2s api_calls=2 response=1981 chars
+2026-10-20 21:13:21,034 INFO gateway.platforms.base: [Telegram] Sending response (1981 chars) to 1762309326
+2026-10-20 21:13:46,783 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (242 chars)
+2026-10-20 21:13:46,804 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='When I add up the hours I’ve put into games I actually finished, it feels like a' reply_to_id=None reply_to_text=''
+2026-10-20 21:13:46,835 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=58 msg='When I add up the hours I’ve put into games I actually finished, it feels like a...'
+2026-10-20 21:13:50,657 agent.conversation_loop: API call #27: model=deepseek-v4.1-flash:cloud provider=custom in=89172 out=725 total=89897 latency=3.7s cache=88064/89172 (99%) id=chatcmpl-198
+2026-10-20 21:13:50,674 INFO tools.browser_tool: browser: installing PM's pinned Chromium
+2026-10-20 21:13:50,993 WARNING tools.browser_tool: browser command blocked: Chromium browser is missing. Install it with: hermes pm install chromium (system libraries: npx playwright install-deps chromium)
+2026-10-20 21:13:50,995 WARNING [20261020_210230_cee17ee0] agent.tool_executor: Tool browser_exec returned error (0.33s): {"error": "The local browser could not be started: Chromium browser is missing. Install it with: hermes pm install chromium (system libraries: npx playwright install-deps chromium) Run `hermes tools` 
+2026-10-20 21:13:51,134 agent.tool_executor: tool mnemosyne_recall completed (0.13s, 15115 chars)
+2026-10-20 21:13:52,277 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=617340->613544 rss_anon_kib=535056->531260 threads=27 duration_ms=146.4
+2026-10-20 21:13:55,362 agent.conversation_loop: API call #28: model=deepseek-v4.1-flash:cloud provider=custom in=95233 out=994 total=96227 latency=4.2s cache=89856/95233 (94%) id=chatcmpl-745
+2026-10-20 21:13:55,390 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (deepseek-v4.1-flash:cloud)
+2026-10-20 21:13:55,390 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:13:55,978 agent.tool_executor: tool terminal completed (0.61s, 470 chars)
+2026-10-20 21:13:59,103 agent.conversation_loop: API call #29: model=deepseek-v4.1-flash:cloud provider=custom in=96404 out=818 total=97222 latency=3.1s cache=96128/96404 (100%) id=chatcmpl-174
+2026-10-20 21:13:59,150 agent.tool_executor: tool write_file completed (0.04s, 235 chars)
+2026-10-20 21:14:01,842 agent.conversation_loop: API call #30: model=deepseek-v4.1-flash:cloud provider=custom in=97310 out=487 total=97797 latency=2.7s cache=97152/97310 (100%) id=chatcmpl-498
+2026-10-20 21:14:01,854 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=4/9223372036854775807 budget=4/9223372036854775807 tool_turns=19 last_msg_role=assistant response_len=1948 session=20261020_210230_cee17ee0
+2026-10-20 21:14:01,923 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=15.1s api_calls=4 response=1948 chars
+2026-10-20 21:14:01,939 INFO gateway.platforms.base: [Telegram] Sending response (1948 chars) to 1762309326
+2026-10-20 21:14:10,563 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (154 chars)
+2026-10-20 21:14:10,569 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='Two days still feel connected in a way I never really explained. One was an endi' reply_to_id=None reply_to_text=''
+2026-10-20 21:14:10,600 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=67 msg='Two days still feel connected in a way I never really explained. One was an endi...'
+2026-10-20 21:14:10,741 agent.conversation_loop: Pre-API compression: ~98,874 request tokens >= 98,304 threshold (context=131,072, attempt=1/3)
+2026-10-20 21:14:10,746 INFO agent.conversation_compression: context compression started: session=20261020_210230_cee17ee0 messages=68 tokens=~98,874 model=deepseek-v4.1-flash:cloud focus=None
+2026-10-20 21:14:10,792 INFO agent.context_compressor: Compression summary call dispatched: model=deepseek-v4.1-flash:cloud prompt_chars=26,009 prompt_build_ms=2
+2026-10-20 21:14:10,793 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (deepseek-v4.1-flash:cloud)
+2026-10-20 21:14:10,793 INFO agent.auxiliary_client: Auxiliary compression: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:14:44,626 INFO mnemosyne_hermes: Mnemosyne session end — running consolidation
+2026-10-20 21:14:44,665 INFO agent.conversation_compression: context compression done: session=20261020_210230_cee17ee0 messages=68->22 rough_tokens=~45,485 awaiting_real_usage=true
+2026-10-20 21:14:44,666 INFO agent.conversation_compression: context compression attempt telemetry: {"attempt_id":"48c8887f5c224941b9c0441482219d14","aux_call_duration_ms":33790,"aux_model":"deepseek-v4.1-flash:cloud","aux_output_reservation":null,"aux_prompt_tokens":6670,"aux_provider":"custom","chunk_count":1,"chunking":false,"commit_ms":67,"commit_status":"committed","current_estimated_tokens":98874,"effective_aux_context":131072,"effective_threshold":98304,"event":"compression_attempt","failure_class":null,"fallback_used":false,"fit_margin":124402,"has_focus_topic":false,"history_rewritten":true,"items_dropped":0,"main_context_limit":131072,"main_model":"deepseek-v4.1-flash:cloud","main_provider":"custom","messages_after":22,"messages_before":68,"method":"llm_summary","middle_window_tokens":15594,"overflow_reason":null,"prellm_skip_count":0,"prompt_build_ms":2,"protected_head_tokens":1293,"protected_tail_tokens":15363,"queue_wait_ms":0,"reasoning_items_pruned":0,"route":"hermes","session_id":"20261020_210230_cee17ee0","split_status":"in_place_committed","summary_generation_ms":33790,"summary_input_chars":17967,"summary_input_elided_record_count":0,"summary_input_omitted_chars":0,"summary_input_record_count":46,"summary_input_sampled_chars":17967,"summary_input_sampled_record_count":46,"time_to_first_progress_ms":687,"token_count_method":"estimate_rough","tokens_after":23624,"tokens_before":65767,"tokens_reclaimed":42143,"tool_results_pruned":21,"total_duration_ms":33919,"trigger_source":"pre_api"}
+2026-10-20 21:14:44,675 agent.conversation_loop: Re-anchored stale current_turn_user_idx 67 -> 21 (session=20261020_210230_cee17ee0)
+2026-10-20 21:14:46,555 agent.conversation_loop: Compression budget rearmed after provider-confirmed recovery: prompt=46,017 < threshold=98,304 (attempts were 1/3)
+2026-10-20 21:14:46,555 agent.conversation_loop: API call #31: model=deepseek-v4.1-flash:cloud provider=custom in=46017 out=350 total=46367 latency=1.9s cache=23296/46017 (51%) id=chatcmpl-817
+2026-10-20 21:14:46,656 agent.tool_executor: tool mnemosyne_recall completed (0.09s, 13264 chars)
+2026-10-20 21:14:46,822 agent.tool_executor: tool mnemosyne_recall completed (0.16s, 13077 chars)
+2026-10-20 21:14:46,917 agent.tool_executor: tool mnemosyne_recall completed (0.09s, 12377 chars)
+2026-10-20 21:14:52,437 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=622568->617456 rss_anon_kib=540156->535012 threads=28 duration_ms=156.7
+2026-10-20 21:14:53,997 agent.conversation_loop: API call #32: model=deepseek-v4.1-flash:cloud provider=custom in=59447 out=1834 total=61281 latency=7.1s cache=46336/59447 (78%) id=chatcmpl-445
+2026-10-20 21:14:54,015 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:14:54,593 agent.tool_executor: tool terminal completed (0.59s, 356 chars)
+2026-10-20 21:14:54,629 agent.tool_executor: tool mnemosyne_remember completed (0.03s, 262 chars)
+2026-10-20 21:14:58,450 agent.conversation_loop: API call #33: model=deepseek-v4.1-flash:cloud provider=custom in=61505 out=626 total=62131 latency=3.8s cache=61184/61505 (99%) id=chatcmpl-845
+2026-10-20 21:14:58,463 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=8 last_msg_role=assistant response_len=1802 session=20261020_210230_cee17ee0
+2026-10-20 21:14:58,548 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=48.0s api_calls=3 response=1802 chars
+2026-10-20 21:14:58,572 INFO gateway.platforms.base: [Telegram] Sending response (1802 chars) to 1762309326
+2026-10-20 21:15:25,319 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (178 chars)
+2026-10-20 21:15:25,334 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='Something about a winter date and a spring meeting still carries this charge I n' reply_to_id=None reply_to_text=''
+2026-10-20 21:15:25,365 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=30 msg='Something about a winter date and a spring meeting still carries this charge I n...'
+2026-10-20 21:15:30,784 agent.conversation_loop: API call #34: model=deepseek-v4.1-flash:cloud provider=custom in=63224 out=1022 total=64246 latency=5.3s cache=62080/63224 (98%) id=chatcmpl-784
+2026-10-20 21:15:30,803 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:15:31,390 agent.tool_executor: tool terminal completed (0.59s, 375 chars)
+2026-10-20 21:15:38,384 agent.conversation_loop: API call #35: model=deepseek-v4.1-flash:cloud provider=custom in=64381 out=718 total=65099 latency=7.0s cache=64128/64381 (100%) id=chatcmpl-90
+2026-10-20 21:15:38,396 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=2/9223372036854775807 budget=2/9223372036854775807 tool_turns=9 last_msg_role=assistant response_len=1846 session=20261020_210230_cee17ee0
+2026-10-20 21:15:38,443 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=13.1s api_calls=2 response=1846 chars
+2026-10-20 21:15:38,461 INFO gateway.platforms.base: [Telegram] Sending response (1846 chars) to 1762309326
+2026-10-20 21:15:48,642 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (179 chars)
+2026-10-20 21:15:48,653 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='I said goodbye to someone for the last time and later met someone who changed ho' reply_to_id=None reply_to_text=''
+2026-10-20 21:15:48,692 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=34 msg='I said goodbye to someone for the last time and later met someone who changed ho...'
+2026-10-20 21:15:52,582 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=626612->621968 rss_anon_kib=544200->539556 threads=28 duration_ms=141.2
+2026-10-20 21:15:53,752 agent.conversation_loop: API call #36: model=deepseek-v4.1-flash:cloud provider=custom in=65973 out=1202 total=67175 latency=4.9s cache=65024/65973 (99%) id=chatcmpl-258
+2026-10-20 21:15:53,770 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:15:54,317 agent.tool_executor: tool terminal completed (0.56s, 367 chars)
+2026-10-20 21:15:54,388 agent.tool_executor: tool mnemosyne_remember completed (0.07s, 260 chars)
+2026-10-20 21:15:58,535 agent.conversation_loop: API call #37: model=deepseek-v4.1-flash:cloud provider=custom in=67393 out=623 total=68016 latency=4.1s cache=67072/67393 (100%) id=chatcmpl-463
+2026-10-20 21:15:58,582 agent.tool_executor: tool write_file completed (0.04s, 227 chars)
+2026-10-20 21:16:01,940 agent.conversation_loop: API call #38: model=deepseek-v4.1-flash:cloud provider=custom in=68102 out=467 total=68569 latency=3.3s cache=67968/68102 (100%) id=chatcmpl-415
+2026-10-20 21:16:01,955 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=11 last_msg_role=assistant response_len=1978 session=20261020_210230_cee17ee0
+2026-10-20 21:16:02,027 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=13.4s api_calls=3 response=1978 chars
+2026-10-20 21:16:02,040 INFO gateway.platforms.base: [Telegram] Sending response (1978 chars) to 1762309326
+2026-10-20 21:16:34,682 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (164 chars)
+2026-10-20 21:16:34,691 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='If I tried to lay out the heaviest emotional beats of the past year, there would' reply_to_id=None reply_to_text=''
+2026-10-20 21:16:34,718 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=41 msg='If I tried to lay out the heaviest emotional beats of the past year, there would...'
+2026-10-20 21:16:39,312 agent.conversation_loop: API call #39: model=deepseek-v4.1-flash:cloud provider=custom in=69221 out=1062 total=70283 latency=4.5s cache=68480/69221 (99%) id=chatcmpl-803
+2026-10-20 21:16:39,327 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:16:39,914 agent.tool_executor: tool terminal completed (0.59s, 722 chars)
+2026-10-20 21:16:42,779 agent.conversation_loop: API call #40: model=deepseek-v4.1-flash:cloud provider=custom in=70542 out=655 total=71197 latency=2.8s cache=70272/70542 (100%) id=chatcmpl-211
+2026-10-20 21:16:42,830 agent.tool_executor: tool write_file completed (0.05s, 237 chars)
+2026-10-20 21:16:44,961 agent.conversation_loop: API call #41: model=deepseek-v4.1-flash:cloud provider=custom in=71283 out=433 total=71716 latency=2.1s cache=71168/71283 (100%) id=chatcmpl-945
+2026-10-20 21:16:44,980 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=13 last_msg_role=assistant response_len=1568 session=20261020_210230_cee17ee0
+2026-10-20 21:16:45,026 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=10.3s api_calls=3 response=1568 chars
+2026-10-20 21:16:45,043 INFO gateway.platforms.base: [Telegram] Sending response (1568 chars) to 1762309326
+2026-10-20 21:16:52,716 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=627348->624724 rss_anon_kib=544936->542312 threads=25 duration_ms=131.2
+2026-10-20 21:17:09,488 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (189 chars)
+2026-10-20 21:17:09,495 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='There’s one area where I’ve spent time, money, and actual care that isn’t games,' reply_to_id=None reply_to_text=''
+2026-10-20 21:17:09,537 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=47 msg='There’s one area where I’ve spent time, money, and actual care that isn’t games,...'
+2026-10-20 21:17:25,224 agent.conversation_loop: API call #42: model=deepseek-v4.1-flash:cloud provider=custom in=72446 out=740 total=73186 latency=15.6s cache=71680/72446 (99%) id=chatcmpl-90
+2026-10-20 21:17:25,316 agent.tool_executor: tool mnemosyne_recall completed (0.09s, 12248 chars)
+2026-10-20 21:17:25,404 agent.tool_executor: tool mnemosyne_recall completed (0.08s, 13356 chars)
+2026-10-20 21:17:25,502 agent.tool_executor: tool mnemosyne_recall completed (0.09s, 10932 chars)
+2026-10-20 21:17:32,904 agent.conversation_loop: API call #43: model=deepseek-v4.1-flash:cloud provider=custom in=85457 out=1568 total=87025 latency=7.4s cache=73088/85457 (86%) id=chatcmpl-435
+2026-10-20 21:17:32,952 agent.tool_executor: tool write_file completed (0.04s, 249 chars)
+2026-10-20 21:17:33,005 agent.tool_executor: tool mnemosyne_remember completed (0.05s, 262 chars)
+2026-10-20 21:17:36,380 agent.conversation_loop: API call #44: model=deepseek-v4.1-flash:cloud provider=custom in=87204 out=560 total=87764 latency=3.4s cache=86912/87204 (100%) id=chatcmpl-72
+2026-10-20 21:17:36,396 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=3/9223372036854775807 budget=3/9223372036854775807 tool_turns=15 last_msg_role=assistant response_len=2157 session=20261020_210230_cee17ee0
+2026-10-20 21:17:36,465 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=27.0s api_calls=3 response=2157 chars
+2026-10-20 21:17:36,486 INFO gateway.platforms.base: [Telegram] Sending response (2157 chars) to 1762309326
+2026-10-20 21:17:52,868 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=629824->626472 rss_anon_kib=547412->544028 threads=25 duration_ms=143.1
+2026-10-20 21:18:51,807 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (36 chars)
+2026-10-20 21:18:51,812 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='what was my second msg to you today?' reply_to_id=None reply_to_text=''
+2026-10-20 21:18:51,850 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=56 msg='what was my second msg to you today?'
+2026-10-20 21:18:53,018 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=628064->626104 rss_anon_kib=545652->543692 threads=27 duration_ms=146.7
+2026-10-20 21:18:56,243 agent.conversation_loop: API call #45: model=deepseek-v4.1-flash:cloud provider=custom in=87776 out=828 total=88604 latency=4.3s cache=87680/87776 (100%) id=chatcmpl-882
+2026-10-20 21:18:56,259 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=15 last_msg_role=assistant response_len=284 session=20261020_210230_cee17ee0
+2026-10-20 21:18:56,350 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=4.5s api_calls=1 response=284 chars
+2026-10-20 21:18:56,369 INFO gateway.platforms.base: [Telegram] Sending response (284 chars) to 1762309326
+2026-10-20 21:19:12,292 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (17 chars)
+2026-10-20 21:19:12,304 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='what was my 5th ?' reply_to_id=None reply_to_text=''
+2026-10-20 21:19:12,339 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=58 msg='what was my 5th ?'
+2026-10-20 21:19:17,075 agent.conversation_loop: API call #46: model=deepseek-v4.1-flash:cloud provider=custom in=88614 out=908 total=89522 latency=4.7s cache=88576/88614 (100%) id=chatcmpl-590
+2026-10-20 21:19:17,089 agent.tool_executor: tool session_search completed (0.01s, 36330 chars)
+2026-10-20 21:19:17,098 INFO agent.conversation_compression: context compression started: session=20261020_210230_cee17ee0 messages=61 tokens=~99,057 model=deepseek-v4.1-flash:cloud focus=None
+2026-10-20 21:19:17,169 INFO agent.context_compressor: Compression summary call dispatched: model=deepseek-v4.1-flash:cloud prompt_chars=61,747 prompt_build_ms=8
+2026-10-20 21:19:17,170 INFO agent.auxiliary_client: Auxiliary compression: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:19:53,167 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=631416->627232 rss_anon_kib=549004->544788 threads=30 duration_ms=144.5
+2026-10-20 21:20:27,289 INFO mnemosyne_hermes: Mnemosyne session end — running consolidation
+2026-10-20 21:20:27,324 INFO agent.conversation_compression: context compression done: session=20261020_210230_cee17ee0 messages=61->14 rough_tokens=~49,308 awaiting_real_usage=true
+2026-10-20 21:20:27,324 INFO agent.conversation_compression: context compression attempt telemetry: {"attempt_id":"b285273e3f734b4b9fe04ad16bd4d120","aux_call_duration_ms":70054,"aux_model":"deepseek-v4.1-flash:cloud","aux_output_reservation":null,"aux_prompt_tokens":15933,"aux_provider":"custom","chunk_count":1,"chunking":false,"commit_ms":78,"commit_status":"committed","current_estimated_tokens":99057,"effective_aux_context":131072,"effective_threshold":98304,"event":"compression_attempt","failure_class":null,"fallback_used":false,"fit_margin":115139,"has_focus_topic":false,"history_rewritten":true,"items_dropped":0,"main_context_limit":131072,"main_model":"deepseek-v4.1-flash:cloud","main_provider":"custom","messages_after":14,"messages_before":61,"method":"llm_summary","middle_window_tokens":24478,"overflow_reason":null,"prellm_skip_count":0,"prompt_build_ms":8,"protected_head_tokens":0,"protected_tail_tokens":15176,"queue_wait_ms":0,"reasoning_items_pruned":0,"route":"hermes","session_id":"20261020_210230_cee17ee0","split_status":"in_place_committed","summary_generation_ms":70054,"summary_input_chars":28903,"summary_input_elided_record_count":0,"summary_input_omitted_chars":0,"summary_input_record_count":47,"summary_input_sampled_chars":28903,"summary_input_sampled_record_count":47,"time_to_first_progress_ms":5785,"token_count_method":"estimate_rough","tokens_after":27447,"tokens_before":71384,"tokens_reclaimed":43937,"tool_results_pruned":19,"total_duration_ms":70226,"trigger_source":"post_tool"}
+2026-10-20 21:20:29,984 agent.conversation_loop: Compression budget rearmed after provider-confirmed recovery: prompt=49,371 < threshold=98,304 (attempts were 1/3)
+2026-10-20 21:20:29,984 agent.conversation_loop: API call #47: model=deepseek-v4.1-flash:cloud provider=custom in=49371 out=443 total=49814 latency=2.6s cache=22144/49371 (45%) id=chatcmpl-473
+2026-10-20 21:20:30,004 agent.tool_executor: tool session_search completed (0.01s, 136011 chars)
+2026-10-20 21:20:30,005 tools.tool_result_storage: Persisted large tool result: session_search (call_sbquivkn, 136011 chars -> /home/bench_c/.hermes/cache/spillover/call_sbquivkn.txt)
+2026-10-20 21:20:31,166 agent.conversation_loop: API call #48: model=deepseek-v4.1-flash:cloud provider=custom in=50446 out=140 total=50586 latency=1.2s cache=49792/50446 (99%) id=chatcmpl-755
+2026-10-20 21:20:31,176 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:20:31,889 agent.tool_executor: tool execute_code completed (0.72s, 862 chars)
+2026-10-20 21:20:33,933 agent.conversation_loop: API call #49: model=deepseek-v4.1-flash:cloud provider=custom in=50865 out=347 total=51212 latency=2.0s cache=50560/50865 (99%) id=chatcmpl-350
+2026-10-20 21:20:33,944 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=4/9223372036854775807 budget=3/9223372036854775807 tool_turns=5 last_msg_role=assistant response_len=619 session=20261020_210230_cee17ee0
+2026-10-20 21:20:34,023 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=81.7s api_calls=4 response=619 chars
+2026-10-20 21:20:34,046 INFO gateway.platforms.base: [Telegram] Sending response (619 chars) to 1762309326
+2026-10-20 21:20:53,317 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=632380->628312 rss_anon_kib=549968->545900 threads=29 duration_ms=148.0
+2026-10-20 21:21:02,765 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (36 chars)
+2026-10-20 21:21:02,782 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='how many trip based msgs were there?' reply_to_id=None reply_to_text=''
+2026-10-20 21:21:02,820 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=19 msg='how many trip based msgs were there?'
+2026-10-20 21:21:09,484 agent.conversation_loop: API call #50: model=deepseek-v4.1-flash:cloud provider=custom in=51996 out=1390 total=53386 latency=6.6s cache=51200/51996 (98%) id=chatcmpl-178
+2026-10-20 21:21:09,499 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=5 last_msg_role=assistant response_len=864 session=20261020_210230_cee17ee0
+2026-10-20 21:21:09,590 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=6.8s api_calls=1 response=864 chars
+2026-10-20 21:21:09,612 INFO gateway.platforms.base: [Telegram] Sending response (864 chars) to 1762309326
+2026-10-20 21:21:21,462 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (44 chars)
+2026-10-20 21:21:21,468 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='how many animal based msgs were there today?' reply_to_id=None reply_to_text=''
+2026-10-20 21:21:21,498 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=21 msg='how many animal based msgs were there today?'
+2026-10-20 21:21:24,341 agent.conversation_loop: API call #51: model=deepseek-v4.1-flash:cloud provider=custom in=53768 out=531 total=54299 latency=2.7s cache=53376/53768 (99%) id=chatcmpl-997
+2026-10-20 21:21:24,356 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:21:24,946 agent.tool_executor: tool execute_code completed (0.59s, 718 chars)
+2026-10-20 21:21:26,575 agent.conversation_loop: API call #52: model=deepseek-v4.1-flash:cloud provider=custom in=54523 out=191 total=54714 latency=1.6s cache=54272/54523 (100%) id=chatcmpl-969
+2026-10-20 21:21:26,587 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=2/9223372036854775807 budget=1/9223372036854775807 tool_turns=6 last_msg_role=assistant response_len=606 session=20261020_210230_cee17ee0
+2026-10-20 21:21:26,651 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=5.2s api_calls=2 response=606 chars
+2026-10-20 21:21:26,672 INFO gateway.platforms.base: [Telegram] Sending response (606 chars) to 1762309326
+2026-10-20 21:21:52,446 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (19 chars)
+2026-10-20 21:21:52,466 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='how about hobbies ?' reply_to_id=None reply_to_text=''
+2026-10-20 21:21:52,500 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=25 msg='how about hobbies ?'
+2026-10-20 21:21:53,453 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=632064->628596 rss_anon_kib=549652->546184 threads=32 duration_ms=133.6
+2026-10-20 21:21:54,670 agent.conversation_loop: API call #53: model=deepseek-v4.1-flash:cloud provider=custom in=55494 out=375 total=55869 latency=2.1s cache=54656/55494 (98%) id=chatcmpl-808
+2026-10-20 21:21:54,680 INFO agent.auxiliary_client: Auxiliary approval: using custom (deepseek-v4.1-flash:cloud) at http://localhost:11434/v1/
+2026-10-20 21:21:58,215 agent.tool_executor: tool execute_code completed (3.54s, 692 chars)
+2026-10-20 21:22:00,185 agent.conversation_loop: API call #54: model=deepseek-v4.1-flash:cloud provider=custom in=56086 out=287 total=56373 latency=2.0s cache=55808/56086 (100%) id=chatcmpl-682
+2026-10-20 21:22:00,202 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=2/9223372036854775807 budget=1/9223372036854775807 tool_turns=7 last_msg_role=assistant response_len=808 session=20261020_210230_cee17ee0
+2026-10-20 21:22:00,270 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=7.8s api_calls=2 response=808 chars
+2026-10-20 21:22:00,290 INFO gateway.platforms.base: [Telegram] Sending response (808 chars) to 1762309326
+2026-10-20 21:22:53,607 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=631560->629448 rss_anon_kib=549148->547036 threads=28 duration_ms=134.4
+2026-10-20 21:23:02,464 INFO tools.terminal_tool: Cleaned up inactive environment for task: session:agent:main:telegram:dm:1762309326
+2026-10-20 21:23:53,741 INFO hermes_cli.mem_trim: memory trim: reason=messaging gateway housekeeping malloc_trim=1 rss_kib=629844->629356 rss_anon_kib=547432->546944 threads=28 duration_ms=131.1
+2026-10-20 21:24:18,652 INFO hermes_plugins.platforms__telegram.adapter: [Telegram] Flushing text batch agent:main:telegram:dm:1762309326 (60 chars)
+2026-10-20 21:24:18,673 INFO gateway.run: inbound message: platform=telegram user=User chat=1762309326 msg='how would you rate your answers today based on what I asked?' reply_to_id=None reply_to_text=''
+2026-10-20 21:24:18,713 agent.turn_context: conversation turn: session=20261020_210230_cee17ee0 model=deepseek-v4.1-flash:cloud provider=custom platform=telegram history=29 msg='how would you rate your answers today based on what I asked?'
+2026-10-20 21:24:26,077 agent.conversation_loop: API call #55: model=deepseek-v4.1-flash:cloud provider=custom in=56918 out=1221 total=58139 latency=7.3s cache=56320/56918 (99%) id=chatcmpl-816
+2026-10-20 21:24:26,114 agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash:cloud api_calls=1/9223372036854775807 budget=1/9223372036854775807 tool_turns=7 last_msg_role=assistant response_len=2528 session=20261020_210230_cee17ee0
+2026-10-20 21:24:26,193 INFO gateway.run: response ready: platform=telegram chat=1762309326 session=agent:main:telegram:dm:1762309326 time=7.5s api_calls=1 response=2528 chars
+2026-10-20 21:24:26,215 INFO gateway.platforms.base: [Telegram] Sending response (2528 chars) to 1762309326
+

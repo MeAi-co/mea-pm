@@ -1,0 +1,21 @@
+name: mea-skills
+version: 0.1.0
+description: "MEAI Skills — the `skills_list`, `skill_view`, `skill_manage` tools (PG-backed overrides) plus the new `skill_choose` tool."
+author: "Josh G"
+kind: standalone
+provides_tools:
+  - skills_list
+  - skill_view
+  - skill_manage
+  - skill_choose
+python_dependencies:
+  - asyncpg
+  - psycopg2-binary
+  - pyyaml
+requires_env:
+  - JPM_PG_HOST
+optional_env:
+  - JPM_PG_PORT
+  - JPM_PG_DB
+  - JPM_PG_USER
+  - JPM_PG_PASSWORD

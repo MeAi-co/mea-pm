@@ -40,6 +40,11 @@ credentials.json
 logs/
 tmp/
 .cache/
+# NOTE: bench/evidence/ is deliberately NOT ignored. Those .log files ARE the
+# evidence — chatlogs, agent logs and gateway windows that every scored claim in
+# bench/reports/ is checked against. A blanket *.log rule ships a bench directory
+# with no proof in it, which is worse than shipping no bench directory at all.
+!bench/evidence/**/*.log
 
 # Editor / OS
 .vscode/

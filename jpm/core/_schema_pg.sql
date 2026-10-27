@@ -306,6 +306,7 @@ CREATE TABLE IF NOT EXISTS public.knowledge (
     chain text DEFAULT ''::text,
     content text DEFAULT ''::text,
     files text DEFAULT '{}'::text,
+    profile text DEFAULT 'default'::text NOT NULL,
     search_vector tsvector GENERATED ALWAYS AS (to_tsvector('english'::regconfig, ((((COALESCE(name, ''::text) || ' '::text) || COALESCE(description, ''::text)) || ' '::text) || COALESCE(fingerprint, ''::text)))) STORED
 );
 
@@ -2081,7 +2082,7 @@ CREATE INDEX IF NOT EXISTS idx_knowledge_search ON public.knowledge USING gin (s
 
 CREATE INDEX IF NOT EXISTS idx_knowledge_type ON public.knowledge USING btree (entity_type);
 
-CREATE UNIQUE INDEX idx_knowledge_unique ON public.knowledge USING btree (entity_type, name);
+CREATE UNIQUE INDEX idx_knowledge_unique ON public.knowledge USING btree (profile, entity_type, name);
 
 CREATE INDEX IF NOT EXISTS idx_llm_calls_session ON public.llm_calls USING btree (session_id);
 

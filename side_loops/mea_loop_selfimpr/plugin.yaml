@@ -1,0 +1,5 @@
+name: mea-loop-selfimpr
+version: 0.1.0
+description: "MEAI Loop — self-improvement (user understanding + agent growth) in its own detached process."
+author: "Josh G"
+kind: standalone

@@ -37,8 +37,14 @@ def _get_open_loops(limit: int = 5) -> list[dict]:
 
 def _get_knowledge(limit: int = 5) -> list[dict]:
     try:
+        from ._profile import knowledge_scope
+
+        scope_sql, scope_params = knowledge_scope()
         with sync_conn() as conn:
-            rows = conn.fetchall("SELECT entity_type, name, description FROM knowledge WHERE archived = 0 ORDER BY id DESC LIMIT ?", (limit,))
+            rows = conn.fetchall(
+                f"SELECT entity_type, name, description FROM knowledge WHERE archived = 0 AND {scope_sql} ORDER BY id DESC LIMIT ?",
+                tuple(scope_params) + (limit,),
+            )
             return rows
     except Exception as e:
         LOG.error("_get_knowledge failed: %s", e, exc_info=True)

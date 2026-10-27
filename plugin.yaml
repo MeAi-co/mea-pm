@@ -1,5 +1,5 @@
 name: mea-pm
-version: 0.1.0
+version: 0.2.0
 description: "MEAI Persistent Memory — PG-backed memory provider (vendored jpm engine)."
 author: "MeAi-co"
 kind: standalone

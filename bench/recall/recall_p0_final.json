@@ -1,0 +1,850 @@
+{
+  "meta": {
+    "ts": "20261018T034934Z",
+    "label": "p0_final",
+    "limit": 5,
+    "tables": [
+      "knowledge",
+      "reflections",
+      "patterns"
+    ],
+    "hermes_home": "/home/bench_a/.hermes",
+    "entry_point": "jpm.core._hybrid_search.recall_context",
+    "n_queries": 10
+  },
+  "results": [
+    {
+      "query": "how should I handle it when a database write fails partway through?",
+      "class": "topical_no_overlap",
+      "expected": [
+        "knowledge:5",
+        "knowledge:6",
+        "knowledge:7",
+        "patterns:1"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 54,
+          "title": "no_hedged_ranges",
+          "rrf": 0.02459016393442623,
+          "cos_sim": 0.46183917608752756,
+          "score": null,
+          "recency": 0.9708903212833373,
+          "tag": "KNOWLEDGE[corrections]"
+        },
+        {
+          "table": "knowledge",
+          "id": 51,
+          "title": "user_plays_celeste",
+          "rrf": 0.022727272727272728,
+          "cos_sim": 0.43569733245437603,
+          "score": null,
+          "recency": 0.9708895200953211,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 3,
+          "title": "challenges_to_progress",
+          "rrf": 0.023076923076923078,
+          "cos_sim": 0.45120826072742837,
+          "score": null,
+          "recency": 0.7301147136434334,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 4,
+          "title": "user_name_josh",
+          "rrf": 0.022388059701492536,
+          "cos_sim": 0.4020245367215529,
+          "score": null,
+          "recency": 0.9329639377202809,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.022058823529411766,
+          "cos_sim": 0.398848701072384,
+          "score": null,
+          "recency": 0.9470106000722892,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 1.271
+    },
+    {
+      "query": "what is the safest way to make sure a claim is actually true before I save it?",
+      "class": "topical_no_overlap",
+      "expected": [
+        "knowledge:49",
+        "patterns:4"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 54,
+          "title": "no_hedged_ranges",
+          "rrf": 0.0234375,
+          "cos_sim": 0.5205920363178629,
+          "score": null,
+          "recency": 0.9708899246055506,
+          "tag": "KNOWLEDGE[corrections]"
+        },
+        {
+          "table": "knowledge",
+          "id": 57,
+          "title": "gaming_hours_tracking",
+          "rrf": 0.022727272727272728,
+          "cos_sim": 0.45216666148603135,
+          "score": null,
+          "recency": 0.971432294288139,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 49,
+          "title": "reflection_pre-emptive_self-justification_signals_i_know_the_answer_is_weak;_better_to_state_the_limitation_plainly_or_f",
+          "rrf": 0.02213114754098361,
+          "cos_sim": 0.5838382891933943,
+          "score": null,
+          "recency": 0.9707756303089267,
+          "tag": "KNOWLEDGE[memory_entry]"
+        },
+        {
+          "table": "knowledge",
+          "id": 48,
+          "title": "no_hedged_ranges",
+          "rrf": 0.021774193548387097,
+          "cos_sim": 0.5901457882275244,
+          "score": null,
+          "recency": 0.9707756266822092,
+          "tag": "KNOWLEDGE[memory_entry]"
+        },
+        {
+          "table": "knowledge",
+          "id": 55,
+          "title": "sum_stated_values_only",
+          "rrf": 0.02142857142857143,
+          "cos_sim": 0.5023441026454409,
+          "score": null,
+          "recency": 0.9708899254276026,
+          "tag": "KNOWLEDGE[memory_entry]"
+        }
+      ],
+      "elapsed_s": 1.091
+    },
+    {
+      "query": "how do I report an exact figure instead of a rough guess?",
+      "class": "topical_no_overlap",
+      "expected": [
+        "knowledge:48",
+        "knowledge:54",
+        "knowledge:56",
+        "patterns:6"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 54,
+          "title": "no_hedged_ranges",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.6231836451997822,
+          "score": null,
+          "recency": 0.9708894873141989,
+          "tag": "KNOWLEDGE[corrections]"
+        },
+        {
+          "table": "knowledge",
+          "id": 48,
+          "title": "no_hedged_ranges",
+          "rrf": 0.02213114754098361,
+          "cos_sim": 0.6621987424970435,
+          "score": null,
+          "recency": 0.9707751896205444,
+          "tag": "KNOWLEDGE[memory_entry]"
+        },
+        {
+          "table": "knowledge",
+          "id": 49,
+          "title": "reflection_pre-emptive_self-justification_signals_i_know_the_answer_is_weak;_better_to_state_the_limitation_plainly_or_f",
+          "rrf": 0.02142857142857143,
+          "cos_sim": 0.5602503490746596,
+          "score": null,
+          "recency": 0.9707751929670072,
+          "tag": "KNOWLEDGE[memory_entry]"
+        },
+        {
+          "table": "knowledge",
+          "id": 55,
+          "title": "sum_stated_values_only",
+          "rrf": 0.02109375,
+          "cos_sim": 0.5179960196003984,
+          "score": null,
+          "recency": 0.9708894880796316,
+          "tag": "KNOWLEDGE[memory_entry]"
+        }
+      ],
+      "elapsed_s": 1.202
+    },
+    {
+      "query": "how many hours have I played video games in total?",
+      "class": "topical_overlap",
+      "expected": [
+        "knowledge:10",
+        "knowledge:11",
+        "knowledge:12",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52",
+        "knowledge:57"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.02459016393442623,
+          "cos_sim": 0.7478864949358763,
+          "score": null,
+          "recency": 0.9470094910916289,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 57,
+          "title": "gaming_hours_tracking",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.8531984511850964,
+          "score": null,
+          "recency": 0.9714315243267989,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 47,
+          "title": "gaming_playtime_tracking",
+          "rrf": 0.023809523809523808,
+          "cos_sim": 0.8629942781339401,
+          "score": null,
+          "recency": 0.970774162471773,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 50,
+          "title": "user_plays_assassins_creed_odyssey",
+          "rrf": 0.0234375,
+          "cos_sim": 0.6861490420192019,
+          "score": null,
+          "recency": 0.9708883489641393,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 51,
+          "title": "user_plays_celeste",
+          "rrf": 0.023076923076923078,
+          "cos_sim": 0.6472353163677123,
+          "score": null,
+          "recency": 0.970888354258341,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 0.912
+    },
+    {
+      "query": "what is my name?",
+      "class": "topical_overlap",
+      "expected": [
+        "knowledge:4"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 4,
+          "title": "user_name_josh",
+          "rrf": 0.02459016393442623,
+          "cos_sim": 0.6900034362079871,
+          "score": null,
+          "recency": 0.9329625174532914,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 57,
+          "title": "gaming_hours_tracking",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.5242997651069468,
+          "score": null,
+          "recency": 0.9714311514846147,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.023809523809523808,
+          "cos_sim": 0.5376886911128665,
+          "score": null,
+          "recency": 0.9470091366929245,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 51,
+          "title": "user_plays_celeste",
+          "rrf": 0.022727272727272728,
+          "cos_sim": 0.5303919947614701,
+          "score": null,
+          "recency": 0.970887981828303,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 1.024
+    },
+    {
+      "query": "which video games have I played?",
+      "class": "topical_overlap",
+      "expected": [
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.02459016393442623,
+          "cos_sim": 0.832880646233249,
+          "score": null,
+          "recency": 0.947008810484148,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 50,
+          "title": "user_plays_assassins_creed_odyssey",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.7684860825538854,
+          "score": null,
+          "recency": 0.9708876336644432,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 51,
+          "title": "user_plays_celeste",
+          "rrf": 0.023809523809523808,
+          "cos_sim": 0.7433349200087934,
+          "score": null,
+          "recency": 0.9708876389570764,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 47,
+          "title": "gaming_playtime_tracking",
+          "rrf": 0.0234375,
+          "cos_sim": 0.7383586636140365,
+          "score": null,
+          "recency": 0.9707734472499082,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 52,
+          "title": "user_plays_hyper_light_drifter",
+          "rrf": 0.023076923076923078,
+          "cos_sim": 0.7321457644657722,
+          "score": null,
+          "recency": 0.9708876420913676,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 0.943
+    },
+    {
+      "query": "the owner gaming playtime total",
+      "class": "entity_resolution",
+      "expected": [
+        "knowledge:4",
+        "knowledge:11",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 47,
+          "title": "gaming_playtime_tracking",
+          "rrf": 0.02459016393442623,
+          "cos_sim": 0.7927327075843089,
+          "score": null,
+          "recency": 0.9707731107813742,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 57,
+          "title": "gaming_hours_tracking",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.7818997426274052,
+          "score": null,
+          "recency": 0.9714304711435574,
+          "tag": "KNOWLEDGE[topic]"
+        },
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.023809523809523808,
+          "cos_sim": 0.6819132728784645,
+          "score": null,
+          "recency": 0.947008490130232,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 50,
+          "title": "user_plays_assassins_creed_odyssey",
+          "rrf": 0.0234375,
+          "cos_sim": 0.6067954556454315,
+          "score": null,
+          "recency": 0.9708872969574743,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 4,
+          "title": "user_name_josh",
+          "rrf": 0.023076923076923078,
+          "cos_sim": 0.6086227660550433,
+          "score": null,
+          "recency": 0.9329618898074762,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 0.926
+    },
+    {
+      "query": "skill db write fallback",
+      "class": "entity_resolution",
+      "expected": [
+        "knowledge:5",
+        "knowledge:6",
+        "knowledge:7"
+      ],
+      "error": null,
+      "blocks": [
+        {
+          "table": "knowledge",
+          "id": 51,
+          "title": "user_plays_celeste",
+          "rrf": 0.024193548387096774,
+          "cos_sim": 0.4439287486459216,
+          "score": null,
+          "recency": 0.9708868913455978,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 52,
+          "title": "user_plays_hyper_light_drifter",
+          "rrf": 0.023809523809523808,
+          "cos_sim": 0.43457580657353556,
+          "score": null,
+          "recency": 0.9708868944980054,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 4,
+          "title": "user_name_josh",
+          "rrf": 0.023076923076923078,
+          "cos_sim": 0.4439439511633715,
+          "score": null,
+          "recency": 0.9329615103085764,
+          "tag": "KNOWLEDGE[user_fact]"
+        },
+        {
+          "table": "knowledge",
+          "id": 54,
+          "title": "no_hedged_ranges",
+          "rrf": 0.022727272727272728,
+          "cos_sim": 0.46456832538406245,
+          "score": null,
+          "recency": 0.9708876923088716,
+          "tag": "KNOWLEDGE[corrections]"
+        },
+        {
+          "table": "knowledge",
+          "id": 10,
+          "title": "user_plays_video_games",
+          "rrf": 0.022388059701492536,
+          "cos_sim": 0.4397544243293561,
+          "score": null,
+          "recency": 0.9470080990016675,
+          "tag": "KNOWLEDGE[user_fact]"
+        }
+      ],
+      "elapsed_s": 1.13
+    },
+    {
+      "query": "thanks",
+      "class": "banter",
+      "expected": [],
+      "error": null,
+      "blocks": [],
+      "elapsed_s": 0.0
+    },
+    {
+      "query": "hey how's it going",
+      "class": "banter",
+      "expected": [],
+      "error": null,
+      "blocks": [],
+      "elapsed_s": 0.602
+    }
+  ],
+  "determinism": [
+    {
+      "query": "how should I handle it when a database write fails partway through?",
+      "same_ids": true,
+      "run1": [
+        "knowledge:10",
+        "knowledge:3",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:54"
+      ],
+      "run2": [
+        "knowledge:10",
+        "knowledge:3",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:54"
+      ]
+    },
+    {
+      "query": "what is the safest way to make sure a claim is actually true before I save it?",
+      "same_ids": false,
+      "run1": [
+        "knowledge:48",
+        "knowledge:49",
+        "knowledge:54",
+        "knowledge:55",
+        "knowledge:57"
+      ],
+      "run2": [
+        "knowledge:47",
+        "knowledge:49",
+        "knowledge:51",
+        "knowledge:54",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "how do I report an exact figure instead of a rough guess?",
+      "same_ids": true,
+      "run1": [
+        "knowledge:48",
+        "knowledge:49",
+        "knowledge:54",
+        "knowledge:55"
+      ],
+      "run2": [
+        "knowledge:48",
+        "knowledge:49",
+        "knowledge:54",
+        "knowledge:55"
+      ]
+    },
+    {
+      "query": "how many hours have I played video games in total?",
+      "same_ids": true,
+      "run1": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:57"
+      ],
+      "run2": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "what is my name?",
+      "same_ids": false,
+      "run1": [
+        "knowledge:10",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:57"
+      ],
+      "run2": [
+        "knowledge:4",
+        "knowledge:55"
+      ]
+    },
+    {
+      "query": "which video games have I played?",
+      "same_ids": true,
+      "run1": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52"
+      ],
+      "run2": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52"
+      ]
+    },
+    {
+      "query": "the owner gaming playtime total",
+      "same_ids": true,
+      "run1": [
+        "knowledge:10",
+        "knowledge:4",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:57"
+      ],
+      "run2": [
+        "knowledge:10",
+        "knowledge:4",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "skill db write fallback",
+      "same_ids": false,
+      "run1": [
+        "knowledge:10",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:52",
+        "knowledge:54"
+      ],
+      "run2": [
+        "knowledge:10",
+        "knowledge:2",
+        "knowledge:3",
+        "knowledge:51",
+        "knowledge:54"
+      ]
+    },
+    {
+      "query": "thanks",
+      "same_ids": true,
+      "run1": [],
+      "run2": []
+    },
+    {
+      "query": "hey how's it going",
+      "same_ids": true,
+      "run1": [],
+      "run2": []
+    }
+  ],
+  "scoring": [
+    {
+      "query": "how should I handle it when a database write fails partway through?",
+      "class": "topical_no_overlap",
+      "n_blocks": 5,
+      "n_expected": 4,
+      "n_hit": 0,
+      "hits": [],
+      "missed": [
+        "knowledge:5",
+        "knowledge:6",
+        "knowledge:7",
+        "patterns:1"
+      ],
+      "extra": [
+        "knowledge:10",
+        "knowledge:3",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:54"
+      ]
+    },
+    {
+      "query": "what is the safest way to make sure a claim is actually true before I save it?",
+      "class": "topical_no_overlap",
+      "n_blocks": 5,
+      "n_expected": 2,
+      "n_hit": 1,
+      "hits": [
+        "knowledge:49"
+      ],
+      "missed": [
+        "patterns:4"
+      ],
+      "extra": [
+        "knowledge:48",
+        "knowledge:54",
+        "knowledge:55",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "how do I report an exact figure instead of a rough guess?",
+      "class": "topical_no_overlap",
+      "n_blocks": 4,
+      "n_expected": 4,
+      "n_hit": 2,
+      "hits": [
+        "knowledge:48",
+        "knowledge:54"
+      ],
+      "missed": [
+        "knowledge:56",
+        "patterns:6"
+      ],
+      "extra": [
+        "knowledge:49",
+        "knowledge:55"
+      ]
+    },
+    {
+      "query": "how many hours have I played video games in total?",
+      "class": "topical_overlap",
+      "n_blocks": 5,
+      "n_expected": 8,
+      "n_hit": 5,
+      "hits": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:57"
+      ],
+      "missed": [
+        "knowledge:11",
+        "knowledge:12",
+        "knowledge:52"
+      ],
+      "extra": []
+    },
+    {
+      "query": "what is my name?",
+      "class": "topical_overlap",
+      "n_blocks": 4,
+      "n_expected": 1,
+      "n_hit": 1,
+      "hits": [
+        "knowledge:4"
+      ],
+      "missed": [],
+      "extra": [
+        "knowledge:10",
+        "knowledge:51",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "which video games have I played?",
+      "class": "topical_overlap",
+      "n_blocks": 5,
+      "n_expected": 3,
+      "n_hit": 3,
+      "hits": [
+        "knowledge:50",
+        "knowledge:51",
+        "knowledge:52"
+      ],
+      "missed": [],
+      "extra": [
+        "knowledge:10",
+        "knowledge:47"
+      ]
+    },
+    {
+      "query": "the owner gaming playtime total",
+      "class": "entity_resolution",
+      "n_blocks": 5,
+      "n_expected": 5,
+      "n_hit": 2,
+      "hits": [
+        "knowledge:4",
+        "knowledge:50"
+      ],
+      "missed": [
+        "knowledge:11",
+        "knowledge:51",
+        "knowledge:52"
+      ],
+      "extra": [
+        "knowledge:10",
+        "knowledge:47",
+        "knowledge:57"
+      ]
+    },
+    {
+      "query": "skill db write fallback",
+      "class": "entity_resolution",
+      "n_blocks": 5,
+      "n_expected": 3,
+      "n_hit": 0,
+      "hits": [],
+      "missed": [
+        "knowledge:5",
+        "knowledge:6",
+        "knowledge:7"
+      ],
+      "extra": [
+        "knowledge:10",
+        "knowledge:4",
+        "knowledge:51",
+        "knowledge:52",
+        "knowledge:54"
+      ]
+    },
+    {
+      "query": "thanks",
+      "class": "banter",
+      "n_blocks": 0,
+      "n_expected": 0,
+      "n_hit": 0,
+      "hits": [],
+      "missed": [],
+      "extra": []
+    },
+    {
+      "query": "hey how's it going",
+      "class": "banter",
+      "n_blocks": 0,
+      "n_expected": 0,
+      "n_hit": 0,
+      "hits": [],
+      "missed": [],
+      "extra": []
+    }
+  ]
+}

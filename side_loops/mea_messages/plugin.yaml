@@ -1,0 +1,18 @@
+name: mea-messages
+version: 0.1.0
+description: "MEAI Messages — the `messages` tool (message-level recall across all sessions, vendored jpm engine)."
+author: "Josh G"
+kind: standalone
+provides_tools:
+  - messages
+python_dependencies:
+  - asyncpg
+  - psycopg2-binary
+  - pyyaml
+requires_env:
+  - JPM_PG_HOST
+optional_env:
+  - JPM_PG_PORT
+  - JPM_PG_DB
+  - JPM_PG_USER
+  - JPM_PG_PASSWORD

@@ -3,6 +3,7 @@ import time
 
 from ._entities import _extract_entities
 from ._pg import sync_conn
+from ._profile import knowledge_scope
 
 LOG = logging.getLogger("jpm.entity_query")
 
@@ -55,21 +56,23 @@ def _link_fact_entities(conn, fact_id: int, text: str) -> None:
 
 
 def _probe_entity(entity: str, limit: int = 10) -> list[dict]:
+    scope_sql, scope_params = knowledge_scope("k")
     try:
         with sync_conn() as conn:
             # Use FTS on the simple dictionary for exact-match entity names
             # (no English stemming — entity names are proper nouns)
             rows = conn.fetchall(
-                """SELECT k.id, k.entity_type, k.name, k.description, k.last_referenced,
+                f"""SELECT k.id, k.entity_type, k.name, k.description, k.last_referenced,
                           k.weightage
                    FROM knowledge k
                    JOIN fact_entities fe ON fe.fact_id = k.id
                    JOIN entities e ON e.entity_id = fe.entity_id
                    WHERE e.name ILIKE ?
                      AND k.archived = 0
+                     AND {scope_sql}
                    ORDER BY k.weightage DESC, k.id DESC
                    LIMIT ?""",
-                   (_like_pattern(entity), limit)
+                   (_like_pattern(entity), *scope_params, limit)
                    )
             return rows
     except Exception as e:
@@ -78,10 +81,11 @@ def _probe_entity(entity: str, limit: int = 10) -> list[dict]:
 
 
 def _related_entities(entity: str, limit: int = 10) -> list[dict]:
+    scope_sql, scope_params = knowledge_scope("k")
     try:
         with sync_conn() as conn:
             rows = conn.fetchall(
-                """SELECT DISTINCT k.id, k.entity_type, k.name, k.description,
+                f"""SELECT DISTINCT k.id, k.entity_type, k.name, k.description,
                           k.weightage, k.last_referenced
                    FROM knowledge k
                    JOIN fact_entities fe ON fe.fact_id = k.id
@@ -92,9 +96,10 @@ def _related_entities(entity: str, limit: int = 10) -> list[dict]:
                        WHERE e.name ILIKE ?
                    )
                    AND k.archived = 0
+                   AND {scope_sql}
                    ORDER BY k.weightage DESC, k.id DESC
                    LIMIT ?""",
-                (_like_pattern(entity), limit)
+                (_like_pattern(entity), *scope_params, limit)
             )
             return rows
     except Exception as e:
@@ -105,6 +110,7 @@ def _related_entities(entity: str, limit: int = 10) -> list[dict]:
 def _reason_entities(entities: list[str], limit: int = 10) -> list[dict]:
     if not entities:
         return []
+    scope_sql, scope_params = knowledge_scope("k")
     try:
         with sync_conn() as conn:
             queries = []
@@ -125,9 +131,10 @@ def _reason_entities(entities: list[str], limit: int = 10) -> list[dict]:
                    FROM knowledge k
                    WHERE k.id IN ({sql})
                      AND k.archived = 0
+                     AND {scope_sql}
                    ORDER BY k.weightage DESC, k.id DESC
                    LIMIT ?""",
-                params + [limit]
+                params + scope_params + [limit]
             )
             return rows
     except Exception as e:

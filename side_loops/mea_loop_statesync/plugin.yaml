@@ -1,0 +1,5 @@
+name: mea-loop-statesync
+version: 0.1.0
+description: "MEAI Loop — turn-end state sync (pulse/active/loops) in its own detached process."
+author: "Josh G"
+kind: standalone

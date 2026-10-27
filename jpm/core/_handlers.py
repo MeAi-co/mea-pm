@@ -156,8 +156,11 @@ def _handle_jpm_fetch(args: dict[str, Any], **kwargs) -> str:
                         trust = r.get("weightage", 0.5)
                         parts.append(f"- **id {r.get('id', '')}** · type `{r.get('entity_type', 'general')}` · trust {trust:.2f} — {_escape_xml(content)}")
                     return "\n".join(parts)
-                where = "WHERE archived = 0"
-                params = []
+                from ._profile import knowledge_scope
+
+                _scope_sql, _scope_params = knowledge_scope()
+                where = f"WHERE archived = 0 AND {_scope_sql}"
+                params = list(_scope_params)
                 if filter_data.get("type"):
                     where += " AND entity_type = ?"
                     params.append(filter_data["type"])

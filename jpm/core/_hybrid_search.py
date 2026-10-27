@@ -1,12 +1,13 @@
-"""Hybrid semantic search for JPM — FTS5 fast-path with pgvector recall fallback.
+"""Hybrid semantic search for JPM — vector-primary recall with an FTS crutch.
 
 Design:
-  - FTS (websearch_to_tsquery / ILIKE) runs first via _search_knowledge —
-    zero latency, uses existing search_vector.
-  - If FTS results are thin (< min_fts_results), fall back to vector recall:
-    embed the query via Ollama (OLLAMA_URL env), search the HNSW index
-    (embedding <=> query_vec), fetch full row shapes for the top matches,
-    and merge with RRF (Reciprocal Rank Fusion).
+  - Vector recall is the PRIMARY path. The query is embedded via Ollama
+    (OLLAMA_URL env), the HNSW index is searched (embedding <=> query_vec),
+    and the top matches are fetched by id. Semantic results are authoritative
+    and are NOT gated behind a lexical match.
+  - FTS (websearch_to_tsquery / ILIKE) is a LAST-RESORT net, reached only when
+    the embedding column is absent, Ollama is unreachable, or the vector path
+    returned nothing. It never swallows semantic results.
   - RRF formula: score = Σ 1/(k + rank), k=60.
 
 Graceful degradation: if pgvector / embedding column / Ollama is missing,
@@ -247,6 +248,13 @@ def _vector_search_ids(
                 clause += " AND m.archived = 0"
             if where_sql:
                 clause += f" AND {where_sql}"
+            # Profile scope goes last so caller params keep their order.
+            if table == "knowledge":
+                from ._profile import knowledge_scope
+
+                _scope_sql, _scope_params = knowledge_scope("m")
+                clause += f" AND {_scope_sql}"
+                params = tuple(params or ()) + tuple(_scope_params)
             rows = conn.fetchall(
                 f"SELECT m.id, m.embedding <=> '{vec_literal}'::vector AS dist "
                 f"FROM {table} m "
@@ -287,12 +295,17 @@ def _fetch_rows_by_ids(table: str, ids: list[int]) -> dict[int, dict]:
         _select_cols.append("entity_type")
 
     _select_sql = ", ".join(_select_cols)
-    placeholders = ",".join("?" for _ in ids)
+    placeholders = ", ".join("?" for _ in ids)
+    _scope_sql, _scope_params = "1 = 1", []
+    if table == "knowledge":
+        from ._profile import knowledge_scope
+
+        _scope_sql, _scope_params = knowledge_scope()
     try:
         with sync_conn() as conn:
             rows = conn.fetchall(
-                f"SELECT {_select_sql} FROM {table} WHERE {id_col} IN ({placeholders})",
-                tuple(ids),
+                f"SELECT {_select_sql} FROM {table} WHERE {id_col} IN ({placeholders}) AND {_scope_sql}",
+                tuple(ids) + tuple(_scope_params),
             )
             return {r["id"]: dict(r) for r in rows}
     except Exception as e:

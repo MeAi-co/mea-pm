@@ -1,0 +1,5 @@
+name: mea-loop-toolflow
+version: 0.2.0
+description: "DEMOTED to cron (scripts/mea_toolflow_cron.py) — no post_llm_call hook. Non-LLM tool-flow summarizer; runs on a cadence, not every turn end."
+author: "Josh G"
+kind: standalone

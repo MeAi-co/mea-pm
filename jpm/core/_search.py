@@ -48,6 +48,15 @@ def _search_knowledge(query: str, limit: int = 10, offset: int = 0, table: str =
             else:
                 filter_sql = "1 = 1"
 
+            # Knowledge is per profile: another profile's facts must not surface
+            # here. Every other table is shared by design.
+            if table == "knowledge":
+                from ._profile import knowledge_scope
+
+                scope_sql, scope_params = knowledge_scope()
+            else:
+                scope_sql, scope_params = "1 = 1", []
+
             # Fetch limit+1 to detect if there's a next page
             fetch_limit = limit + 1
 
@@ -92,9 +101,10 @@ def _search_knowledge(query: str, limit: int = 10, offset: int = 0, table: str =
                       FROM {table}
                       WHERE {ts_col} @@ {tsq}
                         AND {filter_sql}
+                        AND {scope_sql}
                       ORDER BY {_rank_col} DESC, {order_clause}
                       LIMIT ? OFFSET ?""",
-                    (or_query, or_query, or_query, fetch_limit, offset)
+                    (or_query, or_query, *scope_params, or_query, fetch_limit, offset)
                 )
             else:
                 # ILIKE path: OR across all text columns
@@ -118,9 +128,10 @@ def _search_knowledge(query: str, limit: int = 10, offset: int = 0, table: str =
                     f"""SELECT {_select_sql}
                        FROM {table}
                        WHERE ({like_conditions})
+                         AND {scope_sql}
                        ORDER BY {order_clause}
                        LIMIT ? OFFSET ?""",
-                    params + [fetch_limit, offset]
+                    params + scope_params + [fetch_limit, offset]
                 )
 
             has_more = len(rows) > limit

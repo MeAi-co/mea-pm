@@ -693,17 +693,33 @@ async def _apply_schema_async(pool: Any, schema_sql: str) -> None:
         # pull + restart without a manual dedup step.
         # NOTE: the NOT IN anti-join is O(n²) on 200K+ rows — always check
         # for actual duplicates first to avoid a 60s+ no-op on every restart.
+        #
+        # KEY CHOICE (critical — do not "simplify" this back):
+        # The original key was (session_id, role, timestamp) and it silently
+        # ATE real messages. Core persists platform messages with
+        # whole-second timestamps, so two different messages from the same
+        # role in the same second are distinct rows that share that key.
+        # The dedupe kept MIN(id) and deleted the rest, silently removing
+        # legitimate messages on every schema apply.
+        # The correct identity of a mirrored row is its SOURCE row id
+        # (message_id), which is unique per session by construction. Rows
+        # with no message_id fall back to content, not to timestamp alone.
+        dup_key = (
+            "session_id, COALESCE(message_id::text, 'c:' || md5("
+            "coalesce(role,'') || '|' || coalesce(timestamp::text,'') || '|' "
+            "|| coalesce(content,'')))"
+        )
         try:
             dup_row = await conn.fetchrow(
-                "SELECT count(*) - count(DISTINCT (session_id, role, timestamp)) AS dupes FROM messages"
+                f"SELECT count(*) - count(DISTINCT ({dup_key})) AS dupes FROM messages"
             )
             dup_count = dup_row["dupes"] if dup_row else 0
             if dup_count:
-                dedup_sql = """\
+                dedup_sql = f"""\
                     DELETE FROM messages
                     WHERE id NOT IN (
                         SELECT MIN(id) FROM messages
-                        GROUP BY session_id, role, timestamp
+                        GROUP BY {dup_key}
                     )
                 """
                 tag = await conn.execute(dedup_sql)
@@ -918,6 +934,12 @@ async def _check_schema_drift_async(conn: Any, schema_sql: str) -> None:
         except Exception:
             continue  # table may not exist yet — not drift, just not created
         live = {r["column_name"] for r in rows}
+        if not live:
+            # information_schema.columns returns zero rows for a table that
+            # does not exist; the query does not raise. Without this guard
+            # every base-schema column of a table this node never created is
+            # reported as drift, which is noise, not drift.
+            continue
         missing = cols - live
         if missing:
             LOG.warning(

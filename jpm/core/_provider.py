@@ -280,21 +280,24 @@ class JPMemoryProvider:
 
                 def _fetch(entity_type: str) -> list[str]:
                     """Full-injection entries (weightage >= 0.70) as markdown bullets."""
+                    from ._profile import knowledge_scope
+
+                    scope_sql, scope_params = knowledge_scope()
                     is_group = self._chat_type in ("group", "supergroup")
                     if is_group:
                         rows = conn.fetchall(
-                            "SELECT name, description FROM knowledge "
-                            "WHERE entity_type = ? AND archived = 0 AND weightage >= 0.70 "
-                            "ORDER BY entity_type ASC, weightage DESC, id DESC LIMIT 100",
-                            (entity_type,)
+                            f"SELECT name, description FROM knowledge "
+                            f"WHERE entity_type = ? AND archived = 0 AND {scope_sql} AND weightage >= 0.70 "
+                            f"ORDER BY entity_type ASC, weightage DESC, id DESC LIMIT 100",
+                            (entity_type, *scope_params)
                         )
                     else:
                         rows = conn.fetchall(
-                            "SELECT name, description FROM knowledge "
-                            "WHERE entity_type = ? AND archived = 0 AND weightage >= 0.70 "
-                            "AND description NOT LIKE '[GROUP RULE]%' "
-                            "ORDER BY entity_type ASC, weightage DESC, id DESC LIMIT 50",
-                            (entity_type,)
+                            f"SELECT name, description FROM knowledge "
+                            f"WHERE entity_type = ? AND archived = 0 AND {scope_sql} AND weightage >= 0.70 "
+                            f"AND description NOT LIKE '[GROUP RULE]%' "
+                            f"ORDER BY entity_type ASC, weightage DESC, id DESC LIMIT 50",
+                            (entity_type, *scope_params)
                         )
                     out = []
                     for row in rows:
@@ -311,21 +314,24 @@ class JPMemoryProvider:
 
                 def _breadcrumb(entity_type: str) -> None:
                     """Count medium-weight entries (0.21-0.69) and emit one pointer."""
+                    from ._profile import knowledge_scope
+
+                    scope_sql, scope_params = knowledge_scope()
                     is_group = self._chat_type in ("group", "supergroup")
                     if is_group:
                         row = conn.fetchone(
-                            "SELECT COUNT(*) FROM knowledge "
-                            "WHERE entity_type = ? AND archived = 0 "
-                            "AND weightage > 0.20 AND weightage < 0.70  LIMIT 50",
-                            (entity_type,)
+                            f"SELECT COUNT(*) FROM knowledge "
+                            f"WHERE entity_type = ? AND archived = 0 AND {scope_sql} "
+                            f"AND weightage > 0.20 AND weightage < 0.70  LIMIT 50",
+                            (entity_type, *scope_params)
                         )
                     else:
                         row = conn.fetchone(
-                            "SELECT COUNT(*) FROM knowledge "
-                            "WHERE entity_type = ? AND archived = 0 "
-                            "AND weightage > 0.20 AND weightage < 0.70 "
-                            "AND description NOT LIKE '[GROUP RULE]%' LIMIT 50",
-                            (entity_type,)
+                            f"SELECT COUNT(*) FROM knowledge "
+                            f"WHERE entity_type = ? AND archived = 0 AND {scope_sql} "
+                            f"AND weightage > 0.20 AND weightage < 0.70 "
+                            f"AND description NOT LIKE '[GROUP RULE]%' LIMIT 50",
+                            (entity_type, *scope_params)
                         )
                     count = row["count"] if row else 0
                     if count > 0:
@@ -683,9 +689,12 @@ class JPMemoryProvider:
             _add_knowledge(entity_type, _name, content)
         elif action == "remove" and content:
             try:
+                from ._profile import knowledge_scope
+
+                _scope_sql, _scope_params = knowledge_scope()
                 with sync_conn() as conn:
-                    conn.execute("UPDATE knowledge SET archived = 1 WHERE description LIKE ? LIMIT 1",
-                               (f'%{content[:100]}%',))
+                    conn.execute(f"UPDATE knowledge SET archived = 1 WHERE description LIKE ? AND {_scope_sql} LIMIT 1",
+                               (f'%{content[:100]}%', *_scope_params))
                 _get_cache().invalidate("knowledge_")
             except Exception:
                 pass
@@ -762,11 +771,14 @@ class JPMemoryProvider:
             try:
                 with sync_conn() as conn:
                     if _table == "knowledge":
+                        from ._profile import knowledge_scope
+
+                        _scope_sql, _scope_params = knowledge_scope()
                         row = conn.fetchone(
-                            """SELECT id, entity_type, name, description, fingerprint, weightage,
+                            f"""SELECT id, entity_type, name, description, fingerprint, weightage,
                                       last_referenced, retrieval_count, helpful_count
-                              FROM knowledge WHERE id = ? AND archived = 0""",
-                            (fact_id,)
+                              FROM knowledge WHERE id = ? AND archived = 0 AND {_scope_sql}""",
+                            (fact_id, *_scope_params)
                         )
                         if not row:
                             return f"**jpm get** · table `{_table}` · count 0"
@@ -935,8 +947,11 @@ class JPMemoryProvider:
 
         elif action == "list":
             try:
+                from ._profile import knowledge_scope
+
+                _scope_sql, _scope_params = knowledge_scope()
                 with sync_conn() as conn:
-                    rows = conn.fetchall("SELECT id, entity_type, name, description, weightage FROM knowledge WHERE archived = 0 ORDER BY id DESC LIMIT ?", (limit,))
+                    rows = conn.fetchall(f"SELECT id, entity_type, name, description, weightage FROM knowledge WHERE archived = 0 AND {_scope_sql} ORDER BY id DESC LIMIT ?", (*_scope_params, limit))
                     if not rows:
                         return "**jpm list** · count 0"
                     parts = [f"## jpm list · count {len(rows)}"]
@@ -965,8 +980,11 @@ class JPMemoryProvider:
             if not fact_id:
                 return "**jpm error:** fact_id required for remove"
             try:
+                from ._profile import knowledge_scope
+
+                _scope_sql, _scope_params = knowledge_scope()
                 with sync_conn() as conn:
-                    conn.execute("UPDATE knowledge SET archived = 1 WHERE id = ?", (fact_id,))
+                    conn.execute(f"UPDATE knowledge SET archived = 1 WHERE id = ? AND {_scope_sql}", (fact_id, *_scope_params))
                 _get_cache().invalidate("knowledge_")
                 return f"**jpm remove ok** · id `{fact_id}`"
             except Exception as e:

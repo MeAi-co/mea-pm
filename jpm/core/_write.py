@@ -513,6 +513,9 @@ def _derive_fingerprint(name: str, description: str) -> str:
 
 def _add_knowledge(entity_type: str, name: str, description: str, weightage: float = 0.5, fingerprint: str = "") -> bool:
     """Add knowledge entry with entity extraction and linking."""
+    from ._profile import current_profile
+
+    owner = current_profile()
     try:
         if not fingerprint:
             # No alt-keywords given — derive conservative ones from the entry's
@@ -522,25 +525,25 @@ def _add_knowledge(entity_type: str, name: str, description: str, weightage: flo
         with sync_conn() as conn:
             if conv_ts is not None:
                 # Backfill replay: stamp the CONVERSATION date, not now().
-                conn.execute("""INSERT INTO knowledge (entity_type, name, description, weightage, fingerprint, created_at)
-                               VALUES (?, ?, ?, ?, ?, ?)
-                               ON CONFLICT (entity_type, name) DO UPDATE SET
+                conn.execute("""INSERT INTO knowledge (profile, entity_type, name, description, weightage, fingerprint, created_at)
+                               VALUES (?, ?, ?, ?, ?, ?, ?)
+                               ON CONFLICT (profile, entity_type, name) DO UPDATE SET
                                    description = ?,
                                    weightage = ?,
                                    fingerprint = ?""",
-                           (entity_type, name, description, weightage, fingerprint, conv_ts,
+                           (owner, entity_type, name, description, weightage, fingerprint, conv_ts,
                             description, weightage, fingerprint))
             else:
-                conn.execute("""INSERT INTO knowledge (entity_type, name, description, weightage, fingerprint)
-                               VALUES (?, ?, ?, ?, ?)
-                               ON CONFLICT (entity_type, name) DO UPDATE SET
+                conn.execute("""INSERT INTO knowledge (profile, entity_type, name, description, weightage, fingerprint)
+                               VALUES (?, ?, ?, ?, ?, ?)
+                               ON CONFLICT (profile, entity_type, name) DO UPDATE SET
                                    description = ?,
                                    weightage = ?,
                                    fingerprint = ?""",
-                           (entity_type, name, description, weightage, fingerprint,
+                           (owner, entity_type, name, description, weightage, fingerprint,
                             description, weightage, fingerprint))
-            row = conn.fetchone("SELECT id FROM knowledge WHERE entity_type = ? AND name = ?",
-                              (entity_type, name))
+            row = conn.fetchone("SELECT id FROM knowledge WHERE profile = ? AND entity_type = ? AND name = ?",
+                              (owner, entity_type, name))
             if row:
                 fact_id = int(row["id"])
                 # ── Entity linking (best-effort enrichment) ──────────
@@ -636,14 +639,17 @@ def _update_trust(fact_id: int, delta: float) -> int:
     misleading-success instead of always returning 'ok'), and -1 on error.
     """
     try:
+        from ._profile import knowledge_scope
+
+        scope_sql, scope_params = knowledge_scope()
         with sync_conn() as conn:
-            status = conn.execute("""
+            status = conn.execute(f"""
                 UPDATE knowledge SET
                     weightage = GREATEST(0.0, LEAST(1.0, weightage + ?)),
                     helpful_count = CASE WHEN ?::float8 > 0 THEN helpful_count + 1 ELSE helpful_count END,
                     stale_count = CASE WHEN ?::float8 < 0 THEN stale_count + 1 ELSE stale_count END
-                WHERE id = ?
-            """, (delta, delta, delta, fact_id))
+                WHERE id = ? AND {scope_sql}
+            """, (delta, delta, delta, fact_id, *scope_params))
             rowcount = conn.rowcount
         _get_cache().invalidate("knowledge_")
         return rowcount

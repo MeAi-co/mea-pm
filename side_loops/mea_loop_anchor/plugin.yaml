@@ -1,0 +1,5 @@
+name: mea-loop-anchor
+version: 0.1.0
+description: "MEAI Loop — volatile session anchor: DB-only generation in its own detached process + in-process injection at position 1."
+author: "Josh G"
+kind: standalone
