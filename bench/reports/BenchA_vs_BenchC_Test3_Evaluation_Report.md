@@ -8,6 +8,8 @@
 
 **Provenance.** Written from the retained chatlogs after the run, under the criteria now used for Tests 4, 5 and 6. No verdict text survives from the original scoring of this run, so nothing is carried forward and nothing is quoted.
 
+**Scoring basis, stated plainly.** [`questions.txt`](../questions/questions.txt) holds the prompts put to both arms. Its `IDEAL:` lines are one agent's suggested answers, written after the runs and not audited against the corpus. They are a checklist, not ground truth, and this report does not treat them as authority. Eight rows are decided from the two transcripts alone: which arm cited a source, which arm wrote the split, which arm produced the number and how, which arm named the object it had not bought. Six rows rest on a marked answer that the transcripts cannot confirm on their own: Q3, Q8, Q9, Q11, Q14 and Q15. Where a marking and a transcript disagree, the transcript wins, and where the marking is the only evidence, the row says so. The Q7 marking itself was corrected to 140 after review, because the question asks for hours put in and both runs of The Last of Us Part II were played.
+
 **Label defect, corrected.** In the original export the two chatlogs were swapped: the file named for arm A contained C_Mnemo's replies and the JPM gateway log, and the file named for arm C contained A_MEA_JPM's replies and the mnemosyne log. The copies shipped here are relabelled by reply identity, so `benchA_test3.txt` now holds arm A's transcript and its own log, and `benchC_test3.txt` the same for arm C. Any reading of this test based on the original filenames has the arms inverted, including the continuity finding: the arm that launched a recompact mid-run is **A**, not C. The relabelling is checkable inside the files rather than asserted: `benchA_test3.txt` carries 75 messages under the A_MEA_JPM name against none under C_Mnemo, 23 `vault` calls against zero `mnemosyne_recall` calls, and an appended 354-line gateway log containing `_mea_loops_core` and `jpm` entries; `benchC_test3.txt` carries 31 C_Mnemo messages, 62 `mnemosyne_recall` calls, no `vault` call, and a 212-line log with 45 mnemosyne entries and no MEA entry. The two session identifiers inside the logs, 20261018_214808_bd4015e2 and 20261018_214804_43b7c197, do not overlap.
 
 **Compression scope.** This run sits in the pre-compaction window, with one qualification: arm A's log shows `launched loop recompact pid=516647` at 21:53:28, between turns 11 and 12. That is a partial exposure, and A's answers after it are the only post-rebuild evidence in Tests 1 to 3. C never compacted in this window, so its continuity is untested by that standard.
@@ -25,7 +27,7 @@ Two further rows moved to unresolved for the same reason. On Q9 and Q11 A assert
 
 ## 1. Executive Summary
 
-**Bench A wins Test 3, seven rows to three, and four of the thirteen questions are unresolved by both arms.**
+**Bench A wins Test 3, six rows to three, and four of the thirteen questions are unresolved by both arms.**
 
 A wins this run on the two things the test was built to isolate. Asked which of two blurring trip sets was actually walked, it named the pair the record supports and said why they blur. Asked for the deliberate purchase, it produced a real one and quoted the user's own words to rule out the object that was never bought. It also produced the only post-rebuild evidence in the block: after its recompact at 21:53:28 it answered "what was my first query" and "my 5th query" verbatim from the message table.
 
@@ -69,22 +71,22 @@ Its errors are of a different and more expensive kind. On the purchase it answer
 | # | Prompt theme | Better | Observation |
 |---|---|---|---|
 | 1-2 | Greeting, then "strictly use your memory tools" | - | Framing turns; both complied. |
-| 3 | Two sets of trip memories bleeding together | A | Key: Yellowstone (walked last month) against the John Muir Trail (researched, never walked). A names that pair and explains the blur. C names the family road trip against an Aspen plan and asks the user to confirm a different pair. |
+| 3 | Two sets of trip memories bleeding together | A | Marked: Yellowstone (walked last month) against the John Muir Trail (researched, never walked). A names that pair and explains the blur. C names the family road trip against an Aspen plan and asks the user to confirm a different pair. |
 | 4 | Finishing hard things vs small kindnesses | A | Both reach disjoint sets and both say so; A's evidence set is tighter, C lists the JMT under things finished when it was only researched. |
-| 5 | Animals seen vs animals listed | A | Key: hummingbird, Yellowstone grizzly, wolves seen; the Yosemite list and the Bhutan itinerary only named. Both arms split the same three from the same two lists. A states it in the user's own terms ("names that arrived in conversation, no scene"), traces the Yosemite list to its own earlier message, and writes the split. C attaches a record id to every entry but reframes the question as a mechanism, announces four species over a list of three before correcting, and ends by offering the write rather than making it. |
-| 6 | The deliberate purchase | A | Key: the $50 silver necklace for the sister. Both miss it. A answers with the plush rug, bought "last month", and excludes the chair with "I'm thinking of getting" and "still thinking about the fabric options". C answers with the Wishbone Chair, an unmade decision, and offers to record it as a real purchase. A's is a real purchase; C's is a fabricated one. |
-| 7 | Game hours added up | A | Key: 140, counting both runs of The Last of Us Part II as hours lived. A leads with 140 and decomposes it (ACO half the total, TLOU2 39 per cent), and states the 110 to 115 alternative as a conditional. C refuses it: "Not 140", because it treats the second run as the same content rather than more time. A's later audit re-scores to 110 to 115, which is a flaw in the arm, not in the answer it first gave. |
-| 8 | Two connected days, one an ending | **Draw, both wrong** | Key: 102 days, 14 February to 27 May. Neither arm produces 27 May. C's 10/14/15 February braid is real evidence, unused. |
-| 9 | Winter date and spring meeting | **Draw, both wrong** | Key: 14 February and 27 May, a loss and an adoption three months apart. C refuses the charge and frames it; A claims no spring anchor exists while the record holds one. |
+| 5 | Animals seen vs animals listed | A | Marked: hummingbird, Yellowstone grizzly, wolves seen; the Yosemite list and the Bhutan itinerary only named. Both arms split the same three from the same two lists. A states it in the user's own terms ("names that arrived in conversation, no scene"), traces the Yosemite list to its own earlier message, and writes the split. C attaches a record id to every entry but reframes the question as a mechanism, announces four species over a list of three before correcting, and ends by offering the write rather than making it. |
+| 6 | The deliberate purchase | A | Marked: the $50 silver necklace for the sister. Both miss it. A answers with the plush rug, bought "last month", and excludes the chair with "I'm thinking of getting" and "still thinking about the fabric options". C answers with the Wishbone Chair, an unmade decision, and offers to record it as a real purchase. A's is a real purchase; C's is a fabricated one. |
+| 7 | Game hours added up | A | Marked: 140, counting both runs of The Last of Us Part II as hours lived. A leads with 140 and decomposes it (ACO half the total, TLOU2 39 per cent), and states the 110 to 115 alternative as a conditional. C refuses it: "Not 140", because it treats the second run as the same content rather than more time. A's later audit re-scores to 110 to 115, which is a flaw in the arm, not in the answer it first gave. |
+| 8 | Two connected days, one an ending | **Draw, both wrong** | Marked: 102 days, 14 February to 27 May. Neither arm produces 27 May. C's 10/14/15 February braid is real evidence, unused. |
+| 9 | Winter date and spring meeting | **Draw, both wrong** | Marked: 14 February and 27 May, a loss and an adoption three months apart. C refuses the charge and frames it; A claims no spring anchor exists while the record holds one. |
 | 10 | Places gone vs places sought | C | C's provenance split is the strongest single answer in the run, and it carries Disneyland, which A drops. |
-| 11 | Goodbye, then Ava | **Draw, both wrong** | Key: 102 days. C doubts the grandmother attribution, A closes the interval with a named assumption; neither finds 27 May, so neither answers the question. |
+| 11 | Goodbye, then Ava | **Draw, both wrong** | Marked: 102 days. C doubts the grandmother attribution, A closes the interval with a named assumption; neither finds 27 May, so neither answers the question. |
 | 12 | Animals in front of me vs planned | C | C separates corpora and carries ids; A separates tenses. |
 | 13 | Numbers on unfinished things | C | C names the "whose sentence is it in?" test as the instrument; A reaches the same four-way split under "real numbers, but not yours" without naming it. C's ids make the difference. Both arms carry the 110 to 115 total into this answer, which the key rejects on Q7; the row is decided on the classification, not on that figure. |
 | 14 | Heaviest beats and blank stretches | **Draw, both wrong** | A fills a summer gap with a planned trip; C marks blanks honestly but rests its "three major events inside about twelve days" on an invented "~Feb 21" and a year set six months out. |
-| 15 | Non-games, non-travel, non-nature area | A | Key: mixology. A puts cocktails first and names the bar and the kitchen; C says "the domain is the kitchen" and buries cocktails inside it. |
+| 15 | Non-games, non-travel, non-nature area | A | Marked: mixology. A puts cocktails first and names the bar and the kitchen; C says "the domain is the kitchen" and buries cocktails inside it. |
 | 16-17 | "What was my first query", "my 5th query" | A | A answers both verbatim from the message table, after its recompact. C also answers, with a hedge about how to count the framing turns. |
 
-Row count: A seven, C three, four unresolved.
+Row count: A six, C three, four unresolved.
 
 ---
 
@@ -142,7 +144,7 @@ C wrote more than A here (35,444 characters against 29,430) while making fewer m
 | Hedging quality | A | Narrow - A marks its limits and admits the store's limits; C hedges well and then fabricates |
 | Noise and polish | A | Narrow |
 
-**Verdict: A wins Test 3, seven rows to three, four questions unanswered by both.** The run isolates provenance, and C is still the better provenance instrument: it names sources, attaches ids and marks foreign corpora where A cites nothing. It does not follow that C is the more accurate arm here. The question that matters most in this test, what did I actually do, is answered with a real purchase by A and an unmade decision by C, and C offers to write that decision into memory as fact.
+**Verdict: A wins Test 3, six rows to three, four questions unanswered by both.** The run isolates provenance, and C is still the better provenance instrument: it names sources, attaches ids and marks foreign corpora where A cites nothing. It does not follow that C is the more accurate arm here. The question that matters most in this test, what did I actually do, is answered with a real purchase by A and an unmade decision by C, and C offers to write that decision into memory as fact.
 
 The four unresolved rows are a limit of the corpus, not a tie. Neither arm found 27 May or the 102-day interval, which means this run says nothing about either arm's ability to recover that fact.
 
