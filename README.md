@@ -91,7 +91,7 @@ mea_pm/
 │   ├── ext/             state, tone, self-improvement, side-loop trace
 │   └── scripts/         migrate_from_stock.py
 ├── side_loops/          optional companion plugins (see below)
-└── bench/               evaluation harness + reports
+└── bench/               evaluation reports + evidence
 ```
 
 The provider itself is deliberately **tool-less**. It supplies the system-prompt
@@ -227,8 +227,20 @@ they have no `post_llm_call` hook and will appear inert until you schedule them.
 
 ## Evaluation
 
-`bench/` contains the harness and the reports. See `bench/README.md` for the
-methodology, the arm definitions, and the raw chat/gateway logs behind each result.
+`bench/` holds the reports and the evidence behind them. These were **live tests with
+a user and an assistant**, not a headless benchmark: both arms ran as real agents in
+Telegram conversations, memory accumulated over days of ordinary use, compression
+fired under load, and tools were called for real. Questions were asked cold inside
+that traffic and the follow-ups were the user's own.
+
+That is a different measurement from the synthetic benches. An injected haystack
+queried in one shot has no human, no turn-to-turn drift and no compaction step, so it
+cannot show what happens when an agent's own compression quietly removes the messages
+that held the answer.
+
+Results were conclusive by the fourth scored run and stayed that way. See
+`bench/README.md` for the method, the arm definitions, and the transcripts behind each
+result.
 
 ---
 

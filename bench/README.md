@@ -3,6 +3,32 @@
 A/B evaluation of **mea_pm** against a third-party memory plugin on an otherwise
 identical stock Hermes harness. Every claim traces to a transcript or a log line.
 
+## Live sessions, not headless
+
+Both arms ran as live agents talking to a real person over Telegram: one arm per
+conversation, memory accumulating across days of ordinary use, compression firing
+under load, tools called for real, files read and written. The questions were asked
+cold in the middle of that traffic, and the follow-ups were the person's own.
+
+Published memory benchmarks are headless. A fixed transcript or haystack is injected
+into a fresh context and the system answers a battery of questions in one shot: no
+human in the loop, no multi-turn drift, no compaction step, no tool use. They measure
+retrieval over a supplied haystack. They do not measure whether an agent stays
+coherent with a person across weeks of real conversation.
+
+That difference decides what this bench can show. The sample is small and part of the
+scoring is judgment, which is why criteria are graded axis by axis and failure classes
+are named instead of collapsed into one number. It is also why the failure Test 6
+caught is visible here at all: an arm whose compaction dropped the very messages
+holding the answers, then reported the resulting zeros as fact, cannot appear in a
+headless bench that never compresses anything.
+
+## Conclusive before the end
+
+Test 4, the fourth scored run, settled the direction: the plugin arm was ahead on
+accuracy, continuity and retrieval, and the control arm's edge was token cost. Test 5
+and Test 6 confirmed that reading rather than deciding it.
+
 ## Arms
 
 - **A** — `mea_pm`: stock harness plus this plugin.
