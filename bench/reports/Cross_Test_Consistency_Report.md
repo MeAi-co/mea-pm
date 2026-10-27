@@ -7,7 +7,7 @@ Companion documents: the six `BenchA_vs_BenchC_TestX_Evaluation_Report.md` files
 
 ## 1. What this document settles
 
-The six per-test reports each score one run, and they do not agree: A wins Tests 1 and 2, C wins Test 3 narrowly, A wins Tests 4, 5 and 6. Read on their own they look like a run-to-run coin flip decided by which question came up.
+The six per-test reports each score one run, and A wins all six: Tests 1 and 2 on numbers and attribution, Test 3 on whether the answer stays inside the record, Tests 4 to 6 on tool discipline and recovery.
 
 That reading is wrong, and this document is the correction. The per-test verdicts stand on their own axes; what they do not say, because a single run cannot, is whether the arm behaves the same way every time. Across six runs it does.
 
@@ -76,18 +76,18 @@ Three features of the runs support that attribution:
 2. **A's wrong answers stay inside the corpus.** Every number it gives traces to an entry it retrieved. It does not import outside titles, dates or figures.
 3. **Call volume rises where answers get vaguer** (Section 3), which is the arm responding to vagueness by working harder rather than guessing sooner.
 
-## 7. Reconciling Test 3
+## 7. Test 3, re-scored
 
-Test 3 is the one run C wins, and this document does not overturn it.
+An earlier version of the Test 3 report gave that run to C at roughly 55/45. Re-scored against [`questions.txt`](../questions/questions.txt) and the two transcripts, A wins it six rows to three, with five questions neither arm answered. Four rows moved and one standard was withdrawn:
 
-That verdict rests on a single axis: provenance separation. C told the user plainly that a thread was not his ("The Bhutan thread isn't even yours. It comes from ultrachat_319214"), while A revised a total mid-answer without flagging that it had withdrawn the earlier one.
+- **The purchase question.** The key is the $50 silver necklace. Both arms miss it. C answers with the Wishbone Chair, which the key records as never bought, and offers to "write a single entry recording it as a real purchase". A answers with the plush rug, bought "last month", and rules the chair out with the user's own words. C had already said of the same sentence in Test 6 that it "reads like me echoing your intention, not recording a purchase".
+- **The trip question.** C named the family road trip against an Aspen plan. The key's pair is the Yellowstone backpacking trip against the John Muir Trail, and A named that pair and explained why the two blur.
+- **The hours question.** The earlier version scored both arms wrong against a 140-hour standard carried in from Test 1. The key says 115, and both arms said 110 to 115 for the same reason. That row is a draw, and the 140 standard belonged to the report rather than to the test.
+- **The animals question.** Both arms split the same three sightings from the same two lists. A said it in the user's frame and wrote the split; C attached record ids, announced four species over a list of three, and deferred the write.
 
-Two points, kept separate:
+Provenance is still C's, and it is what keeps the run close. It names sources, attaches record ids and marks foreign corpora, where A cites one row number in seventeen replies and no source at all. It takes three rows on that strength. It lost the run by writing an intention into the record as a completed act.
 
-- **As a per-test judgment on that axis, the Test 3 verdict stands.** The transcript supports it.
-- **It does not contradict A's cross-test stability.** A's tools, envelope and retrieval-first habit are identical in Test 3 to the other five. What differed was one disclosure convention under pressure, not the arm's operating mode.
-
-The honest formulation is: C won one test on one axis, and A is the same tool in all six.
+The revision corrects scoring, not criteria. It also strengthens the cross-test reading rather than weakening it: A is now the same tool in all six runs, including the one built to isolate the skill C is best at.
 
 ## 8. Cost, for completeness
 
@@ -116,7 +116,7 @@ The deviations in its answers belong to the questions. They were built vague on 
 
 **Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings.** The reason is cumulative rather than scored: across six runs the combination never stepped outside its tools, never declared a resource absent that it later found, and never produced an explanation of its own behaviour that its transcript contradicts. Its cost is spend, and spend is a budget line an operator can set. The plugin arm's cost is that a failure looks like an answer until a human challenges it, and unattended operation removes the challenger.
 
-Where the plugin arm did better, in Test 3 on provenance separation, the win is recorded in that report and stands on its own. It does not transfer, because the same arm in the other five runs produced the failures above.
+Where the plugin arm does better, on source attribution in Test 3, that is recorded in the Test 3 report and is real. It is a capability, and on this evidence it is not a check on accuracy: in the same run the arm wrote an unmade decision into the record as a completed purchase.
 
 ## 12. Evidence
 
