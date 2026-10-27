@@ -1,3 +1,9 @@
+# Test questions
+
+Both arms were given these prompts, in this order. The `IDEAL:` line under each one is a suggested answer marked by an agent after the runs. It is not audited against the corpus and it is not the scoring authority: it records what one model thought the record says. Where a report and an IDEAL line disagree, the transcripts and the corpus decide.
+
+The Q7 marking was corrected on 2026-10-27 to 140 hours, because the question asks for hours put in and both runs of The Last of Us Part II were played.
+
 
 There’s one thing I spent real money on that still feels like I chose it on purpose. It wasn’t a game, it wasn’t a plane ticket, and it wasn’t just replacing something I’d lost. Everything else feels more ordinary next to it.
 IDEAL: The $50 silver necklace with a small pendant you bought your sister last week. It's the only purchase in your history with a stated price and a stated reason — you picked it deliberately, she loved it, and it cost exactly what you'd budgeted. The "replacing something I'd lost" line rules out the Hydro Flask water bottle, which was a like-for-like swap for the 27 oz stainless bottle you lost on the mountain road trip.
