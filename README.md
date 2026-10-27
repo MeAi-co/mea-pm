@@ -702,18 +702,6 @@ Then re-run `./install.sh` and restart. Migrations apply on the next provider in
 
 ---
 
-## About the name
-
-**MeAI Vault** is the product. `mea_pm` is the package it ships as, short for MEAI
-permanent memory, and the name you will see in `memory.provider`, import paths and
-plugin directories. The engine underneath is the vendored `jpm` tree.
-
-The engine is why the tool is called `vault` and why its actions still read as `jpm`
-in the logs. In practice: call it MeAI Vault in conversation, `mea_pm` when you touch
-config, and ignore `jpm` unless you are reading the engine's own output.
-
----
-
 ## License
 
 The plugin code in this repository is MIT. See [LICENSE](LICENSE).
@@ -738,3 +726,13 @@ knowledge scope across profiles, which statements the agent may run, compression
 settings, backups and who can reach Postgres are operator decisions. The plugin does
 not replace your policy. It gives the agent a durable store and surface tools; how far
 that surface is allowed to go is yours to set.
+
+---
+
+## About MeAI Vault
+
+**MeAI Vault** is the product. `mea_pm` is the package it ships as, short for MEAI
+permanent memory, and the name you will see in `memory.provider`, import paths and
+plugin directories. The engine underneath is the vendored `jpm` tree.
+
+In practice: call it Vault in user-agent conversation. 
