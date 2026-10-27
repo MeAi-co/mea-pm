@@ -651,11 +651,16 @@ that held the answer.
 
 ## License
 
-The plugin code in this repository is MIT. See [LICENSE](LICENSE).
+Two licenses, split on one boundary.
 
-The engine under `jpm/` is licensed separately and is not MIT: it may be used as
-part of the plugin, and it may not be copied out, redistributed or resold on its
-own. See [jpm/LICENSE](jpm/LICENSE).
+- `jpm/`, the engine, is **AGPL-3.0-only**. Read it, run it, patch it, fork it,
+  ship your changes. If you offer it to other people as a service, publish what
+  you changed. See [jpm/LICENSE](jpm/LICENSE).
+- Everything else, the plugin surface and the docs, is **MIT**. See
+  [LICENSE](LICENSE).
+
+The reasoning, the obligations in plain words and the commercial option are in
+[LICENSING.md](LICENSING.md).
 
 ---
 
