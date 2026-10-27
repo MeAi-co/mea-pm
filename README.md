@@ -19,27 +19,17 @@ console for the agent, pointed at its own memory.
 It also retrieves less and gets more right. Provenance is a column, not a convention:
 every message row carries its role, and a separate user-only table records what the
 user actually said, so recall can return that instead of the agent's own earlier
-output. Put it head to head with the popular alternative and the gap is not speed. It is
-whether the agent will assert something it never retrieved. Ask a vague question: one
-arm reads the store, says which record it used, and names the alternate reading. The
-other tells a plausible story. Where both arms were graded on the same questions, the
-fabrication count was zero against six. The table is the rest of the difference.
+output. Ask a vague question and the difference stops being about speed. One arm reads the
+store, names the record it used, and offers the alternate reading. The other tells a
+plausible story with the same confidence.
 
-| | MeAI Vault | Mnemosyne |
+| Criterion | MeAI Vault | Mnemosyne |
 |---|---|---|
-| Fabricated facts | **0** | 6 |
-| Hard errors, a later run on new questions | **1** | 3 |
-| Retrieval before asserting | A tool call on every turn | No call at all in one run, declared the store empty in another |
-| Continuity after compaction | Referents intact | Dropped 7 of the 16 messages, then reported the zeros as fact |
-| Worst turn latency | **41.4s** | 101.1s |
-| Worst compression event | **30.5s**, incremental | 70.2s, blocking |
-| Median tool payload | **3,496 chars** | 12,557 chars |
-| Context envelope drift | 642 chars across five runs | Not measured |
-
-Measured from the gateway and agent logs. A hard error is a factual claim the record
-contradicts; a disclosed over-inference and a refusal are not. The error rows cover the
-runs graded on the same questions; later runs were graded on their own criteria and are
-not folded in. Reports, chat logs and agent logs are in [`bench/`](bench/README.md).
+| Accuracy | Claims stay inside retrieved records | Narrative built from thin retrieval; invented titles and totals appear |
+| After compaction | Re-queries the store; session referents hold | Treats live facts as "earlier context"; wrong on session-state questions |
+| Retrieval habit | Multiple targeted calls until the claim is grounded | Stops when a story can be told; sometimes zero calls, then denial |
+| When wrong | Misses which record a vague question points at; does not invent outside the corpus | Fabrication, and a confident "nothing found" while the fact is in the store |
+| Failure class | Recoverable: over-inference, revision under pressure | Contract-breaking for agentic use: amnesia, wrong object for "update that" |
 
 The one run it lost went to the alternative on a deliberately isolated axis, provenance
 separation: the other stack traced a borrowed thread back to its source and said
@@ -668,16 +658,6 @@ and presented it as fact.
 
 That is not a scoring difference. It is the difference between an agent you can audit
 and an agent you have to trust.
-
-### Criterion by criterion
-
-| Criterion | MeAI Vault | Mnemosyne |
-|---|---|---|
-| Accuracy | Claims stay inside retrieved records | Narrative built from thin retrieval; invented items and totals appear |
-| After compaction | Re-queries the store; session referents hold | Treats live facts as "earlier context"; wrong on session-state questions |
-| Retrieval habit | Multiple targeted calls until the claim is grounded | Stops when a story can be told; sometimes zero calls, then denial |
-| When wrong | Misses which record a vague question points at; does not invent outside the corpus | Fabrication, and a confident "nothing found" while the fact is in the store |
-| Failure class | Recoverable: over-inference, revision under pressure | Contract-breaking for agentic use: amnesia, wrong object for "update that" |
 
 ### Where the difference showed
 
