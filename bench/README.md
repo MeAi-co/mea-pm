@@ -65,13 +65,19 @@ fabricated count are different defects.
 `reports/Test6_Evaluation_Report.md` is the criteria and the current result.
 `reports/Test6_Run_Notes_20261020.md` holds the raw run notes behind it.
 
-`reports/BenchA_vs_BenchC_Test4_Evaluation_Report.md` is retained in full, as
-recorded on 19 October 2026, with both Test 4 chatlogs beside it. It prints its own
-criteria ordering, which differs from Test 6's, so its findings stand alone: nothing
-from Test 4 is carried into a Test 6 number, and no number from either is averaged,
-summed or compared across the two.
+`reports/BenchA_vs_BenchC_Test4_Evaluation_Report.md` and
+`reports/BenchA_vs_BenchC_Test5_Evaluation_Report.md` are retained in full, as
+recorded on 19 October 2026, each with both of its chatlogs beside it.
 
-Tests 1, 2, 3 and 5 were scored against earlier orderings and are not shipped.
+Test 5 applies the same criteria ordering as Test 6 and reaches the same conclusion.
+Test 4 prints an earlier ordering, with retrieval thoroughness ahead of continuity, so
+its findings stand alone. Nothing is averaged, summed or compared across tests: each
+report carries its own numbers and its own conclusion, and no figure migrates from one
+to another.
+
+Tests 1 to 3 are not here because no report in this format was ever written for them.
+Their outputs are verdict and analysis documents, not `*_TestX_Evaluation_Report.md`,
+and the chatlogs alone would be evidence without a stated result.
 
 ## Evidence
 
@@ -81,11 +87,13 @@ bench/
 ├── questions/questions.txt
 ├── reports/
 │   ├── BenchA_vs_BenchC_Test4_Evaluation_Report.md
+│   ├── BenchA_vs_BenchC_Test5_Evaluation_Report.md
 │   ├── Test6_Evaluation_Report.md
 │   └── Test6_Run_Notes_20261020.md
 └── evidence/
     ├── chatlogs/
     │   ├── test4/  benchA_test4.txt  benchC_test4.txt
+    │   ├── test5/  benchA_test5.txt  benchC_test5.txt
     │   └── test6/  benchA_test6.txt  benchC_test6.txt
     ├── agentlogs/  benchA_test6_agentlog.txt  benchC_test6_agentlog.txt
     ├── gateway/    bench_a_gateway_oct18-21.log  bench_c_gateway_oct18-21.log
@@ -96,9 +104,10 @@ Chatlogs are the primary evidence; the agent and gateway logs carry turn boundar
 tool-call counts and compression events that a transcript cannot show. The gateway
 files are the 2026-10-18 → 2026-10-21 window covering the runs, not the whole log.
 
-**Test 4 has no agent logs.** None were kept for that run, so the directory holds the
-report and the two chatlogs only. The chatlogs cover one 09:06–09:26 window with
-unequal turn counts per arm, so per-turn comparisons there are not paired.
+**Only Test 6 has agent logs.** None were kept for Tests 4 and 5, so those directories
+hold a report and two chatlogs each. The Test 4 chatlogs cover one 09:06–09:26 window
+with unequal turn counts per arm, so per-turn comparisons there are not paired; Test 5
+runs 15 turns per arm.
 
 The harness that drove the gateways is not shipped: it needs live arm homes, a model
 endpoint and a scratch PostgreSQL, so a bundled runner could not work elsewhere. The
