@@ -239,7 +239,10 @@ class JPMemoryProvider:
         return "jpm"
 
     def is_available(self) -> bool:
-        return True
+        # Cheap and offline: the setup screen must not report a store it has no
+        # host for as ready. The connection itself is verified at session start,
+        # where a failure is a hard error rather than a silent fallback.
+        return bool(os.environ.get("JPM_PG_HOST", "").strip())
 
     def initialize(self, session_id: str, **kwargs) -> None:
         self._session_id = session_id
