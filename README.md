@@ -26,6 +26,39 @@ ordinary tools on top of it.
 
 ---
 
+## Memory the agent actually uses
+
+A memory system the agent does not actively use is a storage system with better
+marketing. If facts go in and never come out unless a human asks, what you have is
+a filing cabinet, not memory.
+
+Memory has to be bi-directional and fluid. The agent writes because it decided
+something was worth keeping, reads because it needs the answer, corrects what it
+got wrong, and lets stale entries fade. That loop is the product. Storage is the
+plumbing underneath it.
+
+mea_pm is built around that loop, and then adds optional layers that improve the
+experience of running it: tiered injection so the prompt stays small, warm start
+so a new session is not a cold one, a stable and drift prompt split that keeps
+prefix caching intact, skill nudges, recompaction, digest and toolflow loops. All
+optional. None of them are the point, and each one can be switched off.
+
+### The core difference from other memory plugins
+
+| | Typical memory plugin | mea_pm |
+|---|---|---|
+| Does the agent store and retrieve on its own | Only when it is probed, or when the phrasing happens to trigger it. Otherwise nothing is written and nothing is read | The agent is expected to use the store: the guidance names it as the authority, the tool is cheap to call, and the write path is the same tool as the read path |
+| Is tool use reliable | A coin toss. The same question twice can produce a retrieval one time and a confident guess the next | One tool name per capability, one owner per tool, and routing guidance in the prompt, so the model does not have two ways to do the same thing and pick neither |
+| Where the answer comes from | Injected context. The agent repeats what was put in front of it and cannot tell you what it did not receive | A curated slice is injected and the rest is retrieved, so the agent can go past the injection and say where a fact came from |
+| What happens after compaction | The injected block is the new memory. Anything dropped from it is gone | The rows are untouched and the agent re-queries them |
+
+The third row is the one that changes behaviour. An agent that answers from
+injection will answer confidently on the day its injection is wrong or stale, and
+it has no way to find out. An agent that answers from retrieval can be asked
+"where did that come from" and answer, because it has the row.
+
+---
+
 ## Why flat memory stops working
 
 Stock Hermes keeps memory in flat files under `$HERMES_HOME/memories/`. That
