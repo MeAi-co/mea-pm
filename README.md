@@ -55,56 +55,26 @@ it, and why we are giving it away.
 multi-chapter skills in one Postgres store the agent can query, extend, and
 selectively load through turns and after compaction.
 
-**1. Memory that survives the real failure modes.** Close the window, restart the
-gateway, compact the context, switch profile or topic. Conversations, facts, rules,
-preferences, entities, reflections and skills stay in Postgres. The rows were never
-in the prompt, so compaction is not amnesia.
+**1. Memory survives the real failure modes.** Session close, gateway restart,
+context compaction, profile and topic switches. The rows live outside the prompt, so
+the agent does not wake up empty.
 
-**2. One shared store for the whole box.** Every chat, topic, cron job and profile
-reads and writes the same database. No per-profile file, no sync script, no "which
-copy is current?"
+**2. The agent uses the store as part of the turn.** The tools sit on the surface.
+Reading and writing are expected behaviour, not something that only happens when a
+human probes. Hybrid vector and full-text recall backs that habit.
 
-**3. The agent actually uses the store.** The tools sit on the tool surface. The agent
-is expected to read and write during the turn, with hybrid vector and full-text recall
-behind it. Memory as a habit, not a filing cabinet it is reminded to open.
+**3. The schema is not fixed.** The agent can create tables, add columns, index them,
+and query with SQL. Watchlists, ledgers, trackers and charters live beside the rules
+and the history, in the same brain.
 
-**4. Schema the agent can extend.** Create tables, add columns, index them, run SQL.
-Watchlists, ledgers and trackers live beside the rules and the history, instead of
-being forced through the terminal. Structured tools plus SQL in the agent interface
-beat shelling out for the same work.
+**4. Skills are Postgres-backed, with section-level retrieval.** The agent can load a
+whole skill or pull selected chapters across skills. Procedures scale without dumping
+every playbook into the prompt.
 
-**5. Multi-profile without fragmentation.** Knowledge is scoped per profile by
-default, with an optional shared vault, and entities can stay shared. One long-lived
-box, many agents, one coherent brain.
-
-**6. Skills in Postgres with section-level retrieval.** Skills are rows, not only
-files. The agent can load a whole skill or cherry-pick chapters across skills through
-a ranked catalog and section retrieval (`skill_choose`, and `skill_view` with a
-section filter). Procedures scale without spending the context window, and a skill
-written once is available everywhere on the box.
-
-**7. Built for the server-side, long-lived Hermes.** A continuous host plus a
-database is the right shape for permanent memory. The agent can administer the stack
-itself. This does not claim to be zero-ops on a laptop, and it is not trying to be.
-
-**8. Migration that respects existing work.** Idempotent install, a dry-run import
-from stock Hermes to Postgres, documented gaps, and migration docs written so the
-agent can read and run them.
-
-**9. Evidence from real use, not a retrieval benchmark.** Live A/B runs: same model,
-same harness, different memory stack, a real user, compaction under load. The axes
-are continuity, retrieval habit, hedging and behaviour after compaction, not a
-headless retrieval score. Same model with different tools produced a visibly
-different agent.
-
-**10. Operationally transparent.** Explicit environment failure modes, optional
-embeddings with keyword fallback, and a reference config that matches what was
-benched. No fork, no core patches, and the plugin code is MIT.
-
-**11. Your data, your store.** The memory lives in your Postgres, in tables you can
-open, index, back up and export without asking anyone. There is no hosted memory
-service in the path, no vendor account holding the record, and no format to migrate
-away from: `pg_dump` is the exit.
+**5. Multi-profile shared context.** Several profiles, topics and cron jobs can share
+one vault. Knowledge stays scoped per profile by default, or opens across the box when
+you set shared scope. Rules and corrections learned in one session can also be saved
+and carried into the next.
 
 ## Who it is for
 
