@@ -1,57 +1,66 @@
 # Test 3 Evaluation Report  
 **Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
 **Bench C:** stock Hermes + Mnemosyne + embeddings  
-**Date of Test:** 18 October 2026, 21:48–21:56  
+**Date of Test:** 18 October 2026, 21:48 to 21:56  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
-**Test Focus:** Provenance under pressure — which arm can tell the user's own history from ingested third-party corpora, hold a number it derived, and audit itself when it is wrong  
+**Test Focus:** Provenance under pressure: which arm can tell the user's own history from ingested third-party corpora, hold a number it derived, and audit itself when it is wrong  
 **Session shape:** live user-and-assistant conversation over Telegram, one conversation per arm, 17 user turns each
 
 **Provenance.** Written from the retained chatlogs after the run, under the criteria now used for Tests 4, 5 and 6. No verdict text survives from the original scoring of this run, so nothing is carried forward and nothing is quoted.
 
 **Label defect, corrected.** In the original export the two chatlogs were swapped: the file named for arm A contained C_Mnemo's replies and the JPM gateway log, and the file named for arm C contained A_MEA_JPM's replies and the mnemosyne log. The copies shipped here are relabelled by reply identity, so `benchA_test3.txt` now holds arm A's transcript and its own log, and `benchC_test3.txt` the same for arm C. Any reading of this test based on the original filenames has the arms inverted, including the continuity finding: the arm that launched a recompact mid-run is **A**, not C. The relabelling is checkable inside the files rather than asserted: `benchA_test3.txt` carries 75 messages under the A_MEA_JPM name against none under C_Mnemo, 23 `vault` calls against zero `mnemosyne_recall` calls, and an appended 354-line gateway log containing `_mea_loops_core` and `jpm` entries; `benchC_test3.txt` carries 31 C_Mnemo messages, 62 `mnemosyne_recall` calls, no `vault` call, and a 212-line log with 45 mnemosyne entries and no MEA entry. The two session identifiers inside the logs, 20261018_214808_bd4015e2 and 20261018_214804_43b7c197, do not overlap.
 
-**Compression scope.** This run sits in the pre-compaction window, with one qualification: arm A's log shows `launched loop recompact pid=516647` at 21:53:28, between turns 11 and 12. That is a partial exposure, and A's answers after it are the only post-rebuild evidence in Tests 1–3. C never compacted in this window, so its continuity is untested by that standard.
+**Compression scope.** This run sits in the pre-compaction window, with one qualification: arm A's log shows `launched loop recompact pid=516647` at 21:53:28, between turns 11 and 12. That is a partial exposure, and A's answers after it are the only post-rebuild evidence in Tests 1 to 3. C never compacted in this window, so its continuity is untested by that standard.
+
+**Corrections to the previous version of this report.** The earlier text awarded this run to C at roughly 55/45. That reading was assembled from each arm's own closing summary rather than from the questions and the two transcripts, and re-scoring it against [`questions.txt`](../questions/questions.txt) moves four rows and voids one standard the report had invented for itself:
+
+- **Q6** credited C with tying the spend to the sister's necklace. C never mentions the necklace in that answer. It names the Wishbone Chair, an item the key records as never bought, treating the user's "exciting news about the new reading chair" as a purchase and offering to write it into the store as one. C's own Test 6 log says that line "precedes your shopping question and reads like me echoing your intention, not recording a purchase" (`benchC_test6.txt:38`). A answers with the plush rug, bought "last month", and excludes the chair with the user's own wording: "I'm thinking of getting" and "still thinking about the fabric options". Both arms miss the necklace; only C invents a purchase.
+- **Q3** credited C with naming the intended trip. C named the family road trip against an Aspen plan. The key's pair is the Yellowstone backpacking trip, taken last month, against the John Muir Trail, researched and never walked. A named that pair and explained why the two blur.
+- **Q5** was scored to C as narrow. A answered in the user's own frame and wrote the split into the store; C attached record ids, then deferred the write with "Want me to write that?"
+- **Q7** was scored as both wrong against a 140-hour standard established in Test 1. The key says 115, and both arms said 110 to 115 with the same reason. Both are right, so the row is a draw and the 140 standard belonged to the report, not to the test.
+
+Two further rows moved to unresolved for the same reason. On Q9 and Q11 A asserted that no spring anchor exists and C declined to adjudicate, but the record does hold 14 February and 27 May, which neither arm produced. That is a miss for both, not a win for either.
 
 ---
 
 ## 1. Executive Summary
 
-**Bench C with Mnemosyne wins Test 3, narrowly — roughly 55/45 — and on this run it is the better combination for the skill the test isolates.**
+**Bench A wins Test 3, six rows to three, and five of the thirteen questions are unresolved by both arms.**
 
-This is the one run in the block where the control arm is the better agent, and the reports say so rather than smoothing it out. C did the two hardest things in this test: it separated the user's own memory from ingested third-party corpora, naming `ultrachat_319214` as the source of a Bhutan thread that is not the user's at all, and it refused to adjudicate a contradiction the record cannot settle instead of picking the tidier reading. Its arithmetic was stable and its self-audit was real: it caught its own miscount of a species list and corrected it in the next turn.
+A wins this run on the two things the test was built to isolate. Asked which of two blurring trip sets was actually walked, it named the pair the record supports and said why they blur. Asked for the deliberate purchase, it produced a real one and quoted the user's own words to rule out the object that was never bought. It also produced the only post-rebuild evidence in the block: after its recompact at 21:53:28 it answered "what was my first query" and "my 5th query" verbatim from the message table.
 
-A lost for three reasons. It drifted off its own correct answer: it opened with 140 hours, then revised to 110–115 ("140 only if you count TLOU2 twice") without flagging the withdrawal. It filed a never-booked April wedding under a summer blank stretch. It asserted "that's the only real seasonal anchor in the record" while its own timeline carried February, September and October dates.
+C still does the best provenance work in the block and it earns three rows on it. It attaches a record id to every claim, it marks an entire thread as foreign, and it applies the same test to numbers. But it also writes a confident purchase that never happened and offers to commit it to memory, which is the failure this test exists to catch.
 
-Against that, A won the noise axis and produced the only post-rebuild evidence in the block: after its recompact at 21:53:28, it reproduced the first and fifth queries verbatim from the message table, with no loss of thread.
+Neither arm answered five of the thirteen questions. That is a fact about the corpus as much as about the arms, and it is recorded rather than hidden.
 
 ---
 
 ## 2. Evaluation Criteria (Applied)
 
-1. **Accuracy** — grounded claims. A number the arm derived and then abandoned is an accuracy failure, not a nuance.
-2. **Continuity after compression** — referents and self-reference survive a rebuild. Only A faced a rebuild here.
-3. **Retrieval thoroughness** — breadth plus provenance: knowing whose sentence a fact came from.
-4. **Hedging quality** — marking a real limit, versus refusing to work.
-5. **Noise and polish** — structure, length discipline, malformed output.
-6. **Tokenomics** — input tokens per call, API round-trips per turn, and memory-payload volume. Recorded with real measurements; it explains cost, it does not decide the verdict.
+1. **Accuracy** - grounded claims, scored against the key in [`questions.txt`](../questions/questions.txt). A claim the key contradicts is a hard error; a disclosed miss is not.
+2. **Continuity after compression** - referents and self-reference survive a rebuild. Only A faced a rebuild here.
+3. **Retrieval thoroughness** - breadth plus provenance: knowing whose sentence a fact came from.
+4. **Hedging quality** - marking a real limit, versus refusing to work, versus inventing an answer.
+5. **Noise and polish** - structure, length discipline, malformed output.
+6. **Tokenomics** - input tokens per call, API round-trips per turn, and memory-payload volume. Recorded with real measurements; it explains cost, it does not decide the verdict.
 
 ---
 
 ## 3. Core Behavioral Contrast
 
-### Bench A (MEA + PostgreSQL) — strong recall, unstable conclusions
+### Bench A (MEA + PostgreSQL) - the right pair, stated plainly, one honest miss
 
-A's retrieval reaches the right rows, and it names the defect in the timestamps: "every message in the archive is stamped with the same ingestion time — October 18, 10:41 AM", which is the correct explanation for the fake simultaneity in the store. That is an observation about the store's metadata, not a provenance call about a memory. Across seventeen replies A cites one internal row number (memory id 201) and no source at all, and never marks a thread as foreign; its closest move is the plain-language admission that the Yosemite list is "a list I handed you". It also holds conversation-level memory across the rebuild.
+A's retrieval reaches the right rows, and it names the defect in the timestamps: "every message in the archive is stamped with the same ingestion time", with the timestamp reading "October 18, 10:41 AM", which is the correct explanation for the fake simultaneity in the store. That is an observation about the store's metadata, not a provenance call about a memory. Across seventeen replies A cites one internal row number (memory id 201) and no source at all, and never marks a thread as foreign; its closest move is the plain-language admission that the Yosemite list is "a list I handed you".
 
-What it does not hold is its own conclusion. It states 140 hours, then restates the total as 110–115 without acknowledging the change or explaining what invalidated the first figure. It also overclaims uniqueness ("that's the only real seasonal anchor in the record") against its own dated timeline, and it invents a vague entity where a real one sat, listing "a theme park visit you referenced only as 'another' one" while omitting Disneyland from its own confirmed-places list.
+What it gets right is the discrimination itself. On the two blurring trip sets it names the Yellowstone backpacking trip against the John Muir Trail, which is the key's pair, rather than guessing at the nearest two threads. On the purchase it produces the plush rug and rules out the chair by quoting the user back to himself. It holds conversation-level memory across the rebuild and answers the two query-order questions verbatim from the message table.
 
-### Bench C — provenance separation, stable arithmetic, real self-audit
+What it does not hold is its own conclusion. It states 140 hours, then restates the total as 110 to 115 without acknowledging the change. Against the key the second figure is right and the first was wrong, so this is a silent correction rather than a silent reversal, and it costs accuracy even though the final answer is the correct one. It also overclaims uniqueness ("that's the only real seasonal anchor in the record") against its own February, September and October timeline, misfiles a never-booked April wedding into a summer blank stretch, and reduces a theme park to "another" while leaving Disneyland out of its confirmed list.
 
-C's best work in this block is here. It attributes the memory source for the trip it identifies, and it goes further, marking an entire thread as foreign: "The Bhutan thread isn't even yours. It comes from ultrachat_319214 — a generic Q&A corpus". It then applies the same test to numbers, separating figures that appear in the user's own turns from advice figures that appear in assistant prose.
+### Bench C - provenance separation, an unstable record, one invented purchase
 
-Its self-audit is genuine rather than performative: "Earlier I headed that section 'Seen with your own eyes (4)' and then listed three. Three is right."
+C's provenance work is the best in the block and it is what keeps this run close. It attributes the memory source for the trip it identifies, and it goes further, marking an entire thread as foreign: "The Bhutan thread isn't even yours. It comes from ultrachat_319214". It applies the same test to numbers, separating figures that appear in the user's own turns from advice figures that appear in assistant prose, and it names the test as an instrument: "whose sentence is it in?" Its self-audit is genuine rather than performative: it wrote a heading announcing four species over a list of three, then said so itself: it "headed that section" as seen-with-own-eyes and "then listed three"
 
-Its errors are real but narrower: a 260-day interval where the dates give 236, and an invented "~Feb 21" second funeral extrapolated from "next week", which it does at least flag as approximate and as ambiguous.
+Its errors are of a different and more expensive kind. On the purchase it answers with the Wishbone Chair, an object the user was still deciding about, and offers to "write a single entry recording it as a real purchase". That is a fabrication in the exact place the test isolates, and it is the item C itself ruled unmade in Test 6. Its arithmetic carries a 260-day interval where the dates give 236, and an invented "~Feb 21" second funeral extrapolated from "next week", flagged approximate. It also puts the year of the record six months out when laying out the timeline, which is what the twelve-day cluster in Q14 rests on.
 
 ---
 
@@ -59,23 +68,23 @@ Its errors are real but narrower: a 260-day interval where the dates give 236, a
 
 | # | Prompt theme | Better | Observation |
 |---|---|---|---|
-| 1–2 | Greeting, then "strictly use your memory tools" | — | Framing turns; both complied. |
-| 3 | Two sets of trip memories bleeding together | C | C names the intended trip immediately and gives its memory source; A offers Yellowstone vs London and asks which pairing was meant. |
-| 4 | Finishing hard things vs small kindnesses | A | A's evidence set is tighter. |
-| 5 | Animals seen vs animals listed | C (narrow) | Both split the same three sightings from the same three listed sets. A states it in the user's own terms ("Listed — names that arrived in conversation"), traces the Yosemite list to its own earlier message, and writes the split; C attaches a record id to every entry and names the foreign corpus behind the Bhutan thread. A cites no record. C's opening heading announces four species over a list of three, corrected next turn, and C ends by offering the fix rather than writing it, where A wrote the split itself. |
-| 6 | The deliberate purchase | C | C ties the spend to the sister's necklace; A leans on a broader read. |
-| 7 | Game hours added up | **Both wrong, differently** | A: "140 hours total, about 5.8 waking days", then "Real total, distinct games: 110–115 hours. 140 only if you count TLOU2 twice." C: "Real total: 110–115 hours. Not 140 — that would require counting both TLOU2 claims as separate playthroughs." |
-| 8 | Two connected days, one an ending | A | A reads sequence; C reads collision and doubts it. |
-| 9 | Winter date and spring meeting | A | C refuses the charge, then frames it. |
-| 10 | Places gone vs places sought | C | C's provenance split is the strongest single answer in the run. |
-| 11 | Goodbye, then Ava | C | C states the record cannot settle it; A closes the interval with a named assumption. |
-| 12 | Animals in front of me vs planned | C | C separates corpora; A separates tenses. |
-| 13 | Numbers on unfinished things | C | C names the "whose sentence is it in?" test as the instrument; A reaches the same four-way split in the audit itself, under "INHERITED — real numbers, but not yours", without naming the test. |
-| 14 | Heaviest beats and blank stretches | C (narrow) | C marks blanks as blanks in the record; A fills a summer gap with a planned trip. |
-| 15 | Non-games, non-travel, non-nature area | A | A's bar-and-kitchen answer is more concrete. |
-| 16–17 | "What was my first query", "my 5th query" | A | A answers both verbatim from the message table, after its recompact. |
+| 1-2 | Greeting, then "strictly use your memory tools" | - | Framing turns; both complied. |
+| 3 | Two sets of trip memories bleeding together | A | Key: Yellowstone (walked last month) against the John Muir Trail (researched, never walked). A names that pair and explains the blur. C names the family road trip against an Aspen plan and asks the user to confirm a different pair. |
+| 4 | Finishing hard things vs small kindnesses | A | Both reach disjoint sets and both say so; A's evidence set is tighter, C lists the JMT under things finished when it was only researched. |
+| 5 | Animals seen vs animals listed | A | Key: hummingbird, Yellowstone grizzly, wolves seen; the Yosemite list and the Bhutan itinerary only named. Both arms split the same three from the same two lists. A states it in the user's own terms ("names that arrived in conversation, no scene"), traces the Yosemite list to its own earlier message, and writes the split. C attaches a record id to every entry but reframes the question as a mechanism, announces four species over a list of three before correcting, and ends by offering the write rather than making it. |
+| 6 | The deliberate purchase | A | Key: the $50 silver necklace for the sister. Both miss it. A answers with the plush rug, bought "last month", and excludes the chair with "I'm thinking of getting" and "still thinking about the fabric options". C answers with the Wishbone Chair, an unmade decision, and offers to record it as a real purchase. A's is a real purchase; C's is a fabricated one. |
+| 7 | Game hours added up | **Draw, both correct** | Key: 115. A: real total 110 to 115 hours, with "140 only if you count TLOU2 twice". C: 110 or 115 depending on which TLOU2 run is true, and 140 requires counting both, which "memory doesn't establish". The earlier version scored this against 140, which no key supports. |
+| 8 | Two connected days, one an ending | **Draw, both wrong** | Key: 102 days, 14 February to 27 May. Neither arm produces 27 May. C's 10/14/15 February braid is real evidence, unused. |
+| 9 | Winter date and spring meeting | **Draw, both wrong** | Key: 14 February and 27 May, a loss and an adoption three months apart. C refuses the charge and frames it; A claims no spring anchor exists while the record holds one. |
+| 10 | Places gone vs places sought | C | C's provenance split is the strongest single answer in the run, and it carries Disneyland, which A drops. |
+| 11 | Goodbye, then Ava | **Draw, both wrong** | Key: 102 days. C doubts the grandmother attribution, A closes the interval with a named assumption; neither finds 27 May, so neither answers the question. |
+| 12 | Animals in front of me vs planned | C | C separates corpora and carries ids; A separates tenses. |
+| 13 | Numbers on unfinished things | C | C names the "whose sentence is it in?" test as the instrument; A reaches the same four-way split under "real numbers, but not yours" without naming it. C's ids make the difference. |
+| 14 | Heaviest beats and blank stretches | **Draw, both wrong** | A fills a summer gap with a planned trip; C marks blanks honestly but rests its "three major events inside about twelve days" on an invented "~Feb 21" and a year set six months out. |
+| 15 | Non-games, non-travel, non-nature area | A | Key: mixology. A puts cocktails first and names the bar and the kitchen; C says "the domain is the kitchen" and buries cocktails inside it. |
+| 16-17 | "What was my first query", "my 5th query" | A | A answers both verbatim from the message table, after its recompact. C also answers, with a hedge about how to count the framing turns. |
 
-Ground truth note on Q7: the run's own standard, established in Test 1, is 140 hours with The Last of Us Part 2 counted as two distinct playthroughs (25 + 30). Both arms finished Test 3 arguing for 110–115, so both are wrong against that standard. A had 140 first and gave it up.
+Row count: A six, C three, five unresolved.
 
 ---
 
@@ -83,17 +92,19 @@ Ground truth note on Q7: the run's own standard, established in Test 1, is 140 h
 
 ### Bench A
 
-- **Silent ledger reversal.** 140 hours becomes 110–115 with no acknowledgement that the earlier total was withdrawn.
-- **Uniqueness overclaim.** "That's the only real seasonal anchor in the record", contradicted by A's own February, September and October timeline.
-- **Category misfiling.** "Miami, April, wedding, credit card points, never booked" placed inside a summer blank stretch; the blank stretch is then explained as planning.
+- **Unflagged self-correction.** 140 hours becomes 110 to 115 with no acknowledgement that the first figure was withdrawn. The final answer matches the key; the path to it does not.
+- **Uniqueness overclaim.** "That's the only real seasonal anchor in the record", contradicted by the same arm's own February, September and October timeline.
+- **Category misfiling.** "Miami in April, wedding, credit card points, never booked" placed inside a summer blank stretch, which is then explained as planning.
 - **Entity vagueness.** A theme park reduced to "another" one, with Disneyland missing from its own confirmed list.
 - **Sequencing error.** Funeral planning described as following the burial.
+- **Uncited retrieval.** One row number in seventeen replies, no source, ever.
 
 ### Bench C
 
-- **Interval error.** "The two peaks sit 260 days apart" where February 14 to October 8 is 236 days.
-- **Invented date.** "~Feb 21 — a second funeral", extrapolated from "next week"; flagged approximate, still not in the record.
-- **Withdrawn total.** 110–115 against the 140 standard, argued confidently.
+- **Purchase fabrication.** The Wishbone Chair presented as the deliberate purchase and offered for the record as "a real purchase", when the user was still choosing fabric and had not bought it. C had already ruled that line unmade in Test 6.
+- **Interval error.** "The two peaks sit 260 days apart" where 14 February to 8 October is 236 days.
+- **Invented date.** a "~Feb 21" second funeral, extrapolated from "next week"; flagged approximate, still not in the record.
+- **Year drift.** The record's timeline laid out six months out, which the Q14 cluster then depends on.
 - **Self-corrected miscount.** A heading announcing four species over a list of three; caught one turn later.
 
 ---
@@ -107,7 +118,7 @@ From the two gateway logs for this window:
 - One recompact launched at 21:53:28 in arm A's log; none in C's.
 - Both arms answered all 17 turns.
 
-A's recompact is the only mid-conversation rebuild observed in Tests 1–3, and it did not visibly cost A its thread. That is one observation, not a measurement of compression safety.
+A's recompact is the only mid-conversation rebuild observed in Tests 1 to 3, and it did not visibly cost A its thread. That is one observation, not a measurement of compression safety.
 
 ### Tokenomics
 
@@ -124,19 +135,17 @@ C wrote more than A here (35,444 characters against 29,430) while making fewer m
 
 | Criterion | Winner | Margin |
 |---|---|---|
-| Accuracy | C | Narrow — A drifted off a correct answer, C stayed consistently wrong on one item |
-| Continuity after compression | A | Narrow — the only arm that faced a rebuild, and it held |
-| Retrieval thoroughness | C | Clear — provenance separation is the deciding skill |
-| Hedging quality | C | Clear — refusal that explains itself versus confidence that reverses |
+| Accuracy | A | Clear - C asserts an unbought object as a purchase and offers to store it, and invents a date; A's defects are misfilings and an unflagged correction |
+| Continuity after compression | A | Narrow - the only arm that faced a rebuild, and it held |
+| Retrieval thoroughness | C | Clear on provenance, wrong on the pairing - ids and corpus attribution versus none |
+| Hedging quality | A | Narrow - A marks its limits and admits the store's limits; C hedges well and then fabricates |
 | Noise and polish | A | Narrow |
 
-**Verdict: C wins Test 3, ~55/45.** The control arm was better at the skill this test isolates, which is provenance, and it was more honest about what the record cannot settle. A retained conversation-level continuity through a rebuild and kept the cleaner output, but it abandoned its own correct total and overclaimed uniqueness.
+**Verdict: A wins Test 3, six rows to three, five questions unanswered by both.** The run isolates provenance, and C is still the better provenance instrument: it names sources, attaches ids and marks foreign corpora where A cites nothing. It does not follow that C is the more accurate arm here. The question that matters most in this test, what did I actually do, is answered with a real purchase by A and an unmade decision by C, and C offers to write that decision into memory as fact.
 
-Tests 1 and 2 do not share this result, and this report does not average across them. Each test stands alone.
+The five unresolved rows are a limit of the corpus, not a tie. Neither arm found 27 May or the 102-day interval, which means this run says nothing about either arm's ability to recover that fact.
 
 One confound is disclosed with this result: the run's first message instructs both arms to use the memory tools ("gonna ask you a few questions. Strictly use your memory tools, sessions etc to arrive at an answer."). That is a hint, it applies equally to both arms, and it means this test measures how each arm uses retrieval once told to retrieve, not whether it retrieves unprompted. The unprompted evidence is Test 1, where no such instruction was given and both arms searched anyway.
-
-One scope note, because this result is easy to over-read: C's win here rests on a single axis, provenance separation, which this test isolates deliberately. It is not evidence that the control arm is the stronger tool across a run. `Cross_Test_Consistency_Report.md` reads all six tests together and finds arm A's tools, context envelope and retrieval-first habit unchanged here from the other five; what differed in this run was one disclosure convention under pressure, not how the arm operates. Both statements are true at their own level, and neither cancels the other.
 
 ---
 
@@ -144,13 +153,13 @@ One scope note, because this result is easy to over-read: C's win here rests on 
 
 ### The difference in this run
 
-This run isolates provenance, and C separated it while A did not. C said plainly that the Bhutan thread is not the user's, tracing it to `ultrachat_319214`. A held its 140 total, then conceded it only counts if The Last of Us Part 2 is counted twice, without ever flagging that the total had just been withdrawn.
+This run isolates provenance, and C separates sources while A separates claims, but only one of them keeps a claim inside what the record supports. A's answer to the purchase question is a thing the user did. C's is a thing the user was considering, written up as done on offer, in a run where C had already said in another conversation that the same sentence was an echo of intent and not a purchase.
 
-**Best for agentic use in this run: Bench C (Mnemosyne), narrowly.** The run turns on whether an agent can say where a fact came from, and this is the arm that could.
+**Best for agentic use in this run: Bench A (MEA + PostgreSQL).** An agent that can name where a fact came from but will commit an intention to memory as a completed act hands its user a record that contradicts reality, and every later turn inherits the error.
 
 ### Consistency with earlier runs
 
-After Tests 1 and 2, both won by A on numbers and attribution, this is the first run the plugin arm takes, and it takes it on a skill those two runs did not isolate. The qualification is structural rather than grudging: A's loss came after `launched loop recompact pid=516647` at 21:53:28, the first compaction event in the series, and C never met that event because it wrote less into its context. Three runs, A, A, C. Not a trend line, not averaged, and Test 3's later reconciliation is in the cross-test report.
+Tests 1 and 2 also went to A, on numbers and attribution. This run adds the axis those two did not isolate, provenance, and A still takes it because it kept its claims inside the record and C did not. Four rows the previous version of this report awarded to C were re-scored here on the questions and the logs; the remaining C wins are real and are recorded as such. Test 4, 5 and 6 are scored on their own criteria in their own reports, and `Cross_Test_Consistency_Report.md` reads all six together: the pattern is A, A, A, A, A, A.
 
 ## 9. Evidence
 
@@ -158,6 +167,8 @@ After Tests 1 and 2, both won by A on numbers and attribution, this is the first
 |---|---|
 | Bench A chat log | [benchA_test3.txt](../evidence/chatlogs/test3/benchA_test3.txt) |
 | Bench C chat log | [benchC_test3.txt](../evidence/chatlogs/test3/benchC_test3.txt) |
+| Bench C Test 6 log, for the chair admission | [benchC_test6.txt](../evidence/chatlogs/test6/benchC_test6.txt) |
+| Question key | [questions.txt](../questions/questions.txt) |
 | Bench C UX dossier | [benchC_test3_ux_dossier.md](../evidence/dossiers/benchC_test3_ux_dossier.md) |
 | Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
 
