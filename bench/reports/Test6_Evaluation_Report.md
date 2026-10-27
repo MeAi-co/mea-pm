@@ -14,7 +14,7 @@ Bench C can produce polished, structured narrative answers and shows better earl
 
 Bench A retrieves more thoroughly, maintains higher accuracy against the actual store, preserves usable session continuity after compression, and fails in more recoverable ways (over-eager inference rather than “data not found” or post-compression amnesia).
 
-**Recommendation:** Prefer Bench A for data-based reports, specific factual questions, long-running agentic workflows, and any context in which continuity and actionability matter. Bench C is acceptable only for low-stakes, non-actionable conversation.
+**The difference:** Bench A trusts its tools and does not fail at the point of use. Bench C treats retrieval as an opening bid and works around it when the answer comes back thin.
 
 ---
 
@@ -114,14 +114,12 @@ Bench C remains a capable conversationalist for low-stakes, non-actionable chat,
 
 ---
 
-## 8. Recommendations
+## 8. The Difference
 
-1. Adopt or prioritize the JPM-style retrieval approach (Bench A) for any agent expected to handle data, reports, or multi-turn actions.
-2. Treat Bench C’s early-stopping / narrative-sufficiency behavior as a defect for factual and action-oriented workloads.
-3. Investigate and fix the non-determinism in Bench C’s memory layer that allows it to report “nothing found” when the data exists.
-4. Strengthen post-compression session fidelity on both systems; A currently handles this far better.
-5. Noise reduction on A is a worthwhile secondary optimization; it should not come at the expense of retrieval thoroughness or continuity.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
----
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
 
-*Revised report reflecting final evaluation criteria agreed during analysis on 21 October 2026. Primary sources: full chat transcripts, agent logs, API call payloads, and iterative comparison of retrieval, hedging, accuracy, and post-compression behavior.*
+C's workaround was an explanation: that compaction had deleted the answers, and that messages sitting in its own transcript were "not in today's log". The agent's own line records what that is worth: "it happened to be right, but that was luck, not method." A lost conclusions to vagueness and rebuilt them by retrieving again.
+
+Evidence: `evidence/chatlogs/test6/benchA_test6.txt`, `benchC_test6.txt`, `evidence/agentlogs/`.

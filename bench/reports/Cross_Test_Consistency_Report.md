@@ -107,6 +107,6 @@ A is not the cheaper arm by call count. It is the cheaper arm per answer because
 
 ## 10. Final assessment
 
-**Bench A is consistent and stable across all six tests.** Same tool surface, same context envelope to within 642 characters of system prompt, retrieval before assertion in every run, and a failure mode that stays inside the record it retrieved.
+**Bench A is consistent and stable across all six tests.** Put in one line, which is also the finding of every individual report: the control arm trusts its tools and does not fail at the point of use, and the plugin arm treats retrieval as an opening bid and works around it when the answer comes back thin. Same tool surface, same context envelope to within 642 characters of system prompt, retrieval before assertion in every run, and a failure mode that stays inside the record it retrieved.
 
 The deviations in its answers belong to the questions. They were built vague on purpose, and A answers vague questions by retrieving more and asserting less, which is the behaviour the bench was designed to detect.

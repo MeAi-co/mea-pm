@@ -143,9 +143,12 @@ Two limits on that verdict. First, continuity is only partly tested, since nothi
 
 ---
 
-## 8. Recommendations
+## 8. The Difference
 
-- Prefer A for any question with a numeric answer assembled from multiple records. C's failure mode is a plausible total built on a partial ledger, which is harder for a user to detect than an obvious error.
-- Neither arm should be trusted to notice a repeated question; the harness should track that, not the memory layer.
-- Attribution disagreements between arms (archive timestamps here) are worth logging as defects: at most one arm can be right, and the bench has no third source to arbitrate.
-- Evidence: `evidence/chatlogs/test1/benchA_test1.txt`, `benchC_test1.txt`.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+
+In this run the workaround never became necessary, because C's retrieval was extensive: 25 `mnemosyne_recall` calls against A's 11 tool calls. Its failure happened after retrieval, in the summary it wrote over its own evidence: three playthroughs, two distinct titles for six completions, and two titles that appear nowhere in the store. A added the ledger up in the open and said "Finished — 4 titles, 140 hours".
+
+Evidence: `evidence/chatlogs/test1/benchA_test1.txt`, `benchC_test1.txt`.

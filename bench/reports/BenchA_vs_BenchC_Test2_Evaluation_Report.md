@@ -130,9 +130,12 @@ The comparison is therefore asymmetric, and this report says so rather than impl
 
 ---
 
-## 8. Recommendations
+## 8. The Difference
 
-- Report error counts per arm, not score deltas. The margins above are judgment on a small sample.
-- The purchase question should be re-worded or re-run: both arms failed it, and one of them failed by refusing.
-- Instrument answer leakage: A's boilerplate and malformed fragments came from the harness, not the memory layer, and would embarrass a public release more than a wrong hedge would.
-- Evidence: `evidence/chatlogs/test2/benchA_test2.txt`, `benchC_test2.txt`.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+
+Here the workaround was arithmetic it did not own. C searched more widely than A and reached material A never found, then bound the $50 to the sister's necklace on a reading the store does not support. A refused the question, searched, refused again, and only then guessed the orchid. Both arms ended near the same answer; only one of them had looked.
+
+Evidence: `evidence/chatlogs/test2/benchA_test2.txt`, `benchC_test2.txt`.

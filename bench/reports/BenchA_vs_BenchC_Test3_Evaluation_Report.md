@@ -139,10 +139,12 @@ One scope note, because this result is easy to over-read: C's win here rests on 
 
 ---
 
-## 8. Recommendations
+## 8. The Difference
 
-- Treat provenance as a first-class axis, separate from retrieval volume. C's advantage here did not come from retrieving more; it came from asking whose sentence a fact belonged to.
-- An arm that revises a derived number must say so. Silent reversal is worse than a stable wrong answer, because the user cannot see the change.
-- Re-run this test with the same questions once compaction is guaranteed to fire in both arms; as it stands, only A's continuity was exercised.
-- Fix the export step that swapped two chatlogs. Labels are not cosmetic: this report would have been wrong in every direction if the filenames had been trusted.
-- Evidence: `evidence/chatlogs/test3/benchA_test3.txt`, `benchC_test3.txt`.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+
+This is the one run where C did not need a workaround: the provenance separation it produced was better than A's, and it said so plainly ("The Bhutan thread isn't even yours"). A's tools returned the same material, and A's conclusion drifted off it after a mid-run compaction. This result is about what each arm did with what it had, not about which arm could reach it.
+
+Evidence: `evidence/chatlogs/test3/benchA_test3.txt`, `benchC_test3.txt`.

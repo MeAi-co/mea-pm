@@ -14,7 +14,7 @@ Bench C again demonstrated its characteristic pattern of shallow retrieval follo
 
 Bench A retrieved more thoroughly from the outset, correctly identified the houseplant / weeks-of-care domain after the clarifying constraint, separated lived vs planned trips with clear evidence, and maintained higher overall fidelity to the store. Its answers were longer, but the extra length was largely spent on additional retrieval and justification rather than fabrication.
 
-**Recommendation:** Consistent with Test 6, prefer Bench A for data-based reports, specific factual questions, and any agentic workflow in which accuracy and continuity matter. Bench C remains suitable only for low-stakes conversational use.
+**The difference:** Bench A trusts its tools and does not fail at the point of use. Bench C treats retrieval as an opening bid and works around it when the answer comes back thin.
 
 ---
 
@@ -109,14 +109,12 @@ Bench C’s pattern of invent-then-retreat remains a disqualifying flaw for any 
 
 ---
 
-## 8. Recommendations (Consistent with Test 6)
+## 8. The Difference
 
-1. Prioritize the JPM-style thorough retrieval approach for any agent handling factual, multi-hop, or action-oriented workloads.
-2. Treat Bench C’s early-stopping / narrative-sufficiency behavior as a defect when accuracy and trust matter.
-3. Address the non-determinism that allows Bench C to invent framing or deny the existence of stored facts on the first pass.
-4. Retain A’s higher retrieval persistence even if it increases average latency or length; accuracy and continuity are higher-value.
-5. Noise reduction on A is a valid secondary goal and should not come at the expense of thoroughness.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
----
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
 
-*Report generated from full Test 5 chat transcripts and agent logs, scored against the same evaluation criteria used for the revised Test 6 report (21 October 2026).*
+C made no tool call at all on the substantive turn and answered "I don't know. Nothing I have names them." Pressed once by the user, a single recall returned 25,237 characters. A kept retrieving until the record was exhausted, and its answer was longer because the work was longer.
+
+Evidence: `evidence/chatlogs/test5/benchA_test5.txt`, `benchC_test5.txt`.

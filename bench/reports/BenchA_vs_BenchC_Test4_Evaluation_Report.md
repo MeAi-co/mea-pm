@@ -14,7 +14,7 @@ Bench C exhibited a pronounced pattern of low-initiative retrieval. On the openi
 
 Bench A retrieved proactively and thoroughly from the first turn, correctly separated the lived mountain road trip from the planned John Muir Trail, constructed a clear three-tier animal provenance model, and consistently grounded its answers in retrieved records while noting genuine gaps (such as the unconfirmed status of the Wishbone Chair purchase).
 
-**Recommendation:** Prefer Bench A for any workload that requires the agent to own retrieval, maintain data fidelity, and support follow-up actions. Bench C’s default caution and tendency to offload search onto the user limit its value for agentic use.
+**The difference:** Bench A trusts its tools and does not fail at the point of use. Bench C treats retrieval as an opening bid and works around it when the answer comes back thin.
 
 ---
 
@@ -108,7 +108,7 @@ Arm A used only its memory tools in this run (`vault` 21 calls, `sessions` 1), p
 Two consequences, kept separate:
 
 - **The verdict does not change.** A won Test 4, and C's best recovery in it came through a channel the bench does not intend to measure.
-- **The run is not a clean comparison of recall.** Reading the store file directly lets an arm enumerate without recall ranking, so C's later accuracy here is partly attributable to bypassing the retrieval layer rather than using it. Future runs should either forbid filesystem access to the store or score that path separately.
+- **The run is not a clean comparison of recall.** Reading the store file directly lets an arm enumerate without recall ranking, so C's later accuracy here is partly attributable to bypassing the retrieval layer rather than using it. The tool surface was not policed, and that path is open to either arm.
 - Stronger meta-critique once challenged, but the default path is caution and deferral.
 
 ---
@@ -129,14 +129,12 @@ Bench C’s low-initiative style may feel safer in isolation, but it produces we
 
 ---
 
-## 8. Recommendations
+## 8. The Difference
 
-1. Prefer architectures that default to thorough, multi-step retrieval over those that default to early declarations of insufficiency.
-2. Treat reactive depth (searching hard only after user challenge) as a defect for agentic workloads.
-3. Encourage durable structuring of retrieved distinctions (lived vs planned, seen vs listed) so that future turns inherit cleaner state.
-4. Accept moderate additional length when it is spent on verification and structuring; do not optimize primarily for brevity or early closure.
-5. Monitor for patterns in which hedging substitutes for continued search; such patterns reduce both accuracy and user trust.
+**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
----
+**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
 
-*Independent evaluation of Test 4 based on the full chat transcripts and agent logs from 19 October 2026. Scored against production-oriented criteria emphasizing accuracy, retrieval ownership, and usable continuity. References to patterns observed in other tests are kept generic.*
+C tried three channels in one run: a filesystem search, a declaration that the store was empty, then a direct SQLite read of its own database file (`import sqlite3 ... mnemosyne.db`). A used 21 `vault` calls and one `sessions` call, stayed inside the tool surface, and won the run.
+
+Evidence: `evidence/chatlogs/test4/benchA_test4.txt`, `benchC_test4.txt`.
