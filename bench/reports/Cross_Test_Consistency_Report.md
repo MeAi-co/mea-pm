@@ -110,3 +110,21 @@ A is not the cheaper arm by call count. It is the cheaper arm per answer because
 **Bench A is consistent and stable across all six tests.** Put in one line, which is also the finding of every individual report: the control arm trusts its tools and does not fail at the point of use, and the plugin arm treats retrieval as an opening bid and works around it when the answer comes back thin. Same tool surface, same context envelope to within 642 characters of system prompt, retrieval before assertion in every run, and a failure mode that stays inside the record it retrieved.
 
 The deviations in its answers belong to the questions. They were built vague on purpose, and A answers vague questions by retrieving more and asserting less, which is the behaviour the bench was designed to detect.
+
+## 11. Which Combination Is Best for Agentic Use
+
+**Bench A with the JPM store.** The reason is cumulative rather than scored: across six runs the combination never stepped outside its tools, never declared a resource absent that it later found, and never produced an explanation of its own behaviour that its transcript contradicts. Its cost is spend, and spend is a budget line an operator can set. The plugin arm's cost is that a failure looks like an answer until a human challenges it, and unattended operation removes the challenger.
+
+Where the plugin arm did better, in Test 3 on provenance separation, the win is recorded in that report and stands on its own. It does not transfer, because the same arm in the other five runs produced the failures above.
+
+## 12. Evidence
+
+| Piece | File |
+|---|---|
+| Six Bench A chat logs | [test1](../evidence/chatlogs/test1/benchA_test1.txt) · [test2](../evidence/chatlogs/test2/benchA_test2.txt) · [test3](../evidence/chatlogs/test3/benchA_test3.txt) · [test4](../evidence/chatlogs/test4/benchA_test4.txt) · [test5](../evidence/chatlogs/test5/benchA_test5.txt) · [test6](../evidence/chatlogs/test6/benchA_test6.txt) |
+| Six Bench C chat logs | [test1](../evidence/chatlogs/test1/benchC_test1.txt) · [test2](../evidence/chatlogs/test2/benchC_test2.txt) · [test3](../evidence/chatlogs/test3/benchC_test3.txt) · [test4](../evidence/chatlogs/test4/benchC_test4.txt) · [test5](../evidence/chatlogs/test5/benchC_test5.txt) · [test6](../evidence/chatlogs/test6/benchC_test6.txt) |
+| Per-run UX dossiers | [test1](../evidence/dossiers/benchC_test1_ux_dossier.md) · [test2](../evidence/dossiers/benchC_test2_ux_dossier.md) · [test3](../evidence/dossiers/benchC_test3_ux_dossier.md) · [test4](../evidence/dossiers/benchC_test4_ux_dossier.md) · [test5](../evidence/dossiers/benchC_test5_ux_dossier.md) · [test6](../evidence/dossiers/benchC_test6_ux_dossier.md) |
+| Agent logs | [Test 6, arm A](../evidence/agentlogs/benchA_test6_agentlog.txt) · [Test 6, arm C](../evidence/agentlogs/benchC_test6_agentlog.txt) |
+| Gateway logs | [arm A](../evidence/gateway/bench_a_gateway_oct18-21.log) · [arm C](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+Agent logs were retained for Test 6 only; the earlier runs survive as chat logs plus the arm A gateway trace, and the reports say so where it matters.

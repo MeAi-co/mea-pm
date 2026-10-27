@@ -13,7 +13,7 @@
 
 ## 1. Executive Summary
 
-Under the current criteria, **Bench A (JPM) wins Test 1 by a clear margin, roughly one tier.**
+Under the current criteria, **Bench A with the JPM store wins Test 1 by a clear margin, roughly one tier, and it is the combination to run for agentic work.**
 
 The decisive question was arithmetic over a retrieved ledger: how many hours of finished games, counting each playthrough. A answered 140 hours across four titles, decomposing it as 70 + 55 + 10 + 5 with The Last of Us Part 2 counted as two distinct runs. C answered 65 hours across "three playthroughs, two distinct titles", stated that Assassin's Creed Odyssey carried no hours figure, filed Hyper Light Drifter as never played, and listed Mass Effect and Dragon Age, neither of which the user ever mentioned.
 
@@ -143,7 +143,7 @@ Two limits on that verdict. First, continuity is only partly tested, since nothi
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -151,4 +151,15 @@ Two limits on that verdict. First, continuity is only partly tested, since nothi
 
 In this run the workaround never became necessary, because C's retrieval was extensive: 25 `mnemosyne_recall` calls against A's 11 tool calls. Its failure happened after retrieval, in the summary it wrote over its own evidence: three playthroughs, two distinct titles for six completions, and two titles that appear nowhere in the store. A added the ledger up in the open and said "Finished — 4 titles, 140 hours".
 
-Evidence: `evidence/chatlogs/test1/benchA_test1.txt`, `benchC_test1.txt`.
+**Best for agentic use: Bench A with the JPM store.** An orchestrator acts on the number it is handed. A returned 140 hours with the ledger exposed; C returned 65, a 54% shortfall, wrapped in cleaner prose and carrying two titles the user never mentioned. A shortfall nothing flags is the one failure an automated caller cannot catch, and it is the failure produced here.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test1.txt](../evidence/chatlogs/test1/benchA_test1.txt) |
+| Bench C chat log | [benchC_test1.txt](../evidence/chatlogs/test1/benchC_test1.txt) |
+| Bench C UX dossier | [benchC_test1_ux_dossier.md](../evidence/dossiers/benchC_test1_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

@@ -114,6 +114,12 @@ context weight its approach carries. It is built from the six Bench C chatlogs w
 line-numbered quotes, and it states where its case does not hold, including one test
 where the defects are absent.
 
+Every report ends the same way: a section stating which combination is best for
+agentic use in that run and why, followed by an evidence index linking the chat
+logs, agent logs, gateway traces and dossiers behind it. Across the six, the answer
+is Bench A with the JPM store, stated in `reports/Cross_Test_Consistency_Report.md`
+along with the one run where the plugin arm did better.
+
 ## Evidence
 
 ```

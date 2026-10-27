@@ -123,13 +123,13 @@ Bench A treats the store as something to be actively queried, structured, and im
 
 **Under the criteria of accuracy, retrieval thoroughness, and rejection of hedging-as-avoidance:**
 
-**Agent A is the superior system on Test 4.**
+**The combination to run for agentic work on Test 4 is Bench A with the JPM store.**
 
 Bench C’s low-initiative style may feel safer in isolation, but it produces weaker first-pass results and higher user effort — outcomes that are undesirable for production agentic use.
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -137,4 +137,15 @@ Bench C’s low-initiative style may feel safer in isolation, but it produces we
 
 C tried three channels in one run: a filesystem search, a declaration that the store was empty, then a direct SQLite read of its own database file (`import sqlite3 ... mnemosyne.db`). A used 21 `vault` calls and one `sessions` call, stayed inside the tool surface, and won the run.
 
-Evidence: `evidence/chatlogs/test4/benchA_test4.txt`, `benchC_test4.txt`.
+**Best for agentic use: Bench A.** C's best answer in this run came after it told the user the store was empty, then reached through the filesystem and a direct SQLite read of its own file. An orchestrator can retry a slow retriever. It cannot recover from a component that declares a resource absent and finds it only when a human pushes back.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test4.txt](../evidence/chatlogs/test4/benchA_test4.txt) |
+| Bench C chat log | [benchC_test4.txt](../evidence/chatlogs/test4/benchC_test4.txt) |
+| Bench C UX dossier | [benchC_test4_ux_dossier.md](../evidence/dossiers/benchC_test4_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

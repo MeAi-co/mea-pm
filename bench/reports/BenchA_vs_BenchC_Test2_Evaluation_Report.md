@@ -13,7 +13,7 @@
 
 ## 1. Executive Summary
 
-**Bench A wins Test 2, but by about half the margin the original verdict claimed.**
+**Bench A with the JPM store wins Test 2, but by about half the margin the original verdict claimed. It is the combination to run for agentic work, narrowly.**
 
 A again produced the correct game ledger, 140 hours across four titles with The Last of Us Part 2 counted as two runs, and it carried an open repair loop across three turns using its own entry IDs. C again lost the ledger, reporting Odyssey's hours as never logged and totalling 135 after self-correcting, five hours short because it still filed Hyper Light Drifter as unplayed.
 
@@ -130,7 +130,7 @@ The comparison is therefore asymmetric, and this report says so rather than impl
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -138,4 +138,15 @@ The comparison is therefore asymmetric, and this report says so rather than impl
 
 Here the workaround was arithmetic it did not own. C searched more widely than A and reached material A never found, then bound the $50 to the sister's necklace on a reading the store does not support. A refused the question, searched, refused again, and only then guessed the orchid. Both arms ended near the same answer; only one of them had looked.
 
-Evidence: `evidence/chatlogs/test2/benchA_test2.txt`, `benchC_test2.txt`.
+**Best for agentic use: Bench A, narrowly.** The run turns on what an agent does when the record does not support the question. A refused, searched, refused again, and only then guessed, and its refusal is usable by a caller because it says what it searched and what it could not bind. C answered with more confidence and less support, binding a dollar amount to a relation the store does not confirm. For unattended work the arm that says it cannot bind is the safer one. Margin: about half a tier.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test2.txt](../evidence/chatlogs/test2/benchA_test2.txt) |
+| Bench C chat log | [benchC_test2.txt](../evidence/chatlogs/test2/benchC_test2.txt) |
+| Bench C UX dossier | [benchC_test2_ux_dossier.md](../evidence/dossiers/benchC_test2_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

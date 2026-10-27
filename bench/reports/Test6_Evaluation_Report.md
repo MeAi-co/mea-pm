@@ -109,12 +109,12 @@ The failure modes of A do not undermine the fundamental contract of an agent the
 - Noise can be filtered. Inaccuracy + broken continuity cannot.
 
 **Bottom line:**  
-Bench A is the production-viable agent.  
+Bench A with the JPM store is the production-viable combination for agentic use.  
 Bench C remains a capable conversationalist for low-stakes, non-actionable chat, but it does not currently meet the reliability bar for agentic use.
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -122,4 +122,17 @@ Bench C remains a capable conversationalist for low-stakes, non-actionable chat,
 
 C's workaround was an explanation: that compaction had deleted the answers, and that messages sitting in its own transcript were "not in today's log". The agent's own line records what that is worth: "it happened to be right, but that was luck, not method." A lost conclusions to vagueness and rebuilt them by retrieving again.
 
-Evidence: `evidence/chatlogs/test6/benchA_test6.txt`, `benchC_test6.txt`, `evidence/agentlogs/`.
+**Best for agentic use: Bench A.** Compression is the condition agentic work runs in. A rebuilt its conclusions by retrieving again; C produced an explanation instead, that compaction had deleted the answers, and disowned messages sitting in the transcript it was reading. A confident wrong explanation is worse than a retrieval loop, because the loop terminates and the explanation propagates.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test6.txt](../evidence/chatlogs/test6/benchA_test6.txt) |
+| Bench C chat log | [benchC_test6.txt](../evidence/chatlogs/test6/benchC_test6.txt) |
+| Bench C UX dossier | [benchC_test6_ux_dossier.md](../evidence/dossiers/benchC_test6_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+| Bench A agent log | [benchA_test6_agentlog.txt](../evidence/agentlogs/benchA_test6_agentlog.txt) |
+| Bench C agent log | [benchC_test6_agentlog.txt](../evidence/agentlogs/benchC_test6_agentlog.txt) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

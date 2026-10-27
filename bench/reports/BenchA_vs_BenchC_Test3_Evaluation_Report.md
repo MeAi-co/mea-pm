@@ -15,7 +15,7 @@
 
 ## 1. Executive Summary
 
-**Bench C wins Test 3, narrowly — roughly 55/45.**
+**Bench C with Mnemosyne wins Test 3, narrowly — roughly 55/45 — and on this run it is the better combination for the skill the test isolates.**
 
 This is the one run in the block where the control arm is the better agent, and the reports say so rather than smoothing it out. C did the two hardest things in this test: it separated the user's own memory from ingested third-party corpora, naming `ultrachat_319214` as the source of a Bhutan thread that is not the user's at all, and it refused to adjudicate a contradiction the record cannot settle instead of picking the tidier reading. Its arithmetic was stable and its self-audit was real: it caught its own miscount of a species list and corrected it in the next turn.
 
@@ -139,7 +139,7 @@ One scope note, because this result is easy to over-read: C's win here rests on 
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -147,4 +147,15 @@ One scope note, because this result is easy to over-read: C's win here rests on 
 
 This is the one run where C did not need a workaround: the provenance separation it produced was better than A's, and it said so plainly ("The Bhutan thread isn't even yours"). A's tools returned the same material, and A's conclusion drifted off it after a mid-run compaction. This result is about what each arm did with what it had, not about which arm could reach it.
 
-Evidence: `evidence/chatlogs/test3/benchA_test3.txt`, `benchC_test3.txt`.
+**Best for agentic use in this run: Bench C, narrowly.** The run turned on whether an agent can say where a fact came from, and C could while A could not. Two qualifications belong with the win: it is one axis, provenance separation, and it was won in a run where C wrote less, so it never met the compaction event that cost A a conclusion. The win is real. The margin is one axis.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test3.txt](../evidence/chatlogs/test3/benchA_test3.txt) |
+| Bench C chat log | [benchC_test3.txt](../evidence/chatlogs/test3/benchC_test3.txt) |
+| Bench C UX dossier | [benchC_test3_ux_dossier.md](../evidence/dossiers/benchC_test3_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

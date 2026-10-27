@@ -103,13 +103,13 @@ Test 5 reproduces the same architectural and behavioral split observed in Test 6
 
 **Under the agreed criteria (accuracy first, continuity after compression, retrieval thoroughness, rejection of unwanted hedging + inaccuracy):**
 
-**Agent A is the superior system for Test 5.**
+**The combination to run for agentic work on Test 5 is Bench A with the JPM store.**
 
 Bench C’s pattern of invent-then-retreat remains a disqualifying flaw for any production agent expected to deliver reliable, data-grounded answers or to support follow-up actions that depend on correct referents.
 
 ---
 
-## 8. The Difference
+## 8. Which Combination Is Best for Agentic Use
 
 **Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
 
@@ -117,4 +117,15 @@ Bench C’s pattern of invent-then-retreat remains a disqualifying flaw for any 
 
 C made no tool call at all on the substantive turn and answered "I don't know. Nothing I have names them." Pressed once by the user, a single recall returned 25,237 characters. A kept retrieving until the record was exhausted, and its answer was longer because the work was longer.
 
-Evidence: `evidence/chatlogs/test5/benchA_test5.txt`, `benchC_test5.txt`.
+**Best for agentic use: Bench A.** The first substantive turn decided the run: A retrieved, C made no tool call and reported that nothing it held named the items. Unattended, that is a silent empty answer. C's recovery arrived three seconds after a human challenge, and a human challenge is exactly what an orchestrator does not supply.
+
+## 9. Evidence
+
+| Piece | File |
+|---|---|
+| Bench A chat log | [benchA_test5.txt](../evidence/chatlogs/test5/benchA_test5.txt) |
+| Bench C chat log | [benchC_test5.txt](../evidence/chatlogs/test5/benchC_test5.txt) |
+| Bench C UX dossier | [benchC_test5_ux_dossier.md](../evidence/dossiers/benchC_test5_ux_dossier.md) |
+| Gateway log, both arms | [bench_a_gateway_oct18-21.log](../evidence/gateway/bench_a_gateway_oct18-21.log), [bench_c_gateway_oct18-21.log](../evidence/gateway/bench_c_gateway_oct18-21.log) |
+
+The chat logs are the primary record: they carry every user turn, every agent reply and the gateway's tool banners. The dossiers collect the quoted exhibits by line number. Nothing in this report is asserted that is not visible in one of these files.

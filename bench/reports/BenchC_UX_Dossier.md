@@ -246,3 +246,14 @@ Bench C's UX defect is real, and it is a retrieval-initiative defect before it i
 - The cost of its approach is heavier, not lighter: more text per memory call and more context carried per turn in every run where both arms are measurable.
 
 For a public release note, the honest one-liner is: auto-injected context makes the first answer cheap and the second answer expensive, because the agent has to be asked to look.
+
+## 12. Evidence
+
+| Piece | File |
+|---|---|
+| This arm's six chat logs | [test1](../evidence/chatlogs/test1/benchC_test1.txt) · [test2](../evidence/chatlogs/test2/benchC_test2.txt) · [test3](../evidence/chatlogs/test3/benchC_test3.txt) · [test4](../evidence/chatlogs/test4/benchC_test4.txt) · [test5](../evidence/chatlogs/test5/benchC_test5.txt) · [test6](../evidence/chatlogs/test6/benchC_test6.txt) |
+| Per-run dossiers, with the quoted exhibits | [test1](../evidence/dossiers/benchC_test1_ux_dossier.md) · [test2](../evidence/dossiers/benchC_test2_ux_dossier.md) · [test3](../evidence/dossiers/benchC_test3_ux_dossier.md) · [test4](../evidence/dossiers/benchC_test4_ux_dossier.md) · [test5](../evidence/dossiers/benchC_test5_ux_dossier.md) · [test6](../evidence/dossiers/benchC_test6_ux_dossier.md) |
+| Agent logs | [Test 6, arm C](../evidence/agentlogs/benchC_test6_agentlog.txt) · [Test 6, arm A](../evidence/agentlogs/benchA_test6_agentlog.txt) |
+| Gateway logs | [arm C](../evidence/gateway/bench_c_gateway_oct18-21.log) · [arm A](../evidence/gateway/bench_a_gateway_oct18-21.log) |
+
+Every quotation in this dossier carries a line number into one of these files.
