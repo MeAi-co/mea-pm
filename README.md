@@ -27,8 +27,8 @@ fabrication count was zero against six. The table is the rest of the difference.
 
 | | MeAI Vault | Mnemosyne |
 |---|---|---|
-| Fabricated facts, runs 1 to 3 | **0** | 6 |
-| Hard errors, run 6 | **1** | 3 |
+| Fabricated facts | **0** | 6 |
+| Hard errors, a later run on new questions | **1** | 3 |
 | Retrieval before asserting | A tool call on every turn | No call at all in one run, declared the store empty in another |
 | Continuity after compaction | Referents intact | Dropped 7 of the 16 messages, then reported the zeros as fact |
 | Worst turn latency | **41.4s** | 101.1s |
