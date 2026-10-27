@@ -3,25 +3,33 @@
 A/B evaluation of **mea_pm** against a third-party memory plugin on an otherwise
 identical stock Hermes harness. Every claim traces to a transcript or a log line.
 
-## Live sessions, not headless
+## Seeded memory, live sessions
 
-Both arms ran as live agents talking to a real person over Telegram: one arm per
-conversation, memory accumulating across days of ordinary use, compression firing
-under load, tools called for real, files read and written. The questions were asked
-cold in the middle of that traffic, and the follow-ups were the person's own.
+The memory is seeded, not accumulated. Both arms ingested the same LongMemEval
+sessions before the run, so what each arm knows is identical at the start; the only
+variable is how that memory is stored, indexed and retrieved.
 
-Published memory benchmarks are headless. A fixed transcript or haystack is injected
-into a fresh context and the system answers a battery of questions in one shot: no
-human in the loop, no multi-turn drift, no compaction step, no tool use. They measure
-retrieval over a supplied haystack. They do not measure whether an agent stays
-coherent with a person across weeks of real conversation.
+Everything after the seed is live. A real user talks to both agents over Telegram in
+real time, one conversation per arm, with compression firing under load and tools
+called for real. That is the combination the published benches lack: LongMemEval as
+shipped is headless, a fixed haystack queried in one shot, with no human, no
+turn-to-turn drift and no compaction step.
 
-That difference decides what this bench can show. The sample is small and part of the
-scoring is judgment, which is why criteria are graded axis by axis and failure classes
-are named instead of collapsed into one number. It is also why the failure Test 6
-caught is visible here at all: an arm whose compaction dropped the very messages
-holding the answers, then reported the resulting zeros as fact, cannot appear in a
-headless bench that never compresses anything.
+## Questions rewritten to require tools
+
+Stock LongMemEval items are simple lookups: one fact, one X-Y relation, one field.
+Answering them rewards a lucky keyword hit. The items used here were rewritten to be
+vaguer and multi-hop, so no single retrieval returns the answer: the arm has to decide
+what to fetch next, cross-check it and reconcile dates that disagree. The bench is
+therefore measuring tool use, that is, which arm reconstructs the answer from what it
+can retrieve and how many steps that takes, not which arm guesses best.
+
+That is also why the failure Test 6 caught is visible here at all: an arm whose
+compaction dropped the very messages holding the answers, then reported the resulting
+zeros as fact, cannot appear in a headless bench that never compresses anything.
+
+The sample is small and part of the scoring is judgment, which is why criteria are
+graded axis by axis and failure classes are named instead of collapsed into one number.
 
 ## Conclusive before the end
 

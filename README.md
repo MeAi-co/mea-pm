@@ -229,14 +229,24 @@ they have no `post_llm_call` hook and will appear inert until you schedule them.
 
 `bench/` holds the reports and the evidence behind them. These were **live tests with
 a user and an assistant**, not a headless benchmark: both arms ran as real agents in
-Telegram conversations, memory accumulated over days of ordinary use, compression
-fired under load, and tools were called for real. Questions were asked cold inside
-that traffic and the follow-ups were the user's own.
+Telegram conversations, with compression firing under load and tools called for real.
 
-That is a different measurement from the synthetic benches. An injected haystack
-queried in one shot has no human, no turn-to-turn drift and no compaction step, so it
-cannot show what happens when an agent's own compression quietly removes the messages
-that held the answer.
+The memory itself was seeded. Both arms ingested the same LongMemEval sessions before
+the run, so the only variable is how that memory is stored and retrieved, not what is
+known. Everything after the seed is live: a real user drives both conversations in
+real time.
+
+The questions were rewritten, not stock. Shipped LongMemEval items are simple X-Y
+lookups, one field per question, which a single keyword hit can answer. The items used
+here are vaguer and multi-hop, so no one retrieval returns the answer and the arm has
+to decide what to fetch next and reconcile what it finds. The measurement is therefore
+tool use: which arm reconstructs the answer from the memory it holds, and how many
+steps that takes.
+
+That combination is what the synthetic benches miss. A fixed haystack queried in one
+shot has no human, no turn-to-turn drift and no compaction step, so it cannot show what
+happens when an agent's own compression quietly removes the messages that held the
+answer.
 
 Results were conclusive by the fourth scored run and stayed that way. See
 `bench/README.md` for the method, the arm definitions, and the transcripts behind each
