@@ -52,6 +52,8 @@ The other tells a plausible story by connecting a few dots and filling the gaps.
 · [Evaluation](#evaluation)
 · [License](#license)
 · [Disclaimer](#disclaimer)
+· [About MeAI Vault](#about-meai-vault)
+· [Getting help](#getting-help)
 
 ## Advantages
 
