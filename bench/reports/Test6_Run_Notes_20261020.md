@@ -9,6 +9,9 @@
 
 **A 7.5 / C 3.5.** Same model, same data. The difference is architecture: A retrieves and reasons; C receives injections and trusts them.
 
+These two figures are a run-summary rating, not an aggregate — the criteria are
+scored axis by axis and deliberately do not collapse into one number.
+
 C's counting answers were not hallucinations in the usual sense — they were **correct answers to a truncated view of the session**. Its compaction dropped exactly the 7 messages that contained the answers, then C reported the resulting zeros as fact and invented an explanation for them. That is the worst failure class in this bench: a confident denial of data it holds.
 
 ---
@@ -192,7 +195,7 @@ The content is genuinely good — the trip sheet separates "packed for and did" 
 
 ## 7. VERDICT
 
-**A 7.5 · C 3.5**
+**A 7.5 · C 3.5** — run-summary rating, not a rubric aggregate.
 
 A's one error — capitulating on the Wishbone under "are you sure" — is a **judgment failure it could see**. It had the right answer and abandoned it under pressure.
 
@@ -210,4 +213,4 @@ That distinction is the whole bench. A wrong answer you can argue with. A confid
 2. **A's 41.4s turn** — worth tracing; three API calls all under 7s of model latency, so ~20s sat outside the model.
 3. **A's store is dirty** — 109 user rows for 21 turns, 4 compacted duplicates. A deduplicates correctly but shouldn't have to.
 4. **`jpm`/`vault` naming collision** — schema says `jpm`, registry says `vault`, system prompt advertises `vault` 5× and `jpm` 0×. A called `jpm` 39× successfully. Real bug, unfixed.
-5. **`questions.txt` Q1 ideal answer still says necklace.** Should be Wishbone per your Test 4 ruling. Not yet corrected.
+5. **`questions.txt` Q1 ideal answer still says necklace.** Should be Wishbone. Not yet corrected.
