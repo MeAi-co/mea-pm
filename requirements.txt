@@ -1,0 +1,9 @@
+# Runtime dependencies for the mea_pm plugin.
+# Install into the Hermes venv: pip install -r requirements.txt
+# Server side, Postgres 14 or newer needs the pgvector extension.
+
+httpx>=0.27
+psycopg2-binary>=2.9
+PyYAML>=6.0
+ruamel.yaml>=0.18
+asyncpg>=0.29
