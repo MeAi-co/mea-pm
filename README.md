@@ -39,6 +39,9 @@ separation: the other stack traced a borrowed thread back to its source and said
 plainly it was not the user's. That run is reported in full, with every chat log and
 agent log, in [`bench/`](bench/README.md).
 
+*MeAI Vault is the product name. `mea_pm` is the package it installs as, short for
+MEAI permanent memory.*
+
 It is the assistant memory we wanted for our own daily work. That is why we built
 it, and why we are giving it away.
 
