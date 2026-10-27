@@ -330,28 +330,50 @@ routing guidance, so it is not done.
 
 ## Quickstart
 
-### 1. Install
+Repo: **https://github.com/MeAi-co/mea-pm.git**
+
+Four steps. Clone it into the profile whose gateway runs your agent, install, point
+it at Postgres, switch the provider on.
 
 ```bash
-cd <this dir>
-./install.sh
-```
+# 1. into the profile, as a plugin
+git clone https://github.com/MeAi-co/mea-pm.git ~/.hermes/plugins/mea_pm
+cd ~/.hermes/plugins/mea_pm && ./install.sh
 
-Idempotent, prints each step, installs `ruamel.yaml`, `asyncpg`,
-`psycopg2-binary` and `pyyaml` into the runtime interpreter, and verifies the
-import. It never auto installs anything the manifest did not declare.
-
-### 2. Configure
-
-In the target profile's `.env`. Secrets go here, never in `config.yaml`:
-
-```bash
+# 2. credentials go in the profile .env, never in config.yaml
+cat >> ~/.hermes/.env <<'EOF'
 JPM_PG_HOST=127.0.0.1
 JPM_PG_PORT=5432
 JPM_PG_DB=jpm
 JPM_PG_USER=postgres
-JPM_PG_PASSWORD=...
+JPM_PG_PASSWORD=change_me
+EOF
+
+# 3. switch the provider on
+#    edit config.yaml and add:
+#      memory:
+#        provider: mea_pm
 ```
+
+```bash
+# 4. restart the gateway, then check the schema landed
+psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
+```
+
+If that returns a row count, the store is live. Ask the agent for
+`vault(action='fetch', section='pulse')` and it should come back structured.
+
+**Prerequisites for those four steps:** Postgres 14 or newer with pgvector, and a
+database the gateway user can reach. Embeddings are optional and only change
+whether recall is semantic or lexical.
+
+That is the whole install. Everything past this point is detail you can hand to
+your agent: the variable table, the two failure modes, the embedding options and
+the migration path are all written to be read by it.
+
+### Every variable, and the two that bite
+
+In the target profile's `.env`:
 
 | Var | Required | Default |
 |---|---|---|
@@ -362,12 +384,12 @@ JPM_PG_PASSWORD=...
 | `JPM_PG_PASSWORD` | no | empty / `.pgpass` |
 | `JPM_KNOWLEDGE_SCOPE` | no | `own` (`all` shares knowledge across profiles) |
 
-> **`JPM_PG_HOST` is the one that bites.** If it is unset, the provider reports
-> itself unavailable and the host silently falls back to its own memory backend.
-> You get a working looking install that never touches Postgres. If it is set but
-> unreachable, you get a hard error instead, which is the correct behaviour.
+> **`JPM_PG_HOST` is the one that bites.** Unset, the provider reports itself
+> unavailable and the host falls back to its own memory backend. You get a working
+> looking install that never touches Postgres. Set but unreachable, you get a hard
+> error instead, which is the correct behaviour.
 
-Embeddings (all optional):
+Embeddings, all optional. Without them recall is keyword only:
 
 | Var | Default |
 |---|---|
@@ -378,26 +400,9 @@ Embeddings (all optional):
 | `EMBED_WORKERS` | `2` |
 | `OLLAMA_URL` | none |
 
-### 3. Activate
-
-```yaml
-# config.yaml
-memory:
-  provider: mea_pm
-```
-
-Restart the gateway, or start a new session.
-
-### 4. Verify
-
-```bash
-# did the schema apply? expect one row per file in jpm/core/_migrations
-psql "$JPM_PG_HOST" -c "SELECT count(*) FROM _schema_migrations;"
-```
-
-Then ask the agent to run `vault(action='fetch', section='pulse')`. If the provider
-is live it returns structured sections. If it silently returns nothing, check
-`JPM_PG_HOST` first.
+`install.sh` is idempotent, prints each step, installs `ruamel.yaml`, `asyncpg`,
+`psycopg2-binary` and `pyyaml` into the runtime interpreter, and verifies the
+import. It never installs anything the manifest did not declare.
 
 ---
 
