@@ -1,5 +1,6 @@
-# Bench A (A_MEA_JPM) vs Bench C (C_Mnemo)  
-## Test 2 Evaluation Report  
+# Test 2 Evaluation Report  
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
+**Bench C:** stock Hermes + Mnemosyne + embeddings  
 **Date of Test:** 18 October 2026, 18:57–19:03  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
 **Test Focus:** Repeat of the Test 1 question set for stability, with closer attention to purchase attribution, dated intervals, and provenance of numbers  
@@ -13,7 +14,7 @@
 
 ## 1. Executive Summary
 
-**Bench A with the JPM store wins Test 2, but by about half the margin the original verdict claimed. It is the combination to run for agentic work, narrowly.**
+**Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings wins Test 2, but by about half the margin the original verdict claimed. It is the combination to run for agentic work, narrowly.**
 
 A again produced the correct game ledger, 140 hours across four titles with The Last of Us Part 2 counted as two runs, and it carried an open repair loop across three turns using its own entry IDs. C again lost the ledger, reporting Odyssey's hours as never logged and totalling 135 after self-correcting, five hours short because it still filed Hyper Light Drifter as unplayed.
 
@@ -46,7 +47,7 @@ C reaches material A never finds: a four-day family road trip described as rough
 
 Its arithmetic is the recurring weakness. Odyssey's hours are declared never logged, the total is corrected mid-run to 135, and that correction still excludes a finished game. It also reports "nine-odd titles" after listing ten, and claims eight months of emotional blankness that its own Yellowstone entry contradicts.
 
-### Bench A (JPM) — precise ledger, thin coverage, leaky output
+### Bench A (MEA + PostgreSQL) — precise ledger, thin coverage, leaky output
 
 A is auditable where it works: its percentages check, it tracks a stale duplicate entry (216) and an open loop (195) across turns, and it catches a bulk-import artefact, noting that legacy messages are stamped within the same minute rather than reflecting real conversation times.
 
@@ -132,13 +133,15 @@ The comparison is therefore asymmetric, and this report says so rather than impl
 
 ## 8. Which Combination Is Best for Agentic Use
 
-**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+### The difference in this run
 
-**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+Same question set as Test 1, later the same evening. A refused the necklace question, searched, refused again, and only then guessed the orchid; its refusal names what it searched and what it could not bind. C reached material A never found, a four-day family road trip described as roughly 200 miles each way, and still bound the $50 to the sister's necklace on a reading the store does not confirm.
 
-Here the workaround was arithmetic it did not own. C searched more widely than A and reached material A never found, then bound the $50 to the sister's necklace on a reading the store does not support. A refused the question, searched, refused again, and only then guessed the orchid. Both arms ended near the same answer; only one of them had looked.
+**Best for agentic use in this run: Bench A (MEA + PostgreSQL), narrowly.** Half a tier, not a tier. What an unattended caller needs is an arm that says it cannot bind a fact before it invents the binding, and that is the arm that did.
 
-**Best for agentic use: Bench A, narrowly.** The run turns on what an agent does when the record does not support the question. A refused, searched, refused again, and only then guessed, and its refusal is usable by a caller because it says what it searched and what it could not bind. C answered with more confidence and less support, binding a dollar amount to a relation the store does not confirm. For unattended work the arm that says it cannot bind is the safer one. Margin: about half a tier.
+### Consistency with earlier runs
+
+Test 1 concluded that A closes numeric questions off its own retrieval while C closes them off a summary. This run repeats the shape on a different axis: A's answer moves where the record moves, C's answer is equally confident in both runs and supported in one. Two runs, two methods, same asymmetry. The correction this run adds is to the original verdict, which claimed a wider gap; the gap is half a tier and the purchase question is a shared miss.
 
 ## 9. Evidence
 

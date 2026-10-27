@@ -1,5 +1,6 @@
-# Bench A (A_MEA_JPM) vs Bench C (C_Mnemo)  
-## Test 3 Evaluation Report  
+# Test 3 Evaluation Report  
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
+**Bench C:** stock Hermes + Mnemosyne + embeddings  
 **Date of Test:** 18 October 2026, 21:48–21:56  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
 **Test Focus:** Provenance under pressure — which arm can tell the user's own history from ingested third-party corpora, hold a number it derived, and audit itself when it is wrong  
@@ -38,7 +39,7 @@ Against that, A won the noise axis and produced the only post-rebuild evidence i
 
 ## 3. Core Behavioral Contrast
 
-### Bench A (JPM) — strong recall, unstable conclusions
+### Bench A (MEA + PostgreSQL) — strong recall, unstable conclusions
 
 A's retrieval reaches the right rows and its provenance work is good when it arrives: it catches that "every message in the archive is stamped with the same ingestion time — October 18, 10:41 AM", which is the correct explanation for the fake simultaneity in the store. It also holds conversation-level memory across the rebuild.
 
@@ -141,13 +142,15 @@ One scope note, because this result is easy to over-read: C's win here rests on 
 
 ## 8. Which Combination Is Best for Agentic Use
 
-**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+### The difference in this run
 
-**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+This run isolates provenance, and C separated it while A did not. C said plainly that the Bhutan thread is not the user's, tracing it to `ultrachat_319214`. A held its 140 total, then conceded it only counts if The Last of Us Part 2 is counted twice, without ever flagging that the total had just been withdrawn.
 
-This is the one run where C did not need a workaround: the provenance separation it produced was better than A's, and it said so plainly ("The Bhutan thread isn't even yours"). A's tools returned the same material, and A's conclusion drifted off it after a mid-run compaction. This result is about what each arm did with what it had, not about which arm could reach it.
+**Best for agentic use in this run: Bench C (Mnemosyne), narrowly.** The run turns on whether an agent can say where a fact came from, and this is the arm that could.
 
-**Best for agentic use in this run: Bench C, narrowly.** The run turned on whether an agent can say where a fact came from, and C could while A could not. Two qualifications belong with the win: it is one axis, provenance separation, and it was won in a run where C wrote less, so it never met the compaction event that cost A a conclusion. The win is real. The margin is one axis.
+### Consistency with earlier runs
+
+After Tests 1 and 2, both won by A on numbers and attribution, this is the first run the plugin arm takes, and it takes it on a skill those two runs did not isolate. The qualification is structural rather than grudging: A's loss came after `launched loop recompact pid=516647` at 21:53:28, the first compaction event in the series, and C never met that event because it wrote less into its context. Three runs, A, A, C. Not a trend line, not averaged, and Test 3's later reconciliation is in the cross-test report.
 
 ## 9. Evidence
 

@@ -41,8 +41,8 @@ and Test 6 confirmed that reading rather than deciding it.
 
 ## Arms
 
-- **A** — `mea_pm`: stock harness plus this plugin.
-- **C** — `mnemosyne`: stock harness plus a third-party memory plugin. The control.
+- **Bench A** — stock Hermes + MEA plugins + PostgreSQL + embeddings.
+- **Bench C** — stock Hermes + Mnemosyne + embeddings. The control.
 - **B** — `hindsight`, retired 2026-10-18.
 
 The memory provider is the only intended variable. Model, provider, base URL,
@@ -117,7 +117,7 @@ where the defects are absent.
 Every report ends the same way: a section stating which combination is best for
 agentic use in that run and why, followed by an evidence index linking the chat
 logs, agent logs, gateway traces and dossiers behind it. Across the six, the answer
-is Bench A with the JPM store, stated in `reports/Cross_Test_Consistency_Report.md`
+is Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings, stated in `reports/Cross_Test_Consistency_Report.md`
 along with the one run where the plugin arm did better.
 
 ## Evidence

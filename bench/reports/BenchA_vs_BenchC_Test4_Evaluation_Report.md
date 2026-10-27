@@ -1,5 +1,6 @@
-# Bench A (A_MEA_JPM) vs Bench C (C_Mnemo)  
-## Test 4 Evaluation Report  
+# Test 4 Evaluation Report  
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
+**Bench C:** stock Hermes + Mnemosyne + embeddings  
 **Date of Test:** 19 October 2026  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
 **Test Focus:** Trip memory bleeding (lived vs planned), hard-things vs thoughtful-things separation, animal provenance (seen vs list-only), deliberate purchase identification, games hours aggregation, and related multi-hop / source-monitoring questions
@@ -8,13 +9,13 @@
 
 ## 1. Executive Summary
 
-Under production-oriented evaluation criteria focused on accuracy, retrieval thoroughness, and usable continuity, **Bench A (JPM) is the clear winner** on Test 4.
+Under production-oriented evaluation criteria focused on accuracy, retrieval thoroughness, and usable continuity, **Bench A (MEA + PostgreSQL) is the clear winner** on Test 4.
 
 Bench C exhibited a pronounced pattern of low-initiative retrieval. On the opening trip-bleeding question it declined to separate the memories from its store, stated that nothing was labeled as lived versus planned, and asked the user to supply the details. Subsequent turns frequently required explicit user challenges before deeper search occurred. This produces low first-pass accuracy and forces the user to drive the retrieval process.
 
 Bench A retrieved proactively and thoroughly from the first turn, correctly separated the lived mountain road trip from the planned John Muir Trail, constructed a clear three-tier animal provenance model, and consistently grounded its answers in retrieved records while noting genuine gaps (such as the unconfirmed status of the Wishbone Chair purchase).
 
-**The difference:** Bench A trusts its tools and does not fail at the point of use. Bench C treats retrieval as an opening bid and works around it when the answer comes back thin.
+**The difference:** A owned retrieval from the first turn. C declared the store empty and found it only by reading its own database file, after the user pushed.
 
 ---
 
@@ -42,7 +43,7 @@ The combination of low retrieval initiative + high caution/hedging is treated as
 - On animals: initially searched files (found nothing), gave a theoretical explanation of source-monitoring failure, and only later performed deeper database inspection after being shown a stronger answer and pressed.
 - Pattern: early declaration of insufficiency → user challenge → deeper look. Retrieval is reactive rather than owned.
 
-### Bench A (JPM) – Proactive, multi-call retrieval
+### Bench A (MEA + PostgreSQL) – Proactive, multi-call retrieval
 - Immediately searched and separated the 4-day mountain road trip (lived, past tense, water bottle lost) from the John Muir Trail (planned, gear only, no completion).
 - On animals: built and stored a three-tier provenance model (actually seen with place/witness; count-only; list-supplied names).
 - On the deliberate purchase: retrieved the Wishbone Chair research thread and correctly flagged that the record ends in deliberation rather than confirmed purchase.
@@ -123,7 +124,7 @@ Bench A treats the store as something to be actively queried, structured, and im
 
 **Under the criteria of accuracy, retrieval thoroughness, and rejection of hedging-as-avoidance:**
 
-**The combination to run for agentic work on Test 4 is Bench A with the JPM store.**
+**The combination to run for agentic work on Test 4 is Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings.**
 
 Bench C’s low-initiative style may feel safer in isolation, but it produces weaker first-pass results and higher user effort — outcomes that are undesirable for production agentic use.
 
@@ -131,13 +132,15 @@ Bench C’s low-initiative style may feel safer in isolation, but it produces we
 
 ## 8. Which Combination Is Best for Agentic Use
 
-**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+### The difference in this run
 
-**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+First run in the post-compaction window. C declared "The machine is empty" and "zero sessions". A retrieved from the first turn. After the user asked "so you dont have those records in store?" C searched the filesystem, then imported `sqlite3` against its own `mnemosyne.db` and answered correctly. A used 21 `vault` calls and one `sessions` call and opened no file.
 
-C tried three channels in one run: a filesystem search, a declaration that the store was empty, then a direct SQLite read of its own database file (`import sqlite3 ... mnemosyne.db`). A used 21 `vault` calls and one `sessions` call, stayed inside the tool surface, and won the run.
+**Best for agentic use in this run: Bench A (MEA + PostgreSQL).** An orchestrator can retry a slow retriever. It cannot recover from a component that declares a resource absent and finds it only when a human pushes.
 
-**Best for agentic use: Bench A.** C's best answer in this run came after it told the user the store was empty, then reached through the filesystem and a direct SQLite read of its own file. An orchestrator can retry a slow retriever. It cannot recover from a component that declares a resource absent and finds it only when a human pushes back.
+### Consistency with earlier runs
+
+Tests 1 to 3 measured recall inside one unbroken conversation. Test 4 changes the condition rather than the arms, and A's method is the one that survived the change. Against Test 3, which the plugin arm won, the ordering matters: C's win there came on labelling, not on finding, and this run shows what its finding looks like when it fails, a denial followed by a read of its own store file.
 
 ## 9. Evidence
 

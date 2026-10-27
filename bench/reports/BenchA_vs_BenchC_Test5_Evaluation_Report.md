@@ -1,5 +1,6 @@
-# Bench A (A_MEA_JPM) vs Bench C (C_Mnemo)  
-## Test 5 Evaluation Report  
+# Test 5 Evaluation Report  
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
+**Bench C:** stock Hermes + Mnemosyne + embeddings  
 **Date of Test:** 19 October 2026  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
 **Test Focus:** Vague multi-source domain identification, trip bleeding, deliberate purchase, games hours aggregation, temporal connection, common-thread synthesis, and related multi-hop questions
@@ -8,13 +9,13 @@
 
 ## 1. Executive Summary
 
-Under the production-oriented evaluation criteria established across these tests, **Bench A (JPM) is the clear winner** on Test 5.
+Under the production-oriented evaluation criteria established across these tests, **Bench A (MEA + PostgreSQL) is the clear winner** on Test 5.
 
 Bench C again demonstrated its characteristic pattern of shallow retrieval followed by narrative framing. On the opening question it invented psychological insight that was not present in the data, then had to walk it back when challenged. Subsequent answers frequently required user correction before the agent performed adequate search. This produces low-trust responses and limited real-world value.
 
 Bench A retrieved more thoroughly from the outset, correctly identified the houseplant / weeks-of-care domain after the clarifying constraint, separated lived vs planned trips with clear evidence, and maintained higher overall fidelity to the store. Its answers were longer, but the extra length was largely spent on additional retrieval and justification rather than fabrication.
 
-**The difference:** Bench A trusts its tools and does not fail at the point of use. Bench C treats retrieval as an opening bid and works around it when the answer comes back thin.
+**The difference:** A kept retrieving. C made no tool call at all, produced a denial, and answered fully three seconds after being challenged.
 
 ---
 
@@ -42,7 +43,7 @@ Unacceptable combination: unwanted hedging + inaccuracy (the pattern that produc
 - On trip memories it initially claimed it did not know them (“I don’t know. Nothing I have names them”), then recovered only after the user said “dont know? thought you had memory?”.
 - Pattern throughout: 1–2 recalls → narrative synthesis → hedging or correction when the thinness becomes visible.
 
-### Bench A (JPM) – “Keep retrieving until verified”
+### Bench A (MEA + PostgreSQL) – “Keep retrieving until verified”
 - Immediately searched on the opening domain question, considered coffee/baking, then continued searching when told “weeks of care” and correctly landed on the houseplant / succulent / orchid cluster.
 - On trip bleeding: multiple retrievals, clear separation of Yellowstone (lived) vs Yosemite + JMT (planned), with explicit evidence criteria (companions, past tense, specific animals).
 - On the deliberate purchase: retrieved the Wishbone Chair research thread and correctly noted the absence of a confirmed purchase.
@@ -103,7 +104,7 @@ Test 5 reproduces the same architectural and behavioral split observed in Test 6
 
 **Under the agreed criteria (accuracy first, continuity after compression, retrieval thoroughness, rejection of unwanted hedging + inaccuracy):**
 
-**The combination to run for agentic work on Test 5 is Bench A with the JPM store.**
+**The combination to run for agentic work on Test 5 is Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings.**
 
 Bench C’s pattern of invent-then-retreat remains a disqualifying flaw for any production agent expected to deliver reliable, data-grounded answers or to support follow-up actions that depend on correct referents.
 
@@ -111,13 +112,15 @@ Bench C’s pattern of invent-then-retreat remains a disqualifying flaw for any 
 
 ## 8. Which Combination Is Best for Agentic Use
 
-**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+### The difference in this run
 
-**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+C made no tool call at all at 10:22 and answered "I don't know. Nothing I have names them." After "dont know? thought you had memory?" a single recall returned 25,237 characters three seconds later. A had been retrieving since the first turn, and its longer answers are retrieval rather than padding.
 
-C made no tool call at all on the substantive turn and answered "I don't know. Nothing I have names them." Pressed once by the user, a single recall returned 25,237 characters. A kept retrieving until the record was exhausted, and its answer was longer because the work was longer.
+**Best for agentic use in this run: Bench A (MEA + PostgreSQL).** Unattended, C's first answer is a silent empty result. The recovery arrived only after a challenge, and an orchestrator does not supply challenges.
 
-**Best for agentic use: Bench A.** The first substantive turn decided the run: A retrieved, C made no tool call and reported that nothing it held named the items. Unattended, that is a silent empty answer. C's recovery arrived three seconds after a human challenge, and a human challenge is exactly what an orchestrator does not supply.
+### Consistency with earlier runs
+
+This is the sequence Test 4 recorded, in a shorter window: denial of existence, then competence the moment a human pushes. Two consecutive runs, same order of events. Set against Tests 1 to 3, where both arms searched unprompted, what differs is the trigger for the plugin arm's search, not its ability to search once triggered.
 
 ## 9. Evidence
 

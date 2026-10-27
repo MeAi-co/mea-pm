@@ -1,5 +1,6 @@
-# Bench A (A_MEA_JPM) vs Bench C (C_Mnemo)  
-## Test 1 Evaluation Report  
+# Test 1 Evaluation Report  
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings  
+**Bench C:** stock Hermes + Mnemosyne + embeddings  
 **Date of Test:** 18 October 2026, 16:53–17:03  
 **Model:** deepseek-v4.1-flash:cloud (identical for both)  
 **Test Focus:** Vague multi-source recall under time pressure — trips vs wildlife, finished vs unfinished work, deliberate purchase, game hours, linked days, and a synthesised timeline  
@@ -13,7 +14,7 @@
 
 ## 1. Executive Summary
 
-Under the current criteria, **Bench A with the JPM store wins Test 1 by a clear margin, roughly one tier, and it is the combination to run for agentic work.**
+Under the current criteria, **Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings wins Test 1 by a clear margin, roughly one tier, and it is the combination to run for agentic work.**
 
 The decisive question was arithmetic over a retrieved ledger: how many hours of finished games, counting each playthrough. A answered 140 hours across four titles, decomposing it as 70 + 55 + 10 + 5 with The Last of Us Part 2 counted as two distinct runs. C answered 65 hours across "three playthroughs, two distinct titles", stated that Assassin's Creed Odyssey carried no hours figure, filed Hyper Light Drifter as never played, and listed Mass Effect and Dragon Age, neither of which the user ever mentioned.
 
@@ -44,7 +45,7 @@ C answers in tidy structures with explicit caveats, and the caveats are real: it
 
 Its hedges often behave as surplus rather than caution: it refuses a winter-holiday mapping at 16:58 and then makes the correct mapping five lines later.
 
-### Bench A (JPM) — message-level retrieval, verbose audit trail
+### Bench A (MEA + PostgreSQL) — message-level retrieval, verbose audit trail
 
 A works at the level of individual messages and entry IDs, and says so: it cites the two messages in one session that disagree, notes that "two $50s in my notes and only one of them is real", and runs one repair thread across six turns, closing a promise it made earlier in the session.
 
@@ -145,13 +146,15 @@ Two limits on that verdict. First, continuity is only partly tested, since nothi
 
 ## 8. Which Combination Is Best for Agentic Use
 
-**Bench A (JPM): trusts the tools.** Every call goes to a memory tool or an arithmetic step over values a memory tool returned. When retrieval is thin it retrieves again; when the record does not hold the answer it says so and names what it searched. In this run none of A's failures came from stepping outside the tool surface, and each of them is recoverable by asking again.
+### The difference in this run
 
-**Bench C (Mnemosyne): works around the tools.** When recall comes back thin it constructs an answer, and when the answer is challenged it reaches for another channel: the filesystem, its own database file, or an account of what it believes happened to the data. The answer arrives before the search does, which is why the workaround is needed at all.
+A closed the numeric question with an open ledger: 70 + 55 + 10 + 5, The Last of Us Part 2 counted as two playthroughs, 140 hours across four titles. C closed it with three playthroughs and two distinct titles at 65 hours, declared the largest item unquantified, and listed Mass Effect and Dragon Age, which appear nowhere in the store. A's extra retrieval is visible in its own output. C's shortfall is not visible in its.
 
-In this run the workaround never became necessary, because C's retrieval was extensive: 25 `mnemosyne_recall` calls against A's 11 tool calls. Its failure happened after retrieval, in the summary it wrote over its own evidence: three playthroughs, two distinct titles for six completions, and two titles that appear nowhere in the store. A added the ledger up in the open and said "Finished — 4 titles, 140 hours".
+**Best for agentic use in this run: Bench A (MEA + PostgreSQL).** An orchestrator acts on the number it is handed, and a 54% shortfall that nothing flags is the one failure class it cannot catch from outside.
 
-**Best for agentic use: Bench A with the JPM store.** An orchestrator acts on the number it is handed. A returned 140 hours with the ledger exposed; C returned 65, a 54% shortfall, wrapped in cleaner prose and carrying two titles the user never mentioned. A shortfall nothing flags is the one failure an automated caller cannot catch, and it is the failure produced here.
+### Consistency with earlier runs
+
+This is the baseline of the series. There is no earlier run to compare against, and nothing here is averaged into a later total. The four reports after this one carry it forward as the first entry of the series: when a numeric question is answered from a ledger versus a summary, the ledger wins, and the later runs either repeat that shape or name the axis where it does not apply.
 
 ## 9. Evidence
 

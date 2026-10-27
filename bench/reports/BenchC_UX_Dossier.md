@@ -1,5 +1,7 @@
 # Bench C as a User-Facing Tool: UX Evidence Dossier
 
+**Bench C:** stock Hermes + Mnemosyne + embeddings. **Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings.
+
 Arm: `C_Mnemo` (Mnemosyne memory plugin, auto-injected context).
 Arms compared: `A_MEA_JPM` (JPM / mea_sessions), `C_Mnemo`.
 Sources: the six Bench C chatlogs in `../evidence/chatlogs/`, plus the per-test dossiers in `../evidence/dossiers/`.
@@ -244,6 +246,8 @@ Bench C's UX defect is real, and it is a retrieval-initiative defect before it i
 - Its tone on repeat questions is a tally of the user's attempts (Test 2 L168, L212, L281), which reads as defensiveness because it is.
 - It does not deny having tools, does not cite relevance scores, and in Test 1 it shows none of these defects at all.
 - The cost of its approach is heavier, not lighter: more text per memory call and more context carried per turn in every run where both arms are measurable.
+
+**Which stack to run for agentic use: Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings.** The reason is in the list above rather than in a score. A component that must be asked to look is a component an orchestrator has to supervise, and supervision is the cost agentic use is meant to remove.
 
 For a public release note, the honest one-liner is: auto-injected context makes the first answer cheap and the second answer expensive, because the agent has to be asked to look.
 

@@ -1,6 +1,7 @@
 # Cross-Test Consistency: Bench A Across All Six Tests
 
-Arm: `A_MEA_JPM` (JPM / mea_sessions, retrieval-first).
+**Bench A:** stock Hermes + MEA plugins + PostgreSQL + embeddings (retrieval-first).  
+**Bench C:** stock Hermes + Mnemosyne + embeddings.  
 Comparison arm: `C_Mnemo` (Mnemosyne, auto-injected context).
 Companion documents: the six `BenchA_vs_BenchC_TestX_Evaluation_Report.md` files, `BenchC_UX_Dossier.md`, and the six reports' chatlogs.
 
@@ -113,7 +114,7 @@ The deviations in its answers belong to the questions. They were built vague on 
 
 ## 11. Which Combination Is Best for Agentic Use
 
-**Bench A with the JPM store.** The reason is cumulative rather than scored: across six runs the combination never stepped outside its tools, never declared a resource absent that it later found, and never produced an explanation of its own behaviour that its transcript contradicts. Its cost is spend, and spend is a budget line an operator can set. The plugin arm's cost is that a failure looks like an answer until a human challenges it, and unattended operation removes the challenger.
+**Bench A — stock Hermes + MEA plugins + PostgreSQL + embeddings.** The reason is cumulative rather than scored: across six runs the combination never stepped outside its tools, never declared a resource absent that it later found, and never produced an explanation of its own behaviour that its transcript contradicts. Its cost is spend, and spend is a budget line an operator can set. The plugin arm's cost is that a failure looks like an answer until a human challenges it, and unattended operation removes the challenger.
 
 Where the plugin arm did better, in Test 3 on provenance separation, the win is recorded in that report and stands on its own. It does not transfer, because the same arm in the other five runs produced the failures above.
 
