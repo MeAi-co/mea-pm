@@ -682,4 +682,8 @@ config, and ignore `jpm` unless you are reading the engine's own output.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+The plugin code in this repository is MIT. See [LICENSE](LICENSE).
+
+The engine under `jpm/` is licensed separately and is not MIT: it may be used as
+part of the plugin, and it may not be copied out, redistributed or resold on its
+own. See [jpm/LICENSE](jpm/LICENSE).
