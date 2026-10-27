@@ -225,45 +225,64 @@ ahead log, not a file being rewritten in place while the gateway restarts.
 
 ---
 
-## `vault` is more than a memory tool
+## `vault` is an admin console, not a lookup
 
-`vault` exposes the engine's full dispatcher under one name, with twenty actions.
-Grouped by what they are for:
+A memory plugin gives the agent one verb: recall. `vault` gives it the database and
+the rights to run it. Twenty actions, and they are not a menu of conveniences, they
+are four jobs that a memory tool cannot do.
 
-**Recall and reading**
+**1. Recall well.** `search` (vector first, full text as fallback), `fetch`
+(structured sections: pulse, active, loops, knowledge, reflections, capabilities,
+task context), `get` and `row` (one record in full, by id), `list` (recent entries).
+This is the only part that resembles a normal memory plugin, and it is the smallest
+part.
 
-`fetch` (structured sections: pulse, active, loops, knowledge, reflections,
-capabilities, task context), `search` (vector first, full text as a fallback),
-`get` and `row` (one record, in full, by id), `list` (recent entries).
+**2. Reason over the graph.** `probe` (everything linked to one entity), `related`
+(facts sharing entities), `reason` (facts connected to several entities at once),
+`contradict` (entries that disagree). A flat file cannot do any of this. It is how an
+agent discovers that two facts are about the same person, or that the store holds two
+versions of the same decision and one of them has to lose.
 
-**The entity graph**
+**3. Curate the memory.** `add`, `update`, `remove`, `helpful`, `unhelpful`. Every
+fact carries a weight, and feedback moves it. An entry that keeps proving useful gets
+injected in full; one that keeps proving stale drops to a breadcrumb and eventually
+out of the prompt while staying searchable. The agent manages its own signal to noise
+instead of accumulating forever.
 
-`probe` (everything linked to one entity), `related` (facts sharing entities),
-`reason` (facts connected to several entities at once), `contradict` (entries that
-disagree with each other). This is the part a flat file cannot do at all. It is
-how an agent finds that two facts are about the same person, or that the store
-holds two versions of the same decision.
+**4. Administer the store.** `tables`, `schema`, `query`, `row`, `create_table`,
+`rename_table`, `index`. This is the group that changes what the thing is. The agent
+can read its own schema when a query fails, build a table for work that has structure,
+and ask questions of its memory that no recall call can answer. The first two run
+against the core schema as shipped; the third assumes a table the agent made for
+itself:
 
-**Curation**
+```python
+# which entries are injected into every prompt but never actually used?
+vault(action='query', sql="""SELECT name, retrieval_count, weightage
+    FROM knowledge WHERE weightage >= 0.70 AND retrieval_count = 0
+    ORDER BY weightage DESC""")
 
-`add`, `update`, `remove`, `helpful`, `unhelpful`. Each fact carries a weight, and
-feedback moves it. An entry that repeatedly proves useful gets injected in full.
-An entry that keeps proving stale drops to a breadcrumb and eventually out of the
-prompt, while remaining searchable.
+# what is stored but not yet searchable by meaning?
+vault(action='query', sql="""SELECT entity_type, count(*) FROM knowledge
+    WHERE embedding IS NULL GROUP BY 1 ORDER BY 2 DESC""")
 
-**The database itself**
+# cross the agent's own table with the facts it decided to keep
+vault(action='query', sql="""SELECT w.symbol, w.target, k.name FROM watchlist w
+    JOIN knowledge k ON k.name ILIKE '%' || w.symbol || '%'""")
+```
 
-`tables`, `schema`, `query`, `create_table`, `rename_table`, `index`. The agent can
-run SQL against its own memory, create a table for a project it is tracking, and
-inspect the schema when a query fails. Read and write, with the connection handled
-inside the plugin, so no credentials ever enter the conversation.
+Those three questions are a small sample of a different class of question. Not "what
+do you remember about me", but "is my memory healthy", "what is costing prompt space
+without earning it", "what never got embedded", "how does what I track line up with
+what I know".
 
-That last group is what makes this something other than a memory plugin. A memory
-plugin answers "what do you know about me". `vault` answers "what is in the store,
-where did it come from, what contradicts it, and what happens if I aggregate it".
-The same interface serves memory, history, skills and scratch tables.
+The same interface serves memory, history, skills and the agent's own tables, with the
+connection handled inside the plugin so no credentials ever enter the conversation.
+That is what separates an admin console from a lookup: one answers a question, the
+other lets the agent keep the whole system in shape.
 
 ---
+
 
 ## The agent builds its own schema
 
