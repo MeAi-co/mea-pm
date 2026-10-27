@@ -589,6 +589,12 @@ plugins, so each tool has exactly one name and one owner. Registering a second
 alias for the same engine causes the model to pick the unguided one and ignore the
 routing guidance, so it is not done.
 
+Every entry MeAI Vault stores carries its source. A message row records its role,
+a session records where it came from, and `user_says` holds user statements alone.
+That is what lets recall return what the user actually said instead of the agent's
+own earlier output. A store that mixes the two cannot tell a remembered fact from
+something it produced three days ago.
+
 ---
 
 ## Coming from stock Hermes
