@@ -659,6 +659,24 @@ and presented it as fact.
 That is not a scoring difference. It is the difference between an agent you can audit
 and an agent you have to trust.
 
+### The measurements behind it
+
+| | MeAI Vault | Mnemosyne |
+|---|---|---|
+| Fabricated facts | **0** | 6 |
+| Hard errors, a later run on new questions | **1** | 3 |
+| Retrieval before asserting | A tool call on every turn | No call at all in one run, declared the store empty in another |
+| Continuity after compaction | Referents intact | Dropped 7 of the 16 messages, then reported the zeros as fact |
+| Worst turn latency | **41.4s** | 101.1s |
+| Worst compression event | **30.5s**, incremental | 70.2s, blocking |
+| Median tool payload | **3,496 chars** | 12,557 chars |
+| Context envelope drift | 642 chars across five runs | Not measured |
+
+Measured from the gateway and agent logs. A hard error is a factual claim the record
+contradicts; a disclosed over-inference and a refusal are not. The error rows cover the
+runs graded on the same questions; later runs were graded on their own criteria and are
+not folded in. Reports, chat logs and agent logs are in [`bench/`](bench/README.md).
+
 ### Where the difference showed
 
 | Run | Better combination | What decided it |
