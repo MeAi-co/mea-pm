@@ -283,7 +283,6 @@ other lets the agent keep the whole system in shape.
 
 ---
 
-
 ## The agent builds its own schema
 
 This is the difference that is hard to overstate. Every other memory plugin hands the
@@ -352,54 +351,6 @@ deliberate rather than accidental:
 Profile resolution uses core's own profile home lookup, not `os.environ`, because
 one long-lived gateway process can serve turns for several profiles and the
 environment describes the launch profile, not the current turn.
-
----
-
-## What it does under the hood
-
-### Tiered injection instead of a flat dump
-
-Every knowledge entry carries a `weightage` between 0 and 1, and the provider uses
-it to decide how much context the entry is worth:
-
-| Weightage | What the agent sees |
-|---|---|
-| `>= 0.70` | Full text, injected every turn |
-| `0.21 to 0.69` | A one line breadcrumb, enough to know it exists and can be fetched |
-| `<= 0.20` | Nothing. Stored and searchable, never injected |
-
-A hundred low value notes therefore cost a hundred breadcrumbs, not a hundred
-paragraphs. The agent can still reach them. It is not forced to read them.
-
-### Vector first recall
-
-Before each turn the provider runs a hybrid search over the knowledge table:
-
-```
-pgvector nearest neighbour (embedding <=> query_vec)   primary path
-        |
-entity probes on capitalized names in the query        "who is X", "what is Y"
-        |
-full text search                                       graceful fallback only
-```
-
-The vector path is primary. Full text is reached when pgvector or the embedding
-service is unavailable. It is a degradation net, never a gate that swallows
-semantic results. If the embedding column is missing entirely, the provider logs
-it once and falls back cleanly instead of failing the turn.
-
-### A real schema, with a migration ledger
-
-The engine ships a base schema plus numbered migrations, applied in order and
-recorded in `_schema_migrations` so each runs exactly once. Upgrading is
-`git pull` plus a restart. No manual SQL.
-
-### Session continuity
-
-Sessions, messages and their embeddings live in the same database as the facts.
-That is what makes permanent memory for a Hermes agent possible at all: warm start,
-cross session recall, and the `messages` and `sessions` tools all read the same
-rows, so the agent reads its own history instead of being told about it.
 
 ---
 
