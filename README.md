@@ -187,9 +187,13 @@ vault(action='query', sql='SELECT count(*) FROM _schema_migrations')
 Either way, ask the agent for `vault(action='fetch', section='pulse')` and it should
 come back structured.
 
-**Prerequisites for those four steps:** Postgres 14 or newer with pgvector, and a
-database the gateway user can reach. Embeddings are optional and only change
-whether recall is semantic or lexical.
+**Prerequisites for those four steps:** Postgres 14 or newer with pgvector, a
+database that already exists, and a role that can reach it. Create the database
+once with `createdb jpm` or `CREATE DATABASE jpm;` if it is not there yet. The
+schema runs `CREATE EXTENSION IF NOT EXISTS vector` on first start, so the role
+needs to be allowed to do that, or a superuser needs to have installed pgvector
+already. Embeddings are optional and only change whether recall is semantic or
+lexical.
 
 That is the whole install. Everything past this point is detail you can hand to
 your agent: the variable table, the two failure modes, the embedding options and
