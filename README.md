@@ -1,4 +1,4 @@
-# MeAI Vault™
+# MeAI Vault
 
 **Permanent memory for stock Hermes agents.**
 
