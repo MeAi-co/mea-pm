@@ -19,6 +19,12 @@ the whole box, not one file per profile. Every chat, topic, cron job and profile
 reads and writes the same rows. No fork, no core patches, no upstream update to
 chase.
 
+**The part no other memory plugin does.** The schema is not fixed. The agent can
+create its own tables, add columns, index them, and query them with raw SQL, so a
+watchlist, a fleet charter, a trade ledger or a project tracker all live in the same
+brain as its rules and its history. It is a small PG admin console for the agent,
+pointed at its own memory.
+
 **Why it exists.** Because a memory plugin that lives in a file the agent has to be
 reminded to open is a coin toss in practice. We watched agents store the right fact
 and then fail to find it, store it and look it up under a different string, deny the
@@ -56,8 +62,9 @@ it, and why we are giving it away.
   profile, every chat, every topic, every cron job, all reading and writing the
   same rows, safely and at the same time.
 - **`vault` is not a memory tool.** It is an interface to the store: recall,
-  graph traversal, curation, schema inspection and arbitrary SQL. The agent can
-  ask its memory questions instead of hoping the right paragraph was injected.
+  graph traversal, curation, schema inspection, table creation and arbitrary SQL.
+  The agent can ask its memory questions instead of hoping the right paragraph was
+  injected, and it can extend the schema when the data does not fit a fixed shape.
 
 ---
 
@@ -255,6 +262,54 @@ That last group is what makes this something other than a memory plugin. A memor
 plugin answers "what do you know about me". `vault` answers "what is in the store,
 where did it come from, what contradicts it, and what happens if I aggregate it".
 The same interface serves memory, history, skills and scratch tables.
+
+---
+
+## The agent builds its own schema
+
+This is the difference that is hard to overstate. Every other memory plugin hands the
+agent a fixed shape: a note, a fact, a document, a vector. If your data does not fit,
+it goes in a text blob and the structure is lost.
+
+MeAI Vault hands the agent a database. It can create tables, describe them, index
+them, rename them and query them, which means the store grows to fit the work instead
+of the work being flattened to fit the store.
+
+```python
+# a table that did not exist five seconds ago
+vault(action='create_table', name='watchlist',
+      columns=['symbol text not null', 'target numeric', 'note text'])
+
+# write to it, no migration, no config change
+vault(action='query', sql="INSERT INTO watchlist (symbol, target) VALUES ('NVDA', 180)")
+
+# read it back with whatever predicate the question needs
+vault(action='query', sql="SELECT symbol, target FROM watchlist WHERE target > 170")
+
+# inspect the shape, add an index when the table grows
+vault(action='schema', table='watchlist')
+vault(action='index', op='create', name='idx_watchlist_symbol',
+      table='watchlist', columns=['symbol'])
+```
+
+What happens underneath:
+
+- **Every new table gets an `id` primary key and a `timestamp` column** unless you
+  declare them, because that is what an agent assumes exists when it later writes
+  `WHERE id = ...` or sorts by time.
+- **User tables are physically named `user_<name>`** so they never mix with core
+  tables, while the agent keeps using the bare name. The rewrite is transparent, so
+  no query or script ever has to know about the prefix.
+- **Raw SQL is accepted** when the column helper is not enough: `create_table` takes
+  an `sql=` argument and runs the DDL as written.
+- **Guards hold.** Destructive statements against core tables are hard blocked, and
+  against a table the agent created they need an explicit `confirm=true`. A single
+  bad query cannot wipe the memory it was supposed to be maintaining.
+
+The practical result: a watchlist, a fleet charter, a trade ledger, a reading list, a
+client roster and a project tracker can all live beside the agent's rules, history and
+skills, in the same store, queryable with SQL, backed up with one `pg_dump`. The agent
+administers its own memory instead of borrowing a corner of someone else's schema.
 
 ---
 
