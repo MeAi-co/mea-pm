@@ -667,6 +667,16 @@ and presented it as fact.
 That is not a scoring difference. It is the difference between an agent you can audit
 and an agent you have to trust.
 
+### Criterion by criterion
+
+| Criterion | MeAI Vault | Mnemosyne |
+|---|---|---|
+| Accuracy | Claims stay inside retrieved records | Narrative built from thin retrieval; invented items and totals appear |
+| After compaction | Re-queries the store; session referents hold | Treats live facts as "earlier context"; wrong on session-state questions |
+| Retrieval habit | Multiple targeted calls until the claim is grounded | Stops when a story can be told; sometimes zero calls, then denial |
+| When wrong | Misses which record a vague question points at; does not invent outside the corpus | Fabrication, and a confident "nothing found" while the fact is in the store |
+| Failure class | Recoverable: over-inference, revision under pressure | Contract-breaking for agentic use: amnesia, wrong object for "update that" |
+
 ### The six runs, one line each
 
 | Run | Better combination | What decided it |
